@@ -1,0 +1,117 @@
+name: Synchronize public documentation
+
+on:
+  schedule:
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: documentation-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out documentation repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Create read-only source token
+        id: source-token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.1
+        with:
+          app-id: ${{ vars.DOCS_SOURCE_APP_ID }}
+          private-key: ${{ secrets.DOCS_SOURCE_APP_PRIVATE_KEY }}
+          owner: PukunuiMalaysia
+          repositories: >-
+            moodle-block_completedcourse,moodle-block_completionpoints_view,
+            moodle-block_cr_charts,moodle-block_skillscard,moodle-block_sociallink,
+            moodle-configurable_reports-custom_sql_queries,moodle-format_activitygroups,
+            moodle-local_clm,moodle-local_completionpoints,moodle-local_concurrent_limit,
+            moodle-local_dormitory,moodle-local_imageopt,moodle-local_utpoic,
+            moodle-mod_schedule,moodle-mod_scratchpad,moodle-plugin-ci,moodle-report_asec,
+            moodle-report_hrdc,moodle-report_plugincompatibility,moodle-report_skillsmatrix,
+            moodle-theme_aurora,moodle-theme_boleh
+          permission-contents: read
+
+      - name: Create documentation pull request token
+        id: pull-request-token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.1
+        with:
+          app-id: ${{ vars.DOCS_SOURCE_APP_ID }}
+          private-key: ${{ secrets.DOCS_SOURCE_APP_PRIVATE_KEY }}
+          owner: PukunuiMalaysia
+          repositories: moodle-docs
+          permission-contents: read
+          permission-pull-requests: write
+
+      - name: Run synchronization unit tests
+        run: python3 -m unittest discover -s tests
+
+      - name: Synchronize complete allowlist
+        env:
+          GH_TOKEN: ${{ steps.source-token.outputs.token }}
+        run: python3 scripts/sync_docs.py
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.280.0
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build synchronized site
+        run: bundle exec jekyll build --baseurl /moodle-docs --strict_front_matter
+        env:
+          JEKYLL_ENV: production
+
+      - name: Check generated links
+        run: python3 scripts/check_links.py _site /moodle-docs
+
+      - name: Create or update synchronization branch
+        id: changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- products _data/provenance.yml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch origin automation/docs-sync:refs/remotes/origin/automation/docs-sync || true
+          git switch -C automation/docs-sync
+          git config user.name "pukunui-docs[bot]"
+          git config user.email "pukunui-docs[bot]@users.noreply.github.com"
+          git add -- products _data/provenance.yml
+          git commit -m "docs: synchronize public product documentation"
+          git push --force-with-lease --set-upstream origin automation/docs-sync
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Open synchronization pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ steps.pull-request-token.outputs.token }}
+        run: |
+          existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --head automation/docs-sync --base main --state open --json number --jq '.[0].number')"
+          if [ -n "$existing" ]; then
+            gh pr edit "$existing" --repo "$GITHUB_REPOSITORY" --title "docs: synchronize public product documentation"
+            exit 0
+          fi
+          body_file="$(mktemp)"
+          printf '%s\n' \
+            '## Summary' \
+            '' \
+            '- synchronizes the complete 22-repository public documentation allowlist' \
+            '- copies only validated `docs/public/**` content' \
+            '- updates source-commit and synchronization provenance' \
+            '' \
+            '## Validation' \
+            '' \
+            '- synchronization unit tests' \
+            '- strict Jekyll production build at `/moodle-docs`' \
+            '- generated local-link check' > "$body_file"
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head automation/docs-sync \
+            --title "docs: synchronize public product documentation" --body-file "$body_file"

@@ -1,0 +1,32 @@
+name: Product bug
+description: Report unexpected behaviour in a documented Pukunui Moodle product.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: input
+    id: product
+    attributes:
+      label: Product and version
+      placeholder: moodle-theme_boleh 5.3.2
+    validations:
+      required: true
+  - type: input
+    id: moodle
+    attributes:
+      label: Moodle version
+      placeholder: Moodle 5.2.1
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour and reproduction steps
+      description: Remove personal data, credentials, private URLs, and confidential logs.
+    validations:
+      required: true

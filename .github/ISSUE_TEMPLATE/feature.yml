@@ -1,0 +1,24 @@
+name: Feature request
+description: Suggest an improvement to a documented Pukunui Moodle product.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: input
+    id: product
+    attributes:
+      label: Product
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: User or administrator need
+      description: Describe the problem and desired outcome rather than implementation details.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Current workaround
+    validations:
+      required: false

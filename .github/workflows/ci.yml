@@ -1,0 +1,47 @@
+name: Documentation checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.0
+
+      - name: Run synchronization unit tests
+        run: python3 -m unittest discover -s tests
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.280.0
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build site
+        run: bundle exec jekyll build --baseurl /moodle-docs --strict_front_matter
+        env:
+          JEKYLL_ENV: production
+
+      - name: Check generated links
+        run: python3 scripts/check_links.py _site /moodle-docs
+
+      - name: Reject internal or sensitive paths
+        run: |
+          if find products -type l -print -quit | grep -q .; then
+            echo "Generated products must not contain symlinks" >&2
+            exit 1
+          fi
+          if find products -type f \( -name '*.env' -o -name '*.key' -o -name '*.pem' -o -name 'AGENTS.md' \) -print -quit | grep -q .; then
+            echo "Generated products contain a forbidden file" >&2
+            exit 1
+          fi
+          if rg -n -i '/Users/|localhost:[0-9]+|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|docs/internal' products; then
+            echo "Generated products contain an internal-only marker" >&2
+            exit 1
+          fi

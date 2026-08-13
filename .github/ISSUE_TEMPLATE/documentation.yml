@@ -1,0 +1,56 @@
+name: Documentation correction
+description: Report missing, incorrect, or unclear public documentation.
+title: "[Docs]: "
+labels: [documentation]
+body:
+  - type: dropdown
+    id: product
+    attributes:
+      label: Product repository
+      description: Select the product area, or choose moodle-docs for site-wide issues.
+      options:
+        - moodle-docs
+        - moodle-block_completedcourse
+        - moodle-block_completionpoints_view
+        - moodle-block_cr_charts
+        - moodle-block_skillscard
+        - moodle-block_sociallink
+        - moodle-configurable_reports-custom_sql_queries
+        - moodle-format_activitygroups
+        - moodle-local_clm
+        - moodle-local_completionpoints
+        - moodle-local_concurrent_limit
+        - moodle-local_dormitory
+        - moodle-local_imageopt
+        - moodle-local_utpoic
+        - moodle-mod_schedule
+        - moodle-mod_scratchpad
+        - moodle-plugin-ci
+        - moodle-report_asec
+        - moodle-report_hrdc
+        - moodle-report_plugincompatibility
+        - moodle-report_skillsmatrix
+        - moodle-theme_aurora
+        - moodle-theme_boleh
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Documentation page
+      placeholder: https://pukunuimalaysia.github.io/moodle-docs/...
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What needs correcting?
+      description: Do not include credentials, personal data, or private site details.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Suggested correction
+    validations:
+      required: false

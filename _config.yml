@@ -1,0 +1,23 @@
+title: Pukunui Moodle documentation
+description: User and administrator documentation for Pukunui Moodle products.
+url: https://pukunuimalaysia.github.io
+baseurl: /moodle-docs
+theme: just-the-docs
+color_scheme: pukunui
+search_enabled: true
+heading_anchors: true
+aux_links:
+  Report a documentation issue: https://github.com/PukunuiMalaysia/moodle-docs/issues/new/choose
+aux_links_new_tab: true
+footer_content: "Documentation copyright &copy; Pukunui Sdn Bhd. Original documentation is available under CC BY 4.0 unless otherwise noted."
+exclude:
+  - README.md
+  - LICENSE-CODE
+  - scripts
+  - tests
+  - vendor
+  - .bundle
+  - .github
+  - Gemfile
+  - Gemfile.lock
+  - products/.gitkeep
