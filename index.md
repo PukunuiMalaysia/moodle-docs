@@ -5,14 +5,20 @@ has_toc: false
 ---
 
 <div class="pukunui-hero">
-  <p class="pukunui-eyebrow">Pukunui Moodle products</p>
-  <h1>Documentation that helps you get more from Moodle.</h1>
-  <p class="pukunui-lead">Clear guidance for installing, configuring, and using Moodle plugins and related tools maintained by Pukunui Malaysia.</p>
+  <p class="pukunui-eyebrow">Pukunui product documentation</p>
+  <h1>Practical guidance for your learning platform.</h1>
+  <p class="pukunui-lead">Installation, configuration, administration, and usage guidance for open-source LMS plugins and related tools maintained by Pukunui Malaysia.</p>
   <div class="pukunui-actions">
     <a class="btn btn-primary" href="#browse-products">Browse documentation</a>
     <a class="btn btn-outline" href="https://github.com/PukunuiMalaysia/moodle-docs/issues/new/choose">Ask for help</a>
   </div>
 </div>
+
+## About this documentation
+
+This site is the public documentation hub for Pukunui-maintained learning-platform software, including products compatible with Moodle™. It is designed for LMS administrators, educators, support teams, and technical implementers who need clear guidance for deploying and using these products.
+
+Each guide is organised by product and may cover installation, configuration, permissions, supported versions, day-to-day use, and troubleshooting.
 
 <h2 id="browse-products">Browse products</h2>
 
@@ -32,6 +38,6 @@ has_toc: false
 </div>
 
 <div class="pukunui-callout">
-  <strong>Reviewed before publication.</strong>
-  <p>Documentation is synchronized from each product repository's <code>docs/public</code> directory. Automated updates are published only after review.</p>
+  <strong>Maintained and reviewed.</strong>
+  <p>Documentation is maintained alongside each product and reviewed before it appears on this public site.</p>
 </div>
