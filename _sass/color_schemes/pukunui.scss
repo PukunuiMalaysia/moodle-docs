@@ -1,5 +1,23 @@
-$link-color: #0060a9;
-$btn-primary-color: #0060a9;
-$sidebar-color: #f5f9fc;
-$body-heading-color: #003760;
-$nav-child-link-color: #004478;
+// Pukunui's current website palette, adapted for an accessible documentation UI.
+$body-font-family: "Mona Sans", system-ui, -apple-system, blinkmacsystemfont,
+  "Segoe UI", sans-serif;
+$body-line-height: 1.5;
+$content-line-height: 1.65;
+$body-heading-line-height: 1.2;
+
+$body-background-color: #ffffff;
+$body-heading-color: #171a1f;
+$body-text-color: #3b5570;
+$link-color: #005b9b;
+$nav-child-link-color: #ffffff;
+$sidebar-color: #005b9b;
+$base-button-color: #f8f7f9;
+$btn-primary-color: #005b9b;
+$code-background-color: #f8f7f9;
+$feedback-color: #eaeaea;
+$table-background-color: #ffffff;
+$search-background-color: #ffffff;
+$search-result-preview-color: #3b5570;
+$border-color: #dadee3;
+$border-radius: 0.5rem;
+$content-width: 56rem;
