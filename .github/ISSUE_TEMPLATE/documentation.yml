@@ -28,7 +28,7 @@ body:
         - moodle-plugin-ci
         - moodle-report_asec
         - moodle-report_hrdc
-        - moodle-report_plugincompatibility
+        - moodle-report_pluginhealth
         - moodle-report_skillsmatrix
         - moodle-theme_aurora
         - moodle-theme_boleh
