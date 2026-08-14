@@ -1,21 +1,31 @@
 # Pukunui Moodle documentation
 
-This public repository aggregates approved user and administrator documentation from the `docs/public` directory of PukunuiMalaysia Moodle repositories and publishes it with Jekyll and Just the Docs.
+This is the public documentation repository for open-source LMS plugins and related tools developed or maintained by [Pukunui Malaysia](https://pukunui.com/home/location/malaysia/), including software compatible with Moodle™.
 
-Product pages under `products/` and `_data/provenance.yml` are generated. Edit product documentation in its source repository, then wait for or manually run the nightly synchronization workflow. A maintainer reviews the resulting pull request before publication.
+The published documentation is available at **[pukunuimalaysia.github.io/moodle-docs](https://pukunuimalaysia.github.io/moodle-docs/)**.
 
-## Local checks
+## What you will find
 
-```sh
-python3 -m unittest discover -s tests
-python3 scripts/sync_docs.py --local-root /path/to/PukunuiMalaysia/repos
-bundle exec jekyll build --baseurl /moodle-docs --strict_front_matter
-```
+The documentation provides practical guidance for:
 
-## Publication boundary
+- installing and upgrading supported products;
+- configuring plugins and integrations;
+- administering features and permissions;
+- understanding supported versions and dependencies; and
+- using Pukunui-maintained tools effectively.
 
-Only `docs/public/**` is eligible for publication. Internal material belongs under `docs/internal/**` and is never read by the synchronization tool. Source directories must contain `docs/public/index.md`; symlinks and unapproved file types make the complete synchronization fail.
+Documentation is organised by product so LMS administrators, educators, support teams, and technical implementers can quickly find the guidance relevant to them.
+
+## Help improve the documentation
+
+Corrections and improvements are welcome. To report unclear, missing, or incorrect documentation, [open a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new/choose).
+
+For a software defect or feature request, use the product's source repository when one is linked from its documentation page. If you are unsure where an issue belongs, report it here and the Pukunui team will direct it appropriately.
 
 ## Licensing
 
-Original documentation is licensed under [Creative Commons Attribution 4.0 International](LICENSE). Automation code is licensed under the [MIT License](LICENSE-CODE). Content retaining another notice remains under that notice.
+Original documentation is licensed under [Creative Commons Attribution 4.0 International](LICENSE). Repository automation code is licensed under the [MIT License](LICENSE-CODE). Content that retains a different licence or attribution notice remains subject to that notice.
+
+## Trademark notice
+
+Our services support open-source LMS platforms, including platforms compatible with Moodle™ software. The word Moodle and associated Moodle logos are trademarks or registered trademarks of Moodle Pty Ltd or its related affiliates. Pukunui is not affiliated with, endorsed by, or sponsored by Moodle Pty Ltd.

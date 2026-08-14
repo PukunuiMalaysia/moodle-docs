@@ -1,15 +1,36 @@
 title: Pukunui Moodle documentation
-description: User and administrator documentation for Pukunui Moodle products.
+description: Public installation, configuration, administration, and usage guidance for Pukunui-maintained learning-platform software.
 url: https://pukunuimalaysia.github.io
 baseurl: /moodle-docs
 theme: just-the-docs
 color_scheme: pukunui
+
+# Apply the documentation layout to every Markdown page. Without this default,
+# Jekyll emits only each page's rendered Markdown fragment.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+logo: "/assets/images/pukunui-logo-white.png"
+favicon_ico: "/assets/images/pukunui-favicon.png"
+
 search_enabled: true
+search:
+  heading_level: 3
+  previews: 3
 heading_anchors: true
+
 aux_links:
+  Pukunui Malaysia: https://pukunui.com/home/location/malaysia/
   Report a documentation issue: https://github.com/PukunuiMalaysia/moodle-docs/issues/new/choose
 aux_links_new_tab: true
-footer_content: "Documentation copyright &copy; Pukunui Sdn Bhd. Original documentation is available under CC BY 4.0 unless otherwise noted."
+
+footer_content: >-
+  Documentation copyright &copy; Pukunui Sdn Bhd. Original documentation is available under CC BY 4.0 unless otherwise noted.<br>
+  Our services support open-source LMS platforms, including platforms compatible with Moodle&trade; software. The word Moodle and associated Moodle logos are trademarks or registered trademarks of Moodle Pty Ltd or its related affiliates. Pukunui is not affiliated with, endorsed by, or sponsored by Moodle Pty Ltd.
+
 exclude:
   - README.md
   - LICENSE-CODE
