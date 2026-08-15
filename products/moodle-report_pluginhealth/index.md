@@ -29,4 +29,4 @@ The report does not install packages or guarantee functional compatibility. Comp
 
 ---
 
-Source: [moodle-report_pluginhealth at `18342ce5827b`](https://github.com/PukunuiMalaysia/moodle-report_pluginhealth/commit/18342ce5827b93a35312dd0ee7003ed6d91513e2). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
+Source: [moodle-report_pluginhealth at `42307c48c56d`](https://github.com/PukunuiMalaysia/moodle-report_pluginhealth/commit/42307c48c56d5dc30ac43fdbcf85ef6abd0451a0). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

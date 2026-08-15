@@ -127,10 +127,10 @@
   },
   "moodle-report_pluginhealth": {
     "branch": "main",
-    "content_sha256": "d8b12e3ad07e78ea64f6bb29b2271755700395ef8bb6ca3d8ab4fc40dd7fa50c",
-    "source_commit": "18342ce5827b93a35312dd0ee7003ed6d91513e2",
+    "content_sha256": "c1441ead76befcd2a1d33e5c9382a222ff48887adf401dbdd042260d3e6929a8",
+    "source_commit": "42307c48c56d5dc30ac43fdbcf85ef6abd0451a0",
     "source_url": "https://github.com/PukunuiMalaysia/moodle-report_pluginhealth",
-    "synced_at": "2026-08-15T03:57:27+00:00"
+    "synced_at": "2026-08-15T05:42:16+00:00"
   },
   "moodle-report_skillsmatrix": {
     "branch": "main",
