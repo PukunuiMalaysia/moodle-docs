@@ -35,7 +35,7 @@ jobs:
             moodle-local_clm,moodle-local_completionpoints,moodle-local_concurrent_limit,
             moodle-local_dormitory,moodle-local_imageopt,moodle-local_utpoic,
             moodle-mod_schedule,moodle-mod_scratchpad,moodle-plugin-ci,moodle-report_asec,
-            moodle-report_hrdc,moodle-report_plugincompatibility,moodle-report_skillsmatrix,
+            moodle-report_hrdc,moodle-report_pluginhealth,moodle-report_skillsmatrix,
             moodle-theme_aurora,moodle-theme_boleh
           permission-contents: read
 

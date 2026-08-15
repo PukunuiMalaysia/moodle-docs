@@ -15,7 +15,7 @@
   {"repository":"moodle-mod_scratchpad","title":"Scratchpad","category":"Activities","nav_order":20,"branch":"main"},
   {"repository":"moodle-report_asec","title":"ASEC LMS report","category":"Reports","nav_order":10},
   {"repository":"moodle-report_hrdc","title":"HRD Corp attendance report","category":"Reports","nav_order":20},
-  {"repository":"moodle-report_plugincompatibility","title":"Third-party plugin compatibility","category":"Reports","nav_order":30},
+  {"repository":"moodle-report_pluginhealth","title":"Plugin health report","category":"Reports","nav_order":30},
   {"repository":"moodle-report_skillsmatrix","title":"Skills Matrix","category":"Reports","nav_order":40},
   {"repository":"moodle-theme_aurora","title":"Aurora","category":"Themes","nav_order":10,"branch":"MOODLE_502_STABLE"},
   {"repository":"moodle-theme_boleh","title":"Boleh","category":"Themes","nav_order":20},

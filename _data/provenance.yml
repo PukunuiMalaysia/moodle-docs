@@ -125,12 +125,12 @@
     "source_url": "https://github.com/PukunuiMalaysia/moodle-report_hrdc",
     "synced_at": "2026-08-13T12:12:16+00:00"
   },
-  "moodle-report_plugincompatibility": {
+  "moodle-report_pluginhealth": {
     "branch": "main",
-    "content_sha256": "71f6b63ded3cfe6bdef2bab68e322862292af233172ced714c36f9d158770f54",
-    "source_commit": "1e80e0c48aa055bbc5b31e483a4e48c8f42103e3",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-report_plugincompatibility",
-    "synced_at": "2026-08-13T12:12:17+00:00"
+    "content_sha256": "c1441ead76befcd2a1d33e5c9382a222ff48887adf401dbdd042260d3e6929a8",
+    "source_commit": "42307c48c56d5dc30ac43fdbcf85ef6abd0451a0",
+    "source_url": "https://github.com/PukunuiMalaysia/moodle-report_pluginhealth",
+    "synced_at": "2026-08-15T05:42:16+00:00"
   },
   "moodle-report_skillsmatrix": {
     "branch": "main",
