@@ -1,6 +1,6 @@
 # Pukunui Moodle documentation
 
-This is the public documentation repository for open-source LMS plugins and related tools developed or maintained by [Pukunui Malaysia](https://pukunui.com/home/location/malaysia/), including software compatible with Moodle™.
+This is the public documentation repository for supported LMS plugins, products, and related tools developed or maintained by [Pukunui Malaysia](https://pukunui.com/home/location/malaysia/), including software compatible with Moodle™.
 
 The published documentation is available at **[pukunuimalaysia.github.io/moodle-docs](https://pukunuimalaysia.github.io/moodle-docs/)**.
 

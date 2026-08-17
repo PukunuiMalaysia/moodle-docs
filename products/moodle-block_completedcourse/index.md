@@ -1,5 +1,6 @@
 ---
 title: Completed courses
+category: Blocks
 parent: "Blocks"
 nav_order: 10
 permalink: /products/moodle-block_completedcourse/
@@ -35,4 +36,4 @@ Original documentation copyright Pukunui Sdn Bhd and contributors, licensed unde
 
 ---
 
-Source: [moodle-block_completedcourse at `cd3fdd9e6b66`](https://github.com/PukunuiMalaysia/moodle-block_completedcourse/commit/cd3fdd9e6b66739cd292c12dc5eacb0cf2d2283e). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
+Source revision: `dffba4a616b4`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

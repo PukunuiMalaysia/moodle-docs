@@ -1,7 +1,8 @@
 ---
 title: Skills card
+category: Blocks
 parent: "Blocks"
-nav_order: 40
+nav_order: 20
 permalink: /products/moodle-block_skillscard/
 ---
 
@@ -31,4 +32,4 @@ Original documentation copyright Pukunui Sdn Bhd and contributors, licensed unde
 
 ---
 
-Source: [moodle-block_skillscard at `991091dcda11`](https://github.com/PukunuiMalaysia/moodle-block_skillscard/commit/991091dcda114d77bf0e73aafbea1139c1857c57). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
+Source: [moodle-block_skillscard at `c3248493dfd1`](https://github.com/PukunuiMalaysia/moodle-block_skillscard/commit/c3248493dfd19512e34b4543ef9c3fca28fe9323). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

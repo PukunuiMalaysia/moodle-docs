@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronize explicitly public documentation from allowlisted repositories."""
+"""Synchronize public docs from repositories selected in the GitHub App."""
 
 from __future__ import annotations
 
@@ -17,6 +17,23 @@ from typing import Any
 
 
 ORGANIZATION = "PukunuiMalaysia"
+PRODUCT_AVAILABILITY_PROPERTY = "product_availability"
+DOCS_BRANCH_PROPERTY = "docs_branch"
+PUBLIC_AVAILABILITIES = frozenset(
+    {"commercial-active", "commercial-legacy", "public-free"}
+)
+PRODUCT_AVAILABILITIES = PUBLIC_AVAILABILITIES | frozenset(
+    {"pre-release", "internal-only", "retired", "not-a-product"}
+)
+CATEGORY_ORDER = (
+    "Blocks",
+    "Activities",
+    "Course formats",
+    "Local plugins",
+    "Reports",
+    "Themes",
+    "Related tools",
+)
 ALLOWED_SUFFIXES = {
     ".gif",
     ".jpeg",
@@ -32,6 +49,8 @@ ALLOWED_SUFFIXES = {
 MARKDOWN_SUFFIXES = {".md", ".markdown"}
 FRONT_MATTER = re.compile(r"\A---\r?\n(?P<header>.*?)\r?\n---\r?\n", re.DOTALL)
 TITLE = re.compile(r"^title:\s*(?P<title>.+?)\s*$", re.MULTILINE)
+REPOSITORY_NAME = re.compile(r"[A-Za-z0-9_.-]+")
+BRANCH_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9._/-]*")
 
 
 class SyncError(RuntimeError):
@@ -65,32 +84,176 @@ def load_json(path: Path, default: Any = None) -> Any:
         raise SyncError(f"Cannot read {path}: {error}") from error
 
 
-def validate_config(config: list[dict[str, Any]]) -> None:
-    """Validate the public repository allowlist."""
-    if len(config) != 22:
-        raise SyncError(f"Expected exactly 22 repositories, found {len(config)}")
+def command_json(command: list[str], *, env: dict[str, str]) -> Any:
+    """Run a command and parse its JSON output."""
+    output = run(command, env=env)
+    try:
+        return json.loads(output)
+    except json.JSONDecodeError as error:
+        raise SyncError(f"{command[0]} returned invalid JSON: {error}") from error
+
+
+def property_map(raw: Any, repository: str) -> dict[str, Any]:
+    """Normalize GitHub's custom-property response or inventory shorthand."""
+    if isinstance(raw, dict):
+        return raw
+    if not isinstance(raw, list):
+        raise SyncError(f"Invalid custom properties for {repository}")
+    properties: dict[str, Any] = {}
+    for item in raw:
+        if not isinstance(item, dict) or not isinstance(item.get("property_name"), str):
+            raise SyncError(f"Invalid custom property entry for {repository}")
+        properties[item["property_name"]] = item.get("value")
+    return properties
+
+
+def normalize_inventory(raw: Any) -> list[dict[str, Any]]:
+    """Validate and normalize the selected-repository inventory."""
+    if not isinstance(raw, list):
+        raise SyncError("Expected the selected-repository inventory to be a list")
+
+    inventory: list[dict[str, Any]] = []
     names: set[str] = set()
-    for item in config:
-        required = {"repository", "title", "category", "nav_order"}
-        missing = required.difference(item)
-        if missing:
-            raise SyncError(f"Repository entry is missing: {', '.join(sorted(missing))}")
-        name = item["repository"]
-        if not isinstance(name, str) or not re.fullmatch(r"moodle-[a-z0-9_-]+", name):
-            raise SyncError(f"Invalid repository name: {name!r}")
-        if name == "moodle-docs" or name in names:
-            raise SyncError(f"Duplicate or recursive repository: {name}")
-        names.add(name)
+    for entry in raw:
+        if not isinstance(entry, dict):
+            raise SyncError("Each selected-repository entry must be an object")
+        repository = entry.get("repository") or entry.get("name")
+        if not isinstance(repository, str) or not REPOSITORY_NAME.fullmatch(repository):
+            raise SyncError(f"Invalid repository name: {repository!r}")
+        if repository in names:
+            raise SyncError(f"Duplicate selected repository: {repository}")
+        names.add(repository)
+
+        properties = property_map(entry.get("properties", {}), repository)
+        availability = entry.get(
+            PRODUCT_AVAILABILITY_PROPERTY,
+            properties.get(PRODUCT_AVAILABILITY_PROPERTY),
+        )
+        if availability not in PRODUCT_AVAILABILITIES:
+            raise SyncError(
+                f"{repository} must define {PRODUCT_AVAILABILITY_PROPERTY} as one of: "
+                + ", ".join(sorted(PRODUCT_AVAILABILITIES))
+            )
+
+        docs_branch = entry.get(DOCS_BRANCH_PROPERTY, properties.get(DOCS_BRANCH_PROPERTY))
+        if docs_branch == "":
+            docs_branch = None
+        if docs_branch is not None:
+            if (
+                not isinstance(docs_branch, str)
+                or not BRANCH_NAME.fullmatch(docs_branch)
+                or ".." in docs_branch
+                or docs_branch.endswith(".lock")
+            ):
+                raise SyncError(f"Invalid docs_branch for {repository}: {docs_branch!r}")
+
+        default_branch = entry.get("default_branch")
+        if not isinstance(default_branch, str) or not default_branch:
+            raise SyncError(f"Missing default_branch for {repository}")
+
+        visibility = entry.get("visibility")
+        if visibility is None:
+            private = entry.get("private")
+            if not isinstance(private, bool):
+                raise SyncError(f"Missing repository visibility for {repository}")
+            visibility = "private" if private else "public"
+        if visibility not in {"public", "private", "internal"}:
+            raise SyncError(f"Invalid repository visibility for {repository}: {visibility!r}")
+
+        inventory.append(
+            {
+                "repository": repository,
+                "availability": availability,
+                "branch": docs_branch or default_branch,
+                "default_branch": default_branch,
+                "docs_branch": docs_branch,
+                "source_public": visibility == "public",
+            }
+        )
+    return sorted(inventory, key=lambda item: item["repository"])
 
 
-def resolve_branch(repository: str, configured: str | None, env: dict[str, str]) -> str:
-    """Resolve an explicit override or the live GitHub default branch."""
-    if configured:
-        return configured
-    return run(
-        ["gh", "api", f"repos/{ORGANIZATION}/{repository}", "--jq", ".default_branch"],
+def discover_selected_repositories(env: dict[str, str]) -> list[dict[str, Any]]:
+    """Discover exactly the repositories selected in the App installation."""
+    pages = command_json(
+        [
+            "gh",
+            "api",
+            "--paginate",
+            "--slurp",
+            "installation/repositories?per_page=100",
+        ],
         env=env,
     )
+    if not isinstance(pages, list):
+        raise SyncError("GitHub returned an invalid installation repository response")
+
+    raw_inventory: list[dict[str, Any]] = []
+    for page in pages:
+        if not isinstance(page, dict) or not isinstance(page.get("repositories"), list):
+            raise SyncError("GitHub returned an invalid installation repository page")
+        for repository in page["repositories"]:
+            if not isinstance(repository, dict):
+                raise SyncError("GitHub returned an invalid installation repository")
+            owner = repository.get("owner", {}).get("login")
+            name = repository.get("name")
+            if owner != ORGANIZATION or not isinstance(name, str):
+                raise SyncError("The source App returned a repository outside its organization")
+            properties = command_json(
+                ["gh", "api", f"repos/{ORGANIZATION}/{name}/properties/values"],
+                env=env,
+            )
+            raw_inventory.append(
+                {
+                    "repository": name,
+                    "default_branch": repository.get("default_branch"),
+                    "visibility": repository.get("visibility"),
+                    "private": repository.get("private"),
+                    "properties": properties,
+                }
+            )
+    return normalize_inventory(raw_inventory)
+
+
+def local_inventory(repo_root: Path, local_root: Path) -> list[dict[str, Any]]:
+    """Provide backward-compatible local reconciliation from the current catalog."""
+    catalog_path = repo_root / "_data" / "repositories.yml"
+    catalog = load_json(catalog_path)
+    if not isinstance(catalog, list):
+        raise SyncError(f"Expected a repository list in {catalog_path}")
+
+    raw_inventory: list[dict[str, Any]] = []
+    for item in catalog:
+        if not isinstance(item, dict) or not isinstance(item.get("repository"), str):
+            raise SyncError(f"Invalid repository entry in {catalog_path}")
+        repository = item["repository"]
+        source = local_root / repository
+        if not source.is_dir():
+            raise SyncError(f"Missing local source repository: {source}")
+        branch = item.get("branch") or item.get("docs_branch")
+        if not branch:
+            try:
+                upstream = run(
+                    ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"],
+                    cwd=source,
+                )
+                branch = upstream.removeprefix("origin/")
+            except SyncError:
+                branch = run(["git", "branch", "--show-current"], cwd=source)
+        if not branch:
+            raise SyncError(f"Cannot resolve a branch for {repository}")
+        raw_inventory.append(
+            {
+                "repository": repository,
+                "default_branch": branch,
+                "visibility": "public" if item.get("source_url") else "private",
+                PRODUCT_AVAILABILITY_PROPERTY: item.get(
+                    "availability", "commercial-active"
+                ),
+                DOCS_BRANCH_PROPERTY: branch,
+            }
+        )
+    return normalize_inventory(raw_inventory)
 
 
 def clone_source(repository: str, branch: str, destination: Path, env: dict[str, str]) -> None:
@@ -114,10 +277,8 @@ def clone_source(repository: str, branch: str, destination: Path, env: dict[str,
 
 def docs_commit(source: Path) -> str:
     """Return the most recent commit that changed the public subtree."""
-    try:
-        return run(["git", "log", "-1", "--format=%H", "--", "docs/public"], cwd=source)
-    except SyncError:
-        return run(["git", "rev-parse", "HEAD"], cwd=source)
+    commit = run(["git", "log", "-1", "--format=%H", "--", "docs/public"], cwd=source)
+    return commit or run(["git", "rev-parse", "HEAD"], cwd=source)
 
 
 def content_digest(public_root: Path) -> str:
@@ -152,12 +313,69 @@ def validate_public_tree(public_root: Path) -> list[Path]:
         if any(part.startswith(".") for part in relative.parts):
             raise SyncError(f"Hidden paths are not publishable: {relative}")
         if path.suffix.lower() in MARKDOWN_SUFFIXES:
-            text = path.read_text(encoding="utf-8")
+            try:
+                text = path.read_text(encoding="utf-8")
+            except UnicodeDecodeError as error:
+                raise SyncError(f"Markdown is not valid UTF-8: {relative}") from error
             match = FRONT_MATTER.match(text)
             if not match or not TITLE.search(match.group("header")):
                 raise SyncError(f"Markdown requires front matter with a title: {relative}")
         files.append(path)
     return files
+
+
+def front_matter_value(header: str, key: str, repository: str) -> str:
+    """Read one simple scalar from source front matter."""
+    matches = re.findall(rf"^{re.escape(key)}:\s*(.+?)\s*$", header, re.MULTILINE)
+    if len(matches) != 1:
+        raise SyncError(f"{repository} index.md must define {key} exactly once")
+    value = matches[0].strip()
+    if value.startswith('"'):
+        try:
+            decoded = json.loads(value)
+        except json.JSONDecodeError as error:
+            raise SyncError(f"Invalid quoted {key} for {repository}") from error
+        if not isinstance(decoded, str):
+            raise SyncError(f"Invalid {key} for {repository}")
+        return decoded.strip()
+    if len(value) >= 2 and value.startswith("'") and value.endswith("'"):
+        return value[1:-1].replace("''", "'").strip()
+    return value
+
+
+def source_metadata(public_root: Path, repository: str) -> dict[str, Any]:
+    """Read title and navigation metadata from docs/public/index.md."""
+    text = (public_root / "index.md").read_text(encoding="utf-8")
+    match = FRONT_MATTER.match(text)
+    if not match:
+        raise SyncError(f"{repository} index.md requires front matter")
+    header = match.group("header")
+    title = front_matter_value(header, "title", repository)
+    category = front_matter_value(header, "category", repository)
+    raw_nav_order = front_matter_value(header, "nav_order", repository)
+    if not title:
+        raise SyncError(f"{repository} title must not be empty")
+    if category not in CATEGORY_ORDER:
+        raise SyncError(
+            f"Invalid category for {repository}: {category!r}; expected one of "
+            + ", ".join(CATEGORY_ORDER)
+        )
+    if not raw_nav_order.isdigit() or int(raw_nav_order) < 1:
+        raise SyncError(f"Invalid nav_order for {repository}: {raw_nav_order!r}")
+    return {"title": title, "category": category, "nav_order": int(raw_nav_order)}
+
+
+def validate_navigation(items: list[dict[str, Any]]) -> None:
+    """Reject ambiguous navigation coordinates."""
+    coordinates: dict[tuple[str, int], str] = {}
+    for item in items:
+        coordinate = (item["category"], item["nav_order"])
+        if coordinate in coordinates:
+            raise SyncError(
+                f"Duplicate nav_order {item['nav_order']} in {item['category']}: "
+                f"{coordinates[coordinate]} and {item['repository']}"
+            )
+        coordinates[coordinate] = item["repository"]
 
 
 def inject_navigation(
@@ -169,9 +387,11 @@ def inject_navigation(
     nav_order: int,
     relative: Path,
     source_commit: str,
+    source_public: bool,
+    availability: str,
     has_children: bool,
 ) -> str:
-    """Add deterministic Just the Docs navigation and source provenance."""
+    """Add deterministic Just the Docs navigation and safe provenance."""
     match = FRONT_MATTER.match(text)
     if not match:
         raise SyncError(f"Missing front matter: {relative}")
@@ -193,12 +413,23 @@ def inject_navigation(
             f"grand_parent: {json.dumps(category)}",
         ]
     rendered = f"---\n{header.rstrip()}\n" + "\n".join(additions) + "\n---\n"
-    rendered += text[match.end():]
+    body = text[match.end():]
+    if relative.as_posix() == "index.md" and availability == "commercial-legacy":
+        body = (
+            "\n> **Legacy product:** This documentation is retained for supported existing "
+            "installations. Contact Pukunui before planning a new deployment.\n\n"
+            + body.lstrip()
+        )
+    rendered += body
     if relative.as_posix() == "index.md":
-        source_url = f"https://github.com/{ORGANIZATION}/{repository}/commit/{source_commit}"
+        if source_public:
+            source_url = f"https://github.com/{ORGANIZATION}/{repository}/commit/{source_commit}"
+            source = f"Source: [{repository} at `{source_commit[:12]}`]({source_url})."
+        else:
+            source = f"Source revision: `{source_commit[:12]}`."
         rendered = rendered.rstrip() + (
             "\n\n---\n\n"
-            f"Source: [{repository} at `{source_commit[:12]}`]({source_url}). "
+            f"{source} "
             "[Report a documentation issue]"
             f"(https://github.com/{ORGANIZATION}/moodle-docs/issues/new?template=documentation.yml).\n"
         )
@@ -210,14 +441,16 @@ def sync_repository(
     source: Path,
     destination: Path,
     old_provenance: dict[str, Any],
-    branch: str,
 ) -> dict[str, Any]:
     """Validate and render one source repository."""
     public_root = source / "docs" / "public"
     files = validate_public_tree(public_root)
     digest = content_digest(public_root)
     previous = old_provenance.get(item["repository"], {})
-    if previous.get("content_sha256") == digest:
+    if (
+        previous.get("content_sha256") == digest
+        and previous.get("branch") == item["branch"]
+    ):
         source_commit = previous["source_commit"]
         synced_at = previous["synced_at"]
     else:
@@ -238,92 +471,221 @@ def sync_repository(
                 nav_order=item["nav_order"],
                 relative=relative,
                 source_commit=source_commit,
+                source_public=item["source_public"],
+                availability=item["availability"],
                 has_children=len(markdown_files) > 1,
             )
             target.write_text(rendered, encoding="utf-8")
         else:
             shutil.copy2(path, target)
 
-    return {
-        "branch": branch,
+    provenance = {
+        "availability": item["availability"],
+        "branch": item["branch"],
+        "category": item["category"],
         "content_sha256": digest,
+        "nav_order": item["nav_order"],
         "source_commit": source_commit,
-        "source_url": f"https://github.com/{ORGANIZATION}/{item['repository']}",
         "synced_at": synced_at,
+        "title": item["title"],
+    }
+    if item["source_public"]:
+        provenance["source_url"] = f"https://github.com/{ORGANIZATION}/{item['repository']}"
+    return provenance
+
+
+def catalog_entry(item: dict[str, Any]) -> dict[str, Any]:
+    """Return the public navigation record generated from source metadata."""
+    return {
+        "availability": item["availability"],
+        "branch": item["branch"],
+        "category": item["category"],
+        "nav_order": item["nav_order"],
+        "repository": item["repository"],
+        "title": item["title"],
     }
 
 
-def synchronize(repo_root: Path, local_root: Path | None = None) -> None:
-    """Build and atomically install a complete generated snapshot."""
-    config_path = repo_root / "_data" / "repositories.yml"
-    config = load_json(config_path)
-    if not isinstance(config, list):
-        raise SyncError(f"Expected a repository list in {config_path}")
-    validate_config(config)
+def classify_changes(
+    old_provenance: dict[str, Any],
+    provenance: dict[str, Any],
+    inventory: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Classify a generated snapshot, including safe retirement-only changes."""
+    old_names = set(old_provenance)
+    new_names = set(provenance)
+    added = sorted(new_names - old_names)
+    removed = sorted(old_names - new_names)
+    comparable = (
+        "availability",
+        "branch",
+        "category",
+        "content_sha256",
+        "nav_order",
+        "source_commit",
+        "source_url",
+        "title",
+    )
+    updated = sorted(
+        repository
+        for repository in old_names & new_names
+        if any(
+            old_provenance[repository].get(key) != provenance[repository].get(key)
+            for key in comparable
+        )
+    )
+    unchanged = sorted((old_names & new_names) - set(updated))
+    availability = {item["repository"]: item["availability"] for item in inventory}
+    return {
+        "accessible_repository_count": len(inventory),
+        "added": added,
+        "public_repository_count": len(provenance),
+        "removed": removed,
+        "removed_states": {repository: availability[repository] for repository in removed},
+        "retirement_only": bool(removed) and not added and not updated,
+        "unchanged": unchanged,
+        "updated": updated,
+    }
+
+
+def write_json(path: Path, value: Any) -> None:
+    """Write stable JSON for both machine output and Jekyll data."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def install_snapshot(
+    repo_root: Path,
+    generated: Path,
+    provenance_file: Path,
+    catalog_file: Path,
+    temp_root: Path,
+) -> None:
+    """Atomically replace generated products and both generated data files."""
+    targets = {
+        repo_root / "products": generated,
+        repo_root / "_data" / "provenance.yml": provenance_file,
+        repo_root / "_data" / "repositories.yml": catalog_file,
+    }
+    backups: dict[Path, Path] = {}
+    installed: list[Path] = []
+    try:
+        for index, target in enumerate(targets):
+            if target.is_symlink():
+                raise SyncError(f"Refusing to replace symlinked generated target: {target}")
+            if target.exists():
+                backup = temp_root / f"snapshot-backup-{index}"
+                target.rename(backup)
+                backups[target] = backup
+        for target, source in targets.items():
+            source.rename(target)
+            installed.append(target)
+    except Exception:
+        for target in reversed(installed):
+            if target.is_dir():
+                shutil.rmtree(target)
+            elif target.exists():
+                target.unlink()
+        for target, backup in backups.items():
+            if backup.exists():
+                backup.rename(target)
+        raise
+
+
+def synchronize(
+    repo_root: Path,
+    local_root: Path | None = None,
+    inventory_path: Path | None = None,
+    *,
+    dry_run: bool = False,
+    result_file: Path | None = None,
+) -> dict[str, Any]:
+    """Build, classify, and optionally install a complete generated snapshot."""
     old_provenance = load_json(repo_root / "_data" / "provenance.yml", default={})
+    if not isinstance(old_provenance, dict):
+        raise SyncError("Expected _data/provenance.yml to contain an object")
 
     token = os.environ.get("GH_TOKEN", "")
     if local_root is None and not token:
-        raise SyncError("GH_TOKEN is required for remote synchronization")
+        raise SyncError("GH_TOKEN is required for remote discovery and cloning")
     env = dict(os.environ)
     env["GH_TOKEN"] = token
+
+    if inventory_path is not None:
+        inventory = normalize_inventory(load_json(inventory_path))
+    elif local_root is not None:
+        inventory = local_inventory(repo_root, local_root)
+    else:
+        inventory = discover_selected_repositories(env)
+
+    accessible = {item["repository"] for item in inventory}
+    inaccessible_published = sorted(set(old_provenance) - accessible)
+    if inaccessible_published:
+        raise SyncError(
+            "Previously published repositories are no longer accessible to the source App: "
+            + ", ".join(inaccessible_published)
+            + ". Restore access, synchronize an explicit nonpublic state, and remove App access only after the deletion merges."
+        )
+
+    selected = [
+        item for item in inventory if item["availability"] in PUBLIC_AVAILABILITIES
+    ]
+    if any(item["repository"] == "moodle-docs" for item in selected):
+        raise SyncError("moodle-docs cannot publish itself as a product")
 
     with tempfile.TemporaryDirectory(prefix=".moodle-docs-sync-", dir=repo_root) as temporary:
         temp_root = Path(temporary)
         generated = temp_root / "products"
         sources = temp_root / "sources"
         generated.mkdir()
-        provenance: dict[str, Any] = {}
+        source_items: list[tuple[dict[str, Any], Path]] = []
 
-        for item in config:
+        for selected_item in selected:
+            item = dict(selected_item)
             repository = item["repository"]
-            branch = item.get("branch")
             if local_root is None:
-                branch = resolve_branch(repository, branch, env)
                 source = sources / repository
-                clone_source(repository, branch, source, env)
+                clone_source(repository, item["branch"], source, env)
             else:
                 source = local_root / repository
                 if not source.is_dir():
                     raise SyncError(f"Missing local source repository: {source}")
-                if not branch:
-                    try:
-                        upstream = run(
-                            ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"],
-                            cwd=source,
-                        )
-                        branch = upstream.removeprefix("origin/")
-                    except SyncError:
-                        branch = run(["git", "branch", "--show-current"], cwd=source)
-                if not branch:
-                    branch = run(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=source)
+            validate_public_tree(source / "docs" / "public")
+            item.update(source_metadata(source / "docs" / "public", repository))
+            source_items.append((item, source))
+
+        validate_navigation([item for item, _source in source_items])
+        category_position = {category: index for index, category in enumerate(CATEGORY_ORDER)}
+        source_items.sort(
+            key=lambda pair: (
+                category_position[pair[0]["category"]],
+                pair[0]["nav_order"],
+                pair[0]["repository"],
+            )
+        )
+
+        provenance: dict[str, Any] = {}
+        catalog: list[dict[str, Any]] = []
+        for item, source in source_items:
+            repository = item["repository"]
             provenance[repository] = sync_repository(
                 item,
                 source,
                 generated / repository,
                 old_provenance,
-                branch,
             )
+            catalog.append(catalog_entry(item))
 
-        products = repo_root / "products"
-        backup = temp_root / "products-backup"
-        if products.exists():
-            products.rename(backup)
-        try:
-            generated.rename(products)
-            provenance_target = repo_root / "_data" / "provenance.yml"
-            provenance_temp = temp_root / "provenance.yml"
-            provenance_temp.write_text(
-                json.dumps(provenance, indent=2, sort_keys=True) + "\n",
-                encoding="utf-8",
-            )
-            os.replace(provenance_temp, provenance_target)
-        except Exception:
-            if products.exists():
-                shutil.rmtree(products)
-            if backup.exists():
-                backup.rename(products)
-            raise
+        result = classify_changes(old_provenance, provenance, inventory)
+        provenance_file = temp_root / "provenance.yml"
+        catalog_file = temp_root / "repositories.yml"
+        write_json(provenance_file, provenance)
+        write_json(catalog_file, catalog)
+        if not dry_run:
+            install_snapshot(repo_root, generated, provenance_file, catalog_file, temp_root)
+        if result_file is not None:
+            write_json(result_file, result)
+        return result
 
 
 def parse_args() -> argparse.Namespace:
@@ -339,16 +701,38 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="parent directory containing local source repositories",
     )
+    parser.add_argument(
+        "--inventory",
+        type=Path,
+        help="JSON inventory for staged comparison or local validation",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="clone and validate sources without replacing generated files",
+    )
+    parser.add_argument(
+        "--result-file",
+        type=Path,
+        help="write the synchronization classification as JSON",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     try:
-        synchronize(args.repo_root.resolve(), args.local_root.resolve() if args.local_root else None)
+        result = synchronize(
+            args.repo_root.resolve(),
+            args.local_root.resolve() if args.local_root else None,
+            args.inventory.resolve() if args.inventory else None,
+            dry_run=args.dry_run,
+            result_file=args.result_file.resolve() if args.result_file else None,
+        )
     except SyncError as error:
         print(f"sync error: {error}", file=os.sys.stderr)
         return 1
+    print(json.dumps(result, indent=2, sort_keys=True))
     return 0
 
 

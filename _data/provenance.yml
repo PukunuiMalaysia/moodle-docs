@@ -1,156 +1,75 @@
 {
+  "chrome_tab_organizer": {
+    "availability": "public-free",
+    "branch": "main",
+    "category": "Related tools",
+    "content_sha256": "30e9ba5eeddc8aa7cbcf12b08129f92c8463b5166797ed8a1786922c8a0e4f44",
+    "nav_order": 20,
+    "source_commit": "99e6cf2aa27eb47a81f8ff7542d98071f92a5104",
+    "synced_at": "2026-08-17T13:00:16+00:00",
+    "title": "Chrome Tab Organizer & Productivity Tool"
+  },
   "moodle-block_completedcourse": {
+    "availability": "commercial-active",
     "branch": "master",
-    "content_sha256": "9eaf12e4728c6e4ff6fec3f59af8c408b72983b4cc88f9bf5999c601887ab421",
-    "source_commit": "cd3fdd9e6b66739cd292c12dc5eacb0cf2d2283e",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-block_completedcourse",
-    "synced_at": "2026-08-13T12:12:15+00:00"
-  },
-  "moodle-block_completionpoints_view": {
-    "branch": "main",
-    "content_sha256": "3383c45a2f2aa5289431a796a7e551ef6e64e097a14074521055f06bbfc526db",
-    "source_commit": "48ef729390b44ccfe7edbb14561ec8e445812de4",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-block_completionpoints_view",
-    "synced_at": "2026-08-13T12:12:15+00:00"
-  },
-  "moodle-block_cr_charts": {
-    "branch": "main",
-    "content_sha256": "3dcbae338ac21d0223cc86d0dfe60f05fb26ff1e67d5e9b1867d34eecdecee2e",
-    "source_commit": "0f5dacfb47838193325568b72fcf7ca3ca5dc44c",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-block_cr_charts",
-    "synced_at": "2026-08-13T12:12:15+00:00"
+    "category": "Blocks",
+    "content_sha256": "ae91c2bef616ed8998541676b3c1eea9bb6b1186f567c0871c49bad465119ec6",
+    "nav_order": 10,
+    "source_commit": "dffba4a616b44cf94d5889382953d50a8954d1d3",
+    "synced_at": "2026-08-17T13:00:16+00:00",
+    "title": "Completed courses"
   },
   "moodle-block_skillscard": {
+    "availability": "commercial-active",
     "branch": "master",
-    "content_sha256": "5c407f1fa34c8c6a61d3ca0a8221d6f3ae49da4705cbc8b46d5b148beb3fa09a",
-    "source_commit": "991091dcda114d77bf0e73aafbea1139c1857c57",
+    "category": "Blocks",
+    "content_sha256": "62cc007ad3e2a4afc3da303c718c36cb0344cd4e91eac2907afe12902f6a29f2",
+    "nav_order": 20,
+    "source_commit": "c3248493dfd19512e34b4543ef9c3fca28fe9323",
     "source_url": "https://github.com/PukunuiMalaysia/moodle-block_skillscard",
-    "synced_at": "2026-08-13T12:12:15+00:00"
+    "synced_at": "2026-08-17T13:00:16+00:00",
+    "title": "Skills card"
   },
   "moodle-block_sociallink": {
+    "availability": "commercial-active",
     "branch": "main",
-    "content_sha256": "5466f3fa97a252034c751f65e3ea780673ac9fdd19855d9a41a367ec98d0736e",
-    "source_commit": "a4cd437bf4bfac88e994a428ad815cf2ec93e10e",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-block_sociallink",
-    "synced_at": "2026-08-13T12:12:15+00:00"
+    "category": "Blocks",
+    "content_sha256": "8b3724841e496858122c865c739f8383c1dde2623edd1c7df6784298e6db8438",
+    "nav_order": 30,
+    "source_commit": "f411bc4b673931baa2ca6ff36620f627ddc22129",
+    "synced_at": "2026-08-17T13:00:16+00:00",
+    "title": "SocialLink"
   },
   "moodle-configurable_reports-custom_sql_queries": {
+    "availability": "public-free",
     "branch": "main",
-    "content_sha256": "e32c947467c22ee52afd5f07e6531ec69205d858d2f27412d700e50442976f5e",
-    "source_commit": "d7f85c02c0804caf418068b592219be1a2c7e9a5",
+    "category": "Related tools",
+    "content_sha256": "1e5bed6e9667cceb5b7ed3c49da0ad87f8a3dea43633cf663e92b0ffbaaea81a",
+    "nav_order": 10,
+    "source_commit": "175a15c4fce4e7adcec608426a93264fbc618df8",
     "source_url": "https://github.com/PukunuiMalaysia/moodle-configurable_reports-custom_sql_queries",
-    "synced_at": "2026-08-13T12:12:17+00:00"
-  },
-  "moodle-format_activitygroups": {
-    "branch": "main",
-    "content_sha256": "c6a982817e204c26e2e5f9f6f7377488defe8c1bdb634ba003e6ebce9c8d27a3",
-    "source_commit": "ada2460d0b916c1e531fc5e850984db148b141f0",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-format_activitygroups",
-    "synced_at": "2026-08-13T12:12:15+00:00"
-  },
-  "moodle-local_clm": {
-    "branch": "main",
-    "content_sha256": "ba67ff9d9bc97b7ec9be0d58dcc39880aa8f34196ab1bf5664fdec235a05188f",
-    "source_commit": "1f3b704f108a308d428fc2f5811f5483141e8ca6",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-local_clm",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-local_completionpoints": {
-    "branch": "main",
-    "content_sha256": "f9e612a20f3b81eee13689ed792e185948f838df91b2627f959d7e0f6f2ce441",
-    "source_commit": "a8c109953458bcb92a7481ac975dd85d15801d89",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-local_completionpoints",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-local_concurrent_limit": {
-    "branch": "main",
-    "content_sha256": "4a0eac2da11552d93ff9b7f929a9326bd05e152bc0397b75ee668bc6568d180b",
-    "source_commit": "4c7ca95514d0a544dab17618bd9852863f04d3c2",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-local_concurrent_limit",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-local_dormitory": {
-    "branch": "main",
-    "content_sha256": "b3048a5aee77abe8d40690fad12bec7643895eb185dfcbb4d8b2c94fb25b575d",
-    "source_commit": "0a9a805b450f73a9f70de0ee462ab0c28226ff83",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-local_dormitory",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-local_imageopt": {
-    "branch": "main",
-    "content_sha256": "f4be1303ab5323a01e494885992c6db377b8a3cfc3205f6cc90dfe1862b3460d",
-    "source_commit": "8143c760639066a0cd15b65fb276668964c9f470",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-local_imageopt",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-local_utpoic": {
-    "branch": "main",
-    "content_sha256": "5914eb3dfb43fe0093e4764f7e2714afe2e21039e48f5a7a1eafedf78813de18",
-    "source_commit": "ded1c6fbafd5fa39a306e1698906f5664bf480ac",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-local_utpoic",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-mod_schedule": {
-    "branch": "main",
-    "content_sha256": "390d1b05b62d03c4784d5b9ed90b032b299eb6cebfa683d42111c48a47bd2ba1",
-    "source_commit": "c922ed6b64f679ee093045a0f0fe8c9b1fc299ab",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-mod_schedule",
-    "synced_at": "2026-08-13T12:12:16+00:00"
+    "synced_at": "2026-08-17T13:00:16+00:00",
+    "title": "Configurable Reports SQL query library"
   },
   "moodle-mod_scratchpad": {
-    "branch": "main",
-    "content_sha256": "7d15c661ea557dc597d48822c4272ae5b4db1c5fe4bb64c7ede3448395cfeccd",
-    "source_commit": "65c5dc5b71c4f178ffeb0b3c7eb591a236e794c6",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-mod_scratchpad",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-plugin-ci": {
-    "branch": "main",
-    "content_sha256": "a4ab17410d0c6fe9d855a1d87c974ac6e95088151fa6f19eb57efa5b4fbb114c",
-    "source_commit": "85a92f294a3257325df74278bea6557416245cf4",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-plugin-ci",
-    "synced_at": "2026-08-13T12:12:17+00:00"
-  },
-  "moodle-report_asec": {
-    "branch": "main",
-    "content_sha256": "5de32bd1ac8f04bd373bf534c7a2f7687204b6716ac30298f855cbe45d50e45b",
-    "source_commit": "75831dba099cca9010b6548e4bf6dc451db9d866",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-report_asec",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-report_hrdc": {
-    "branch": "main",
-    "content_sha256": "6558e13fc17d1d8c7ecba34d207c79c4bc0354ee253b5142810749b4d0bda035",
-    "source_commit": "8869afea46c53083d94c35b52eaebff647816b76",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-report_hrdc",
-    "synced_at": "2026-08-13T12:12:16+00:00"
-  },
-  "moodle-report_pluginhealth": {
-    "branch": "main",
-    "content_sha256": "c1441ead76befcd2a1d33e5c9382a222ff48887adf401dbdd042260d3e6929a8",
-    "source_commit": "42307c48c56d5dc30ac43fdbcf85ef6abd0451a0",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-report_pluginhealth",
-    "synced_at": "2026-08-15T05:42:16+00:00"
-  },
-  "moodle-report_skillsmatrix": {
-    "branch": "main",
-    "content_sha256": "6ee44388a574b3656b5234e7ca2db630da4a49cdb5d329c619d5a58a0ab68eb4",
-    "source_commit": "bcd61ffca96524d21fdf77f076bbc688e6ca4171",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-report_skillsmatrix",
-    "synced_at": "2026-08-13T12:12:17+00:00"
-  },
-  "moodle-theme_aurora": {
+    "availability": "commercial-active",
     "branch": "MOODLE_502_STABLE",
-    "content_sha256": "a5113eb077e93cbb8ee3e937deb7b5cd154c56d35ba448f28190eaffcc70505e",
-    "source_commit": "e11d597aac6f0076ca7e7a906d2a013cac3256f1",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-theme_aurora",
-    "synced_at": "2026-08-13T12:12:17+00:00"
+    "category": "Activities",
+    "content_sha256": "15b65d69d1144f04976dc5ec070f337785d44e98c09d2257d732ce682d5ced99",
+    "nav_order": 10,
+    "source_commit": "ff3665e7c62de9830b200dce3a622cd294384d81",
+    "source_url": "https://github.com/PukunuiMalaysia/moodle-mod_scratchpad",
+    "synced_at": "2026-08-17T13:00:16+00:00",
+    "title": "Scratchpad activity"
   },
-  "moodle-theme_boleh": {
+  "quicknav-lms": {
+    "availability": "public-free",
     "branch": "main",
-    "content_sha256": "f72ef788be57b33638238ea43b1827ecedfbecc6243d8c34f1fc9bc71744e461",
-    "source_commit": "a283d7a941a461dd021d1868aca6d23ba8922f78",
-    "source_url": "https://github.com/PukunuiMalaysia/moodle-theme_boleh",
-    "synced_at": "2026-08-13T12:12:17+00:00"
+    "category": "Related tools",
+    "content_sha256": "5c0f7f4d1f3ad7bb43edcfbcf478d58da1b995d67cbedfdeede7c15c98a062d8",
+    "nav_order": 30,
+    "source_commit": "7c94408d25dd852ee3797fb29358c57c73449f27",
+    "synced_at": "2026-08-17T13:00:16+00:00",
+    "title": "QuickNav LMS by Pukunui"
   }
 }
