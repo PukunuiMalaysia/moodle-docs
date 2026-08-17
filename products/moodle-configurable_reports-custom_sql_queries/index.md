@@ -1,5 +1,6 @@
 ---
 title: Configurable Reports SQL query library
+category: Related tools
 parent: "Related tools"
 nav_order: 10
 permalink: /products/moodle-configurable_reports-custom_sql_queries/
@@ -32,4 +33,4 @@ Original documentation copyright Pukunui Sdn Bhd and contributors, licensed unde
 
 ---
 
-Source: [moodle-configurable_reports-custom_sql_queries at `d7f85c02c080`](https://github.com/PukunuiMalaysia/moodle-configurable_reports-custom_sql_queries/commit/d7f85c02c0804caf418068b592219be1a2c7e9a5). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
+Source: [moodle-configurable_reports-custom_sql_queries at `175a15c4fce4`](https://github.com/PukunuiMalaysia/moodle-configurable_reports-custom_sql_queries/commit/175a15c4fce4e7adcec608426a93264fbc618df8). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

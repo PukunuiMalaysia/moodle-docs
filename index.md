@@ -7,7 +7,7 @@ has_toc: false
 <div class="pukunui-hero">
   <p class="pukunui-eyebrow">Pukunui product documentation</p>
   <h1>Practical guidance for your learning platform.</h1>
-  <p class="pukunui-lead">Installation, configuration, administration, and usage guidance for open-source LMS plugins and related tools maintained by Pukunui Malaysia.</p>
+  <p class="pukunui-lead">Installation, configuration, administration, and usage guidance for supported LMS products and related tools maintained by Pukunui Malaysia.</p>
   <div class="pukunui-actions">
     <a class="btn btn-primary" href="#browse-products">Browse documentation</a>
     <a class="btn btn-outline" href="https://github.com/PukunuiMalaysia/moodle-docs/issues/new/choose">Ask for help</a>

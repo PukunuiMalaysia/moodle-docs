@@ -1,36 +1,77 @@
 ---
-title: Scratchpad
+title: Scratchpad activity
+category: Activities
 parent: "Activities"
-nav_order: 20
+nav_order: 10
 permalink: /products/moodle-mod_scratchpad/
 ---
 
-# Scratchpad
+# Scratchpad activity
 
-Scratchpad is a Moodle activity where teachers provide reflection questions, students write entries, teachers review or rate submissions, and students can download reflections in PDF mode.
+Scratchpad gives Moodle learners a private place to respond to a focused reflection prompt. Teachers can review every submitted entry, award a grade, and provide individual feedback without leaving the activity.
 
-## Requirements and installation
+The plugin supports Moodle 5.2 on the `MOODLE_502_STABLE` branch.
 
-- The `main` branch is the selected documentation source. Confirm the branch's `version.php` against the target Moodle release before installation.
-- Install at `mod/scratchpad`, complete Moodle's standard upgrade, and add a **Scratchpad** activity to a course.
-- The module includes capabilities, external services, events, completion, grading, Privacy API support, and course backup and restore classes.
+## What Scratchpad provides
 
-## Use and access
+- Individual student reflection entries.
+- Prompts that teachers can tailor to a course or learning activity.
+- A consolidated teacher report for reading and grading entries.
+- Written feedback displayed with the student's reflection.
+- Automatic activity completion after a learner submits an answer.
+- A download mode for producing PDF reflections.
+- Moodle Privacy API support for stored entries, feedback, ratings, and user identifiers.
 
-Teachers configure the questions and activity availability, then review and rate entries through the activity report. Students can create and update their own reflection entries subject to the activity configuration and capabilities. PDF downloads and reports must remain restricted to the appropriate participant or teacher context.
+## Learner experience
 
-## Privacy
+The activity keeps the prompt and the learner's response together, making the next action clear and keeping reflection work focused.
 
-Scratchpad stores student entry text, ratings, comments, teacher identifiers, and user identifiers. Moodle privacy export and deletion must be available to users and administrators. Treat report, download, mobile-service, backup, and restore data as private educational records.
+![A student viewing a completed Scratchpad reflection](images/student-reflection.jpg)
+
+Students can return to edit their entry. Once a teacher has reviewed it, the grade and written feedback appear directly beneath the reflection.
+
+![A student viewing a Scratchpad grade and teacher feedback](images/student-feedback.jpg)
+
+## Course completion
+
+Teachers can require a student to answer the activity before Moodle marks it complete. This allows Scratchpad to participate in course progress tracking and completion reports.
+
+![A completed Scratchpad activity in a Moodle course](images/course-completion.jpg)
+
+## Teacher experience
+
+The entries report brings the student's response, grade selector, and written feedback field into one review workflow.
+
+![A teacher grading a Scratchpad entry and writing feedback](images/teacher-grading.jpg)
+
+The activity overview also shows how many entries are ready for review and links directly to the report.
+
+![The Scratchpad teacher overview with a link to submitted entries](images/teacher-overview.jpg)
+
+All people and reflection content shown in these screenshots are fictional demonstration data.
+
+## Add Scratchpad to a course
+
+1. Turn editing on in the Moodle course.
+2. Select **Add an activity or resource**.
+3. Choose **Scratchpad**.
+4. Enter an activity name and reflection question.
+5. Configure the mode, grading, availability, and completion conditions required by the course.
+6. Save the activity and verify it with a student account.
+
+## Privacy and data
+
+Scratchpad stores student entry text, teacher feedback, ratings, and related user identifiers in Moodle. Its Privacy API provider supports metadata, export, and deletion requests. The plugin does not send this information to an external service.
+
+Administrators should apply their normal Moodle retention, role, capability, backup, and privacy policies to Scratchpad activities.
 
 ## Support
 
-- [Report a bug or request a feature](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=product-bug.yml)
-- [Pukunui Plugin Subscription Terms & Support Policy](https://pukunui.com/docs/policy-moodle-marketplace/)
-- [Pukunui Malaysia](https://pukunui.com/home/location/malaysia/)
+- Issues and bug reports: [Pukunui Malaysia](https://pukunui.com/home/location/malaysia/).
+- Subscription terms and support: [Pukunui Plugin Subscription Terms & Support Policy](https://pukunui.com/docs/policy-moodle-marketplace/).
 
-Original documentation copyright Pukunui Sdn Bhd and contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Scratchpad is licensed under the GNU General Public License v3 or later.
 
 ---
 
-Source: [moodle-mod_scratchpad at `65c5dc5b71c4`](https://github.com/PukunuiMalaysia/moodle-mod_scratchpad/commit/65c5dc5b71c4f178ffeb0b3c7eb591a236e794c6). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
+Source: [moodle-mod_scratchpad at `ff3665e7c62d`](https://github.com/PukunuiMalaysia/moodle-mod_scratchpad/commit/ff3665e7c62de9830b200dce3a622cd294384d81). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
