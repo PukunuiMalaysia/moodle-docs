@@ -8,32 +8,69 @@ permalink: /products/moodle-block_completedcourse/
 
 # Completed courses
 
-The Completed courses block gives each signed-in user a compact list of their completed Moodle courses. Users can follow course links and, when permitted, export the same visible information as CSV. It never accepts a user ID and cannot be used to browse another user's completion history.
+Completed courses gives Moodle learners a compact dashboard list of the courses they have completed, with configurable details, paging, course links, and a permission-controlled CSV export.
 
-## Requirements and installation
+## Key features
 
-- Moodle 4.5 through 5.2 with course completion enabled for relevant courses.
-- Install the plugin at `blocks/completedcourse` through Moodle's normal ZIP installer or filesystem deployment, then complete the Moodle upgrade.
-- Add **Completed courses** to a dashboard or another supported block region.
+- Show only the signed-in user's visible completed courses.
+- Choose short or full course names, completion-date order, and rows per page.
+- Optionally display category, completion date, and final grade information.
+- Filter hidden courses according to Moodle access rules.
+- Export the same visible completion list as a formula-safe CSV file when permitted.
+- Keep the block compact and readable in narrow dashboard regions.
 
-No external service, API credential, Composer, npm, or post-install build is required.
+## Screenshots
 
-## Configuration
+### Learner dashboard block
 
-Each block instance can select short or full course names, completion-date order, 1–100 rows per page, a category hierarchy, localised date format, category and grade display, hidden-course handling, and whether course links open in a new tab. Moodle access rules still control whether a hidden course is visible.
+![Completed courses block showing a learner's completed course list](images/completed-courses-block.jpg)
 
-The CSV action requires `block/completedcourse:export` and a valid session key. Exported values are protected against spreadsheet formula interpretation.
+*The block presents completed courses with the details selected by the administrator. All people, courses, and results shown are fictional demonstration data.*
 
-## Privacy and support
+## Requirements
 
-The block stores configuration but no personal data. It reads the current user's Moodle completion and grade records at request time and sends nothing externally.
+- Moodle 4.5 through 5.2.
+- Course completion must be enabled and configured for the relevant courses.
+- Users need access to the courses that should appear in their list.
+- No external service or additional Moodle plugin is required.
 
-- [Report a bug or request a feature](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=product-bug.yml)
+## Installation
+
+Download the Completed courses ZIP from its verified [Moodle Marketplace listing](https://marketplace.moodle.com/plugins/block_completedcourse). In Moodle, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps.
+
+## Configuration and use
+
+### Add and configure the block
+
+Turn editing on for a supported block region, add **Completed courses**, and configure the course-name format, ordering, page size, category hierarchy, date format, category and grade display, hidden-course handling, and link target.
+
+### Export completion records
+
+The CSV action appears only for users with `block/completedcourse:export`. The export contains that user's visible completed courses and protects values that spreadsheet software could otherwise interpret as formulas.
+
+## Privacy and permissions
+
+The block stores configuration but no personal data of its own. It reads the signed-in user's Moodle completion and grade records when the block is displayed and sends nothing to an external service. It does not accept a user identifier and cannot be used to browse another person's completion history.
+
+Moodle capabilities control block visibility, instance management, and CSV export. Normal Moodle course visibility rules continue to apply.
+
+## Troubleshooting
+
+- If the block is empty, confirm that course completion is enabled and the learner has completed at least one visible course.
+- If grades are missing, confirm that grade display is enabled and the learner has a final course grade that Moodle permits them to view.
+- If CSV export is absent, check the `block/completedcourse:export` capability.
+- If recent changes do not appear, refresh the page after Moodle has recalculated course completion.
+
+## Support and licence
+
+- [Report a Completed courses product issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=product-bug.yml)
+- [Request a Completed courses feature](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=feature.yml)
+- [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml)
 - [Pukunui Plugin Subscription Terms & Support Policy](https://pukunui.com/docs/policy-moodle-marketplace/)
-- [Pukunui Malaysia](https://pukunui.com/home/location/malaysia/)
+- [Pukunui Malaysia](https://pukunui.com/location/malaysia/)
 
-Original documentation copyright Pukunui Sdn Bhd and contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Completed courses is licensed under the GNU General Public License v3 or later. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ---
 
-Source revision: `dffba4a616b4`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
+Source revision: `91f0d7e514aa`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

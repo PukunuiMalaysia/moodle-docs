@@ -2,60 +2,107 @@
 title: Chrome Tab Organizer & Productivity Tool
 category: Related tools
 parent: "Related tools"
-nav_order: 20
+nav_order: 10
 permalink: /products/chrome_tab_organizer/
 ---
 
 # Chrome Tab Organizer & Productivity Tool
 
-Chrome Tab Organizer & Productivity Tool helps Chrome users organise large tab sessions, create reusable workspaces, group related tabs, and inspect open tabs in a vertical side panel. All organisation and workspace processing happens locally in the browser.
+Chrome Tab Organizer & Productivity Tool helps Chrome users control large tab sessions with previews, local smart grouping, reusable workspaces, bulk actions, and a searchable vertical side panel.
 
-## Requirements and installation
+## Key features
 
-- A current version of Google Chrome with Manifest V3, tab groups, and side-panel support.
-- Install the extension from the official Chrome Web Store listing provided by Pukunui.
-- Pin the extension to the Chrome toolbar if you want quick access to the popup.
+- Preview tab-moving, grouping, tiling, sorting, and closing actions before they run where practical.
+- Create local smart groups from tab titles, URLs, hostnames, and an optional intent prompt.
+- Save restorable workspaces without replacing or closing the current session.
+- Search and focus tabs from a vertical side panel grouped by window and domain.
+- Protect pinned tabs and skip unsupported Chrome or extension pages safely.
+- Keep settings, workspaces, and processing on the user's device.
 
-After installation, open the extension popup to review the available actions or select **Open side panel** for a searchable vertical view of tabs across Chrome windows.
+## Screenshots
 
-## Organise tabs
+### Action overview
 
-The popup provides actions for sorting tabs, moving matching sites into separate windows, grouping tabs by domain, creating local smart groups from tab titles or a prompt, tiling tabs, and closing duplicate URLs.
+![Chrome Tab Organizer popup showing tab organisation actions and previews](images/01-popup-actions.png)
 
-Actions show a preview of the affected tabs before running where practical. Pinned tabs and unsupported Chrome or extension pages are protected or skipped according to the extension settings. Review the preview before confirming any action that moves or closes tabs.
+*The popup keeps the main tab actions together and previews affected tabs. All tabs and sites shown are fictional demonstration data.*
 
-## Saved workspaces
+### Smart groups
 
-Saved workspaces preserve restorable HTTP and HTTPS tabs, window groupings, active tabs, pinned state, and window geometry where Chrome makes that information available. Restoring a workspace creates new Chrome windows and does not replace the current session.
+![Smart Groups preview showing proposed Chrome tab groups](images/02-smart-groups-preview.png)
 
-Workspace data is stored in `chrome.storage.local`. Unsupported pages are skipped and reported in the workspace status. Deleting a saved workspace removes that local snapshot.
+*Smart Groups proposes local groupings before applying them. All tabs and sites shown are fictional demonstration data.*
 
-## Side panel
+### Bulk tab management
 
-The side panel presents tabs by window and domain, with search, collapsible groups, active-tab indication, and click-to-focus behaviour. Unsupported pages remain clearly identified instead of being treated as ordinary web tabs.
+![Bulk tab management controls for moving grouping sorting and closing tabs](images/03-bulk-tab-management.png)
+
+*Bulk controls report the scope of each action before it runs. All tabs and sites shown are fictional demonstration data.*
+
+### Saved workspaces
+
+![Saved workspace controls showing a reusable browser session](images/04-saved-workspaces.png)
+
+*Workspaces preserve restorable web tabs and window organisation locally. All tabs and sites shown are fictional demonstration data.*
+
+### Protection and feedback
+
+![Settings for pinned-tab protection and clear action feedback](images/05-settings-protection-feedback.png)
+
+*Protection settings and status messages make skipped tabs visible. All tabs and sites shown are fictional demonstration data.*
+
+### Vertical side panel
+
+![Chrome side panel showing searchable tabs grouped by window and domain](images/06-side-panel-vertical-tabs.png)
+
+*The side panel provides a searchable vertical view across Chrome windows. All tabs and sites shown are fictional demonstration data.*
+
+## Requirements
+
+- A current version of Google Chrome with Manifest V3, native tab groups, and side-panel support.
+- Permission to manage tabs, windows, tab groups, local storage, displays, the side panel, and the confirmed page action used by tiling.
+- No account, external service, or remote AI service is required.
+
+## Installation
+
+Install [Chrome Tab Organizer & Productivity Tool](https://chromewebstore.google.com/detail/chrome-tab-organizer-prod/npiekcbklimcbgghdlomjmenhobmlbea) from the Chrome Web Store, then pin it to the Chrome toolbar if frequent popup access is useful. Select **Open side panel** in the popup for the vertical tab view.
+
+## Configuration and use
+
+### Organise tabs
+
+Open the popup, choose an action, review the affected count and skipped tabs, then confirm. Pinned tabs and unsupported pages remain protected according to the selected settings.
+
+### Save and restore workspaces
+
+Save a workspace to preserve supported HTTP and HTTPS tabs, their window groups, active tab, pinned state, and available window geometry. Restoring creates new Chrome windows and leaves the current session in place.
+
+### Use the side panel
+
+Open the side panel to search tabs, expand or collapse window and domain groups, identify the active tab, and select a row to focus that tab.
 
 ## Privacy and permissions
 
-The extension processes open-tab titles and URLs locally so it can group, sort, search, and restore tabs. It does not send this information to Pukunui, analytics providers, advertising services, or an external AI service.
+Open-tab titles and URLs are processed locally for grouping, searching, sorting, and restoration. Settings and workspaces use Chrome local storage; temporary undo information uses session storage and does not persist across browser restarts. The extension does not transmit browsing activity to Pukunui, analytics providers, advertisers, or an external AI service.
 
-Settings and workspaces use Chrome local storage. Temporary undo layout data uses Chrome session storage and does not persist across browser restarts. The optional YouTube permission is used only when the user confirms tiling with the pause option enabled.
-
-Chrome permissions support tab and window management, native tab groups, saved settings, display-aware tiling, the side panel, and the confirmed pause action. The extension does not inject advertising, rewrite links, or use affiliate tracking.
+Chrome permissions are used only for the visible tab-management features. The extension does not inject advertising, rewrite links, or add affiliate tracking.
 
 ## Troubleshooting
 
 - If an action reports skipped tabs, check for pinned tabs, Chrome internal pages, extension pages, or missing URLs.
-- If the side panel is unavailable, update Chrome and confirm the extension is enabled.
-- If a restored workspace contains fewer tabs than expected, review its skipped-tab count; unsupported pages are not saved.
-- Closed duplicate tabs are not restored by the layout undo control.
+- If the side panel is unavailable, update Chrome and confirm that the extension is enabled.
+- If a restored workspace contains fewer tabs than expected, review the skipped count; unsupported pages are not saved.
+- Closed duplicate tabs cannot be restored by the layout undo control.
 
 ## Support and licence
 
-- [Pukunui Malaysia support](https://pukunui.com/home/location/malaysia/)
+- [Report a Chrome Tab Organizer product issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=product-bug.yml)
+- [Request a Chrome Tab Organizer feature](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=feature.yml)
 - [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml)
+- [Pukunui Malaysia](https://pukunui.com/location/malaysia/)
 
-The extension is licensed under the MIT License. Original documentation copyright Pukunui Sdn Bhd and contributors, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Chrome Tab Organizer & Productivity Tool is licensed under the MIT License. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ---
 
-Source revision: `99e6cf2aa27e`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
+Source revision: `187441294e0e`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
