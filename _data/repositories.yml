@@ -11,7 +11,7 @@
     "availability": "commercial-active",
     "branch": "master",
     "category": "Blocks",
-    "nav_order": 20,
+    "nav_order": 40,
     "repository": "moodle-block_skillscard",
     "title": "Skills card"
   },
@@ -19,7 +19,7 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "nav_order": 30,
+    "nav_order": 50,
     "repository": "moodle-block_sociallink",
     "title": "SocialLink"
   },
@@ -36,16 +36,16 @@
     "branch": "main",
     "category": "Related tools",
     "nav_order": 10,
-    "repository": "moodle-configurable_reports-custom_sql_queries",
-    "title": "Configurable Reports SQL query library"
+    "repository": "chrome_tab_organizer",
+    "title": "Chrome Tab Organizer & Productivity Tool"
   },
   {
     "availability": "public-free",
     "branch": "main",
     "category": "Related tools",
     "nav_order": 20,
-    "repository": "chrome_tab_organizer",
-    "title": "Chrome Tab Organizer & Productivity Tool"
+    "repository": "moodle-configurable_reports-custom_sql_queries",
+    "title": "Configurable Reports SQL query library"
   },
   {
     "availability": "public-free",
