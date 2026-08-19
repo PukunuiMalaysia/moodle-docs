@@ -70,7 +70,3 @@ Moodle capabilities control block visibility, instance management, and CSV expor
 - [Pukunui Malaysia](https://pukunui.com/location/malaysia/)
 
 Completed courses is licensed under the GNU General Public License v3 or later. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
----
-
-Source revision: `91f0d7e514aa`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

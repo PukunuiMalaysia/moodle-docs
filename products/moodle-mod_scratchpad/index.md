@@ -98,7 +98,3 @@ Moodle capabilities control activity viewing, entry management, reporting, gradi
 - [Pukunui Malaysia](https://pukunui.com/location/malaysia/)
 
 Scratchpad is licensed under the GNU General Public License v3 or later. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
----
-
-Source: [moodle-mod_scratchpad at `7a667e1d4e81`](https://github.com/PukunuiMalaysia/moodle-mod_scratchpad/commit/7a667e1d4e816b4a476c01188557ff6eea4f7e9c). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

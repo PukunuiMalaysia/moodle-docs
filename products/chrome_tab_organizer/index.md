@@ -102,7 +102,3 @@ Chrome permissions are used only for the visible tab-management features. The ex
 - [Pukunui Malaysia](https://pukunui.com/location/malaysia/)
 
 Chrome Tab Organizer & Productivity Tool is licensed under the MIT License. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
----
-
-Source revision: `187441294e0e`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

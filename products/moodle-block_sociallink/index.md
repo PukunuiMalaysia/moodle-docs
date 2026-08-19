@@ -77,7 +77,3 @@ Moodle capabilities control who can add and configure a block. Page policy and U
 - [Pukunui Malaysia](https://pukunui.com/location/malaysia/)
 
 SocialLink is licensed under the GNU General Public License v3 or later. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
----
-
-Source revision: `578996760e8a`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

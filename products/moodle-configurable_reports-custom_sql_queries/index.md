@@ -69,7 +69,3 @@ Never include credentials, private hostnames, customer data, or production expor
 - [Pukunui Malaysia](https://pukunui.com/location/malaysia/)
 
 The SQL query library is licensed under the GNU General Public License v3 or later unless a supplied file states otherwise. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
----
-
-Source: [moodle-configurable_reports-custom_sql_queries at `b349eefcf462`](https://github.com/PukunuiMalaysia/moodle-configurable_reports-custom_sql_queries/commit/b349eefcf462ec2e69d59ad7b3660e88caf29f24). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
