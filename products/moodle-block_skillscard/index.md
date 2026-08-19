@@ -65,7 +65,3 @@ Moodle profile and competency capabilities control whether another user's data a
 - [Pukunui Malaysia](https://pukunui.com/location/malaysia/)
 
 Skills card is licensed under the GNU General Public License v3 or later. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
----
-
-Source: [moodle-block_skillscard at `9a93e3a29262`](https://github.com/PukunuiMalaysia/moodle-block_skillscard/commit/9a93e3a292623aa37a3ca1ecf5a02b17f471c306). [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).

@@ -99,7 +99,3 @@ The extension uses side-panel, active-tab, tabs, storage, and limited scripting 
 QuickNav LMS by Pukunui is licensed under the MIT License. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 Moodle™ is a trademark of Moodle Pty Ltd. QuickNav LMS by Pukunui is not affiliated with, endorsed by, or sponsored by Moodle Pty Ltd.
-
----
-
-Source revision: `03aaa61e242c`. [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml).
