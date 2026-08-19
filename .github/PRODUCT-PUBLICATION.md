@@ -11,7 +11,29 @@ Every repository selected in the App installation must have these organization c
 
 Only `commercial-active`, `commercial-legacy`, and `public-free` are published. All other values are nonpublic states.
 
-A publishable repository must provide `docs/public/index.md`. Its front matter owns the public `title`, `category`, and positive integer `nav_order`. Only validated files under `docs/public/**` are copied. `docs/internal/**`, repository files outside the public tree, hidden paths, symlinks, and unapproved file types are never published.
+A product-facing repository must use the single-page documentation contract. It provides exactly one documentation page at `docs/public/index.md` and may store approved screenshots under `docs/public/images/**`. No other files are allowed beneath `docs/**`; additional guides, PDFs, maintainer notes, and `docs/internal/**` are prohibited.
+
+The source index owns its public `title`, `category`, and positive `nav_order` in front matter. Its H2 headings must be, in order: **Key features**, **Screenshots**, **Requirements**, **Installation**, **Configuration and use**, **Privacy and permissions**, **Troubleshooting**, and **Support and licence**. Product-specific detail belongs under H3 headings on the same page.
+
+Public documentation must describe Marketplace ZIP installation for Moodle plugins and official Chrome Web Store installation for browser extensions. It must not contain source repository, commit, branch, filesystem deployment, Composer, npm, or shell instructions. Public issue links may point to the central `moodle-docs` tracker, but must identify products by their public names rather than repository names.
+
+## Promotional screenshots
+
+Every product with a user interface must maintain a reviewed promotional screenshot set. New or refreshed screenshots may be prepared while the repository's current `product_availability` is `commercial-active`, `commercial-legacy`, `public-free`, or `pre-release`. Pre-release assets remain nonpublic until the product moves to a publishable state. A later transition to another nonpublic state does not require deleting historical source assets; synchronization stops publishing the complete product route through the normal retirement process.
+
+The screenshot set must:
+
+- cover each materially distinct product-owned workflow for end users, teachers or managers, and administrators, while adding responsive, theme, empty, completed, permission, or error states only when they are meaningfully different;
+- come from the current publication branch and latest supported product or Moodle version, using the newest supported legacy line for `commercial-legacy` products;
+- show authentic current UI from the running product or a repeatable preview backed by the current build; composed advertising frames must not alter, invent, or overstate product behaviour;
+- use neutral branding, fictional demonstration data, and clean framing, with no personal or customer data, credentials, private or local URLs, debug output, diagnostic footers, distracting browser chrome, unrelated navigation, or implied third-party endorsement;
+- target a final canvas of at least 1280 x 800 where the interface supports it, use high-density capture for narrow panels and blocks, and never upscale a low-resolution source;
+- prefer PNG for text-heavy interfaces and use JPEG or WebP only when it remains sharp and free of visible compression; and
+- live as real, descriptively named kebab-case files under `docs/public/images/`, with no symlinks, and be linked from the index with meaningful alt text, an italic caption, and a fictional-data disclosure.
+
+Existing store-listing assets outside `docs/public/**` may be copied or reproducibly regenerated into `docs/public/images/`. Reviewers must inspect file signatures, dimensions, legibility, clipping, compression, factual accuracy, and full-resolution appearance.
+
+Screenshot coverage and advertising quality remain manual source-review requirements. Synchronization enforces the presence, location, reference, alt text, caption, and disclosure contract without attempting to judge subjective visual completeness.
 
 ## Synchronization behavior
 

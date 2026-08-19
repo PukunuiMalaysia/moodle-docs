@@ -1,23 +1,12 @@
 from __future__ import annotations
 
-import importlib.util
 import json
 from pathlib import Path
+import struct
 import tempfile
 import unittest
 
-
-SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "sync_docs.py"
-SPEC = importlib.util.spec_from_file_location("sync_docs", SCRIPT)
-sync_docs = importlib.util.module_from_spec(SPEC)
-assert SPEC.loader is not None
-SPEC.loader.exec_module(sync_docs)
-
-LINK_SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "check_links.py"
-LINK_SPEC = importlib.util.spec_from_file_location("check_links", LINK_SCRIPT)
-check_links = importlib.util.module_from_spec(LINK_SPEC)
-assert LINK_SPEC.loader is not None
-LINK_SPEC.loader.exec_module(check_links)
+from scripts import check_links, sync_docs
 
 
 class SyncDocsTest(unittest.TestCase):
@@ -26,13 +15,74 @@ class SyncDocsTest(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.public = self.root / "docs" / "public"
         self.public.mkdir(parents=True)
-        (self.public / "index.md").write_text(
-            "---\ntitle: Example\ncategory: Blocks\nnav_order: 10\n---\n\n# Example\n",
-            encoding="utf-8",
-        )
+        self.write_valid_index(self.root)
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
+
+    def write_valid_index(self, repository_root: Path, title: str = "Example") -> None:
+        public = repository_root / "docs" / "public"
+        images = public / "images"
+        images.mkdir(parents=True, exist_ok=True)
+        images.joinpath("example-overview.png").write_bytes(
+            b"\x89PNG\r\n\x1a\n"
+            + struct.pack(">I", 13)
+            + b"IHDR"
+            + struct.pack(">II", 1280, 800)
+            + b"\x08\x02\x00\x00\x00"
+        )
+        public.joinpath("index.md").write_text(
+            f"""---
+title: {title}
+category: Blocks
+nav_order: 10
+---
+
+# {title}
+
+Example helps Moodle administrators complete a documented workflow.
+
+## Key features
+
+- Provides one clear example capability.
+
+## Screenshots
+
+![Example product overview](images/example-overview.png)
+*The example workflow shown in Moodle.*
+
+All people and content shown are fictional demonstration data.
+
+## Requirements
+
+- A supported Moodle site.
+
+## Installation
+
+Download the ZIP from the [Moodle Marketplace](https://marketplace.moodle.com/plugins/block_example), then install it through **Site administration > Plugins > Install plugins**.
+
+## Configuration and use
+
+Configure the example from its Moodle settings page.
+
+## Privacy and permissions
+
+The example stores no personal data and uses Moodle capabilities.
+
+## Troubleshooting
+
+- Confirm the plugin is enabled if the example is unavailable.
+
+## Support and licence
+
+- [Report a product problem](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=product-bug.yml)
+- [Report a documentation problem](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml)
+- [Pukunui Malaysia support](https://pukunui.com/location/malaysia/)
+
+The software is licensed under the GNU General Public License v3 or later. Documentation is licensed under CC BY 4.0.
+""",
+            encoding="utf-8",
+        )
 
     def inventory_entry(
         self,
@@ -111,7 +161,7 @@ class SyncDocsTest(unittest.TestCase):
         self.assertNotEqual(added, updated)
         self.assertEqual(initial, deleted)
 
-    def test_private_source_navigation_omits_repository_link(self) -> None:
+    def test_navigation_omits_repository_provenance(self) -> None:
         rendered = sync_docs.inject_navigation(
             (self.public / "index.md").read_text(encoding="utf-8"),
             repository="moodle-block_example",
@@ -119,14 +169,12 @@ class SyncDocsTest(unittest.TestCase):
             category="Blocks",
             nav_order=10,
             relative=Path("index.md"),
-            source_commit="a" * 40,
-            source_public=False,
             availability="commercial-active",
-            has_children=True,
+            has_children=False,
         )
         self.assertIn('parent: "Blocks"', rendered)
         self.assertIn("permalink: /products/moodle-block_example/", rendered)
-        self.assertIn("Source revision: `aaaaaaaaaaaa`", rendered)
+        self.assertNotIn("Source revision", rendered)
         self.assertNotIn("moodle-block_example/commit", rendered)
 
     def test_legacy_source_gets_public_status_notice(self) -> None:
@@ -137,13 +185,11 @@ class SyncDocsTest(unittest.TestCase):
             category="Blocks",
             nav_order=10,
             relative=Path("index.md"),
-            source_commit="a" * 40,
-            source_public=True,
             availability="commercial-legacy",
             has_children=False,
         )
         self.assertIn("**Legacy product:**", rendered)
-        self.assertIn("moodle-block_example/commit/", rendered)
+        self.assertNotIn("moodle-block_example/commit/", rendered)
 
     def test_inventory_requires_known_product_availability(self) -> None:
         with self.assertRaisesRegex(sync_docs.SyncError, "must define product_availability"):
@@ -207,12 +253,9 @@ class SyncDocsTest(unittest.TestCase):
         sources = self.root / "sources"
         data.mkdir(parents=True)
         products.mkdir()
-        source_public = sources / "moodle-block_example" / "docs" / "public"
-        source_public.mkdir(parents=True)
-        source_public.joinpath("index.md").write_text(
-            (self.public / "index.md").read_text(encoding="utf-8"),
-            encoding="utf-8",
-        )
+        source_root = sources / "moodle-block_example"
+        self.write_valid_index(source_root)
+        source_public = source_root / "docs" / "public"
         (products / "moodle-block_example").mkdir()
         (products / "moodle-block_retired").mkdir()
         old = {
