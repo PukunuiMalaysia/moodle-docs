@@ -31,6 +31,12 @@ jobs:
       - name: Check generated links
         run: python3 scripts/check_links.py _site /moodle-docs
 
+      - name: Check public image signatures and dimensions
+        run: python3 scripts/image_checks.py products
+
+      - name: Audit external links
+        run: python3 scripts/check_external_links.py _site
+
       - name: Reject internal or sensitive paths
         run: |
           if find products -type l -print -quit | grep -q .; then

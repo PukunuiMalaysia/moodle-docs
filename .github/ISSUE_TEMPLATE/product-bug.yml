@@ -1,5 +1,5 @@
 name: Product bug
-description: Report unexpected behaviour in a documented Pukunui Moodle product.
+description: Report unexpected behaviour in a documented Pukunui product.
 title: "[Bug]: "
 labels: [bug]
 body:
@@ -7,14 +7,15 @@ body:
     id: product
     attributes:
       label: Product and version
-      placeholder: moodle-theme_boleh 5.3.2
+      placeholder: Boleh 5.3.2
     validations:
       required: true
   - type: input
-    id: moodle
+    id: platform
     attributes:
-      label: Moodle version
-      placeholder: Moodle 5.2.1
+      label: Platform version
+      description: Enter the Moodle or Chrome version relevant to the problem.
+      placeholder: Moodle 5.2.1 or Chrome 140
     validations:
       required: true
   - type: textarea

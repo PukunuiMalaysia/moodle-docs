@@ -15,6 +15,11 @@ import subprocess
 import tempfile
 from typing import Any
 
+try:
+    from .public_docs_contract import validate_docs_tree
+except ImportError:  # Direct script execution.
+    from public_docs_contract import validate_docs_tree
+
 
 ORGANIZATION = "PukunuiMalaysia"
 PRODUCT_AVAILABILITY_PROPERTY = "product_availability"
@@ -386,8 +391,6 @@ def inject_navigation(
     category: str,
     nav_order: int,
     relative: Path,
-    source_commit: str,
-    source_public: bool,
     availability: str,
     has_children: bool,
 ) -> str:
@@ -421,18 +424,6 @@ def inject_navigation(
             + body.lstrip()
         )
     rendered += body
-    if relative.as_posix() == "index.md":
-        if source_public:
-            source_url = f"https://github.com/{ORGANIZATION}/{repository}/commit/{source_commit}"
-            source = f"Source: [{repository} at `{source_commit[:12]}`]({source_url})."
-        else:
-            source = f"Source revision: `{source_commit[:12]}`."
-        rendered = rendered.rstrip() + (
-            "\n\n---\n\n"
-            f"{source} "
-            "[Report a documentation issue]"
-            f"(https://github.com/{ORGANIZATION}/moodle-docs/issues/new?template=documentation.yml).\n"
-        )
     return rendered
 
 
@@ -445,6 +436,12 @@ def sync_repository(
     """Validate and render one source repository."""
     public_root = source / "docs" / "public"
     files = validate_public_tree(public_root)
+    contract = validate_docs_tree(source, item["repository"], item["availability"])
+    if contract.errors:
+        raise SyncError(
+            f"{item['repository']} public documentation contract failed: "
+            + "; ".join(contract.errors)
+        )
     digest = content_digest(public_root)
     previous = old_provenance.get(item["repository"], {})
     if (
@@ -470,8 +467,6 @@ def sync_repository(
                 category=item["category"],
                 nav_order=item["nav_order"],
                 relative=relative,
-                source_commit=source_commit,
-                source_public=item["source_public"],
                 availability=item["availability"],
                 has_children=len(markdown_files) > 1,
             )
@@ -651,6 +646,12 @@ def synchronize(
                 if not source.is_dir():
                     raise SyncError(f"Missing local source repository: {source}")
             validate_public_tree(source / "docs" / "public")
+            contract = validate_docs_tree(source, repository, item["availability"])
+            if contract.errors:
+                raise SyncError(
+                    f"{repository} public documentation contract failed: "
+                    + "; ".join(contract.errors)
+                )
             item.update(source_metadata(source / "docs" / "public", repository))
             source_items.append((item, source))
 

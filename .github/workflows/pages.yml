@@ -39,6 +39,12 @@ jobs:
       - name: Check generated links
         run: python3 scripts/check_links.py _site "${{ steps.pages.outputs.base_path }}"
 
+      - name: Check public image signatures and dimensions
+        run: python3 scripts/image_checks.py products
+
+      - name: Audit external links
+        run: python3 scripts/check_external_links.py _site
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
 

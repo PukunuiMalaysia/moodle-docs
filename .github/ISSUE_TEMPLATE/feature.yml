@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest an improvement to a documented Pukunui Moodle product.
+description: Suggest an improvement to a documented Pukunui product.
 title: "[Feature]: "
 labels: [enhancement]
 body:
@@ -7,6 +7,7 @@ body:
     id: product
     attributes:
       label: Product
+      placeholder: QuickNav LMS by Pukunui
     validations:
       required: true
   - type: textarea
