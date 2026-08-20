@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
+from html.parser import HTMLParser
 from pathlib import Path
 import re
 import sys
@@ -14,15 +15,34 @@ from urllib.request import Request, urlopen
 
 
 MARKDOWN_URL = re.compile(r"(?<!!)\[[^\]]+\]\((https?://[^)\s]+)(?:\s+[^)]*)?\)")
-HTML_URL = re.compile(r"(?:href|src)=[\"'](https?://[^\"']+)[\"']", re.IGNORECASE)
 STABLE_FAILURES = frozenset({404, 410})
+
+
+class ExternalURLParser(HTMLParser):
+    """Collect rendered external links without auditing page metadata."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.urls: set[str] = set()
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {key.lower(): value for key, value in attrs if value is not None}
+        if tag.lower() == "link" and "canonical" in values.get("rel", "").lower().split():
+            return
+        for attribute in ("href", "src"):
+            value = values.get(attribute, "")
+            if value.startswith(("http://", "https://")):
+                self.urls.add(value.replace("&amp;", "&"))
 
 
 def extract_urls(path: Path) -> set[str]:
     """Extract external links from Markdown or rendered HTML."""
     text = path.read_text(encoding="utf-8")
-    pattern = HTML_URL if path.suffix.lower() in {".html", ".htm"} else MARKDOWN_URL
-    return {match.group(1).replace("&amp;", "&") for match in pattern.finditer(text)}
+    if path.suffix.lower() in {".html", ".htm"}:
+        parser = ExternalURLParser()
+        parser.feed(text)
+        return parser.urls
+    return {match.group(1).replace("&amp;", "&") for match in MARKDOWN_URL.finditer(text)}
 
 
 def collect_urls(paths: list[Path]) -> dict[str, list[Path]]:

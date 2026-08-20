@@ -32,6 +32,14 @@
     "title": "Scratchpad activity"
   },
   {
+    "availability": "commercial-active",
+    "branch": "main",
+    "category": "Themes",
+    "nav_order": 10,
+    "repository": "moodle-theme_boleh",
+    "title": "Boleh"
+  },
+  {
     "availability": "public-free",
     "branch": "main",
     "category": "Related tools",
