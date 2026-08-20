@@ -165,6 +165,26 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertEqual("error", check_external_links.classify_status(404))
         self.assertEqual("warning", check_external_links.classify_status(429))
 
+    def test_external_link_extraction_ignores_canonical_metadata(self) -> None:
+        page = self.root / "rendered.html"
+        page.write_text(
+            """<html><head>
+<link rel="canonical" href="https://docs.example.test/new-page/">
+</head><body>
+<a href="https://support.example.test/help">Help</a>
+<img src="https://cdn.example.test/example.png" alt="Example">
+</body></html>
+""",
+            encoding="utf-8",
+        )
+        self.assertEqual(
+            {
+                "https://support.example.test/help",
+                "https://cdn.example.test/example.png",
+            },
+            check_external_links.extract_urls(page),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
