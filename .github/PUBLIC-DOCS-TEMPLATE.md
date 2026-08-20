@@ -32,7 +32,7 @@ All people and content shown are fictional demonstration data.
 
 ## Installation
 
-[For a Moodle plugin: link to its verified Moodle Marketplace page, download the ZIP, and install it through **Site administration > Plugins > Install plugins**. For a browser extension: link to its official Chrome Web Store page.]
+[For a pre-release Moodle plugin: state that Marketplace publication is pending and explain that a provided pre-release ZIP can be installed through **Site administration > Plugins > Install plugins**. For another published Moodle plugin: link to its verified Moodle Marketplace page, download the ZIP, and install it through **Site administration > Plugins > Install plugins**. For a browser extension: link to its official Chrome Web Store page.]
 
 ## Configuration and use
 

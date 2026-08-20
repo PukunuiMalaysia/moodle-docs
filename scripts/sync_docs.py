@@ -25,10 +25,10 @@ ORGANIZATION = "PukunuiMalaysia"
 PRODUCT_AVAILABILITY_PROPERTY = "product_availability"
 DOCS_BRANCH_PROPERTY = "docs_branch"
 PUBLIC_AVAILABILITIES = frozenset(
-    {"commercial-active", "commercial-legacy", "public-free"}
+    {"commercial-active", "commercial-legacy", "pre-release", "public-free"}
 )
 PRODUCT_AVAILABILITIES = PUBLIC_AVAILABILITIES | frozenset(
-    {"pre-release", "internal-only", "retired", "not-a-product"}
+    {"in-development", "internal-only", "retired", "not-a-product"}
 )
 CATEGORY_ORDER = (
     "Blocks",
@@ -421,6 +421,12 @@ def inject_navigation(
         body = (
             "\n> **Legacy product:** This documentation is retained for supported existing "
             "installations. Contact Pukunui before planning a new deployment.\n\n"
+            + body.lstrip()
+        )
+    elif relative.as_posix() == "index.md" and availability == "pre-release":
+        body = (
+            "\n> **Pre-release product:** This product is ready for release and awaiting "
+            "Marketplace publication. Its Marketplace listing may not yet be available.\n\n"
             + body.lstrip()
         )
     rendered += body
