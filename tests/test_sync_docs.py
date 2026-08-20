@@ -5,6 +5,7 @@ from pathlib import Path
 import struct
 import tempfile
 import unittest
+from unittest import mock
 
 from scripts import check_links, sync_docs
 
@@ -191,6 +192,20 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertIn("**Legacy product:**", rendered)
         self.assertNotIn("moodle-block_example/commit/", rendered)
 
+    def test_pre_release_source_gets_public_status_notice(self) -> None:
+        rendered = sync_docs.inject_navigation(
+            (self.public / "index.md").read_text(encoding="utf-8"),
+            repository="moodle-block_example",
+            title="Example",
+            category="Blocks",
+            nav_order=10,
+            relative=Path("index.md"),
+            availability="pre-release",
+            has_children=False,
+        )
+        self.assertIn("**Pre-release product:**", rendered)
+        self.assertIn("Marketplace listing may not yet be available", rendered)
+
     def test_inventory_requires_known_product_availability(self) -> None:
         with self.assertRaisesRegex(sync_docs.SyncError, "must define product_availability"):
             sync_docs.normalize_inventory(
@@ -208,6 +223,46 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         entry["properties"]["docs_branch"] = "../unsafe"  # type: ignore[index]
         with self.assertRaisesRegex(sync_docs.SyncError, "Invalid docs_branch"):
             sync_docs.normalize_inventory([entry])
+
+    def test_pre_release_is_published_and_in_development_is_not(self) -> None:
+        central = self.root / "central"
+        data = central / "_data"
+        products = central / "products"
+        sources = self.root / "sources"
+        data.mkdir(parents=True)
+        products.mkdir()
+        pre_release = sources / "moodle-block_prerelease"
+        self.write_valid_index(pre_release, "Pre-release")
+        index = pre_release / "docs" / "public" / "index.md"
+        text = index.read_text(encoding="utf-8").replace(
+            "Download the ZIP from the [Moodle Marketplace]"
+            "(https://marketplace.moodle.com/plugins/block_example), then install it",
+            "Marketplace publication is pending. If you have been provided with the "
+            "pre-release ZIP, install it",
+        )
+        index.write_text(text, encoding="utf-8")
+        data.joinpath("provenance.yml").write_text("{}", encoding="utf-8")
+        data.joinpath("repositories.yml").write_text("[]", encoding="utf-8")
+        inventory = self.root / "inventory.json"
+        inventory.write_text(
+            json.dumps(
+                [
+                    self.inventory_entry("moodle-block_prerelease", "pre-release"),
+                    self.inventory_entry("moodle-block_development", "in-development"),
+                ]
+            ),
+            encoding="utf-8",
+        )
+
+        with mock.patch.object(sync_docs, "docs_commit", return_value="d" * 40):
+            result = sync_docs.synchronize(central, sources, inventory)
+
+        self.assertEqual(["moodle-block_prerelease"], result["added"])
+        self.assertEqual(1, result["public_repository_count"])
+        self.assertTrue((products / "moodle-block_prerelease" / "index.md").is_file())
+        self.assertFalse((products / "moodle-block_development").exists())
+        provenance = json.loads(data.joinpath("provenance.yml").read_text(encoding="utf-8"))
+        self.assertEqual("pre-release", provenance["moodle-block_prerelease"]["availability"])
 
     def test_duplicate_navigation_order_is_rejected(self) -> None:
         with self.assertRaisesRegex(sync_docs.SyncError, "Duplicate nav_order"):

@@ -18,9 +18,12 @@ except ModuleNotFoundError:  # Direct execution adds scripts/, not its parent, t
 
 
 PUBLIC_AVAILABILITIES = frozenset(
+    {"commercial-active", "commercial-legacy", "pre-release", "public-free"}
+)
+MARKETPLACE_AVAILABILITIES = frozenset(
     {"commercial-active", "commercial-legacy", "public-free"}
 )
-PRODUCT_DOC_AVAILABILITIES = PUBLIC_AVAILABILITIES | frozenset({"pre-release"})
+PRODUCT_DOC_AVAILABILITIES = PUBLIC_AVAILABILITIES
 REQUIRED_HEADINGS = (
     "Key features",
     "Screenshots",
@@ -323,18 +326,27 @@ def validate_docs_tree(
             )
     else:
         if "ZIP" not in installation:
-            result.errors.append("Moodle installation must describe the Marketplace ZIP")
+            result.errors.append("Moodle installation must describe the plugin ZIP")
         if "Site administration > Plugins > Install plugins" not in installation:
             result.errors.append(
                 "Moodle installation must use Site administration > Plugins > Install plugins"
             )
+        if availability == "pre-release" and not (
+            re.search(r"Marketplace", installation, re.IGNORECASE)
+            and re.search(r"awaiting|not yet|pending", installation, re.IGNORECASE)
+        ):
+            result.errors.append(
+                "Pre-release installation must state that Marketplace publication is pending"
+            )
         expected_marketplace = marketplace_url(repository)
-        if expected_marketplace and expected_marketplace not in installation:
-            finding = f"Installation does not link to the verified Marketplace page: {expected_marketplace}"
-            if availability in PUBLIC_AVAILABILITIES:
-                result.errors.append(finding)
-            else:
-                result.warnings.append(finding)
+        if (
+            expected_marketplace
+            and availability in MARKETPLACE_AVAILABILITIES
+            and expected_marketplace not in installation
+        ):
+            result.errors.append(
+                f"Installation does not link to the verified Marketplace page: {expected_marketplace}"
+            )
 
     licence = section(body, "Support and licence", None)
     if not re.search(r"\blicen[cs]", licence, re.IGNORECASE):

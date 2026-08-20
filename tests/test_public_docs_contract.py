@@ -140,14 +140,45 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertTrue(any("deprecated Malaysia" in error for error in errors))
         self.assertTrue(any("source commit" in error for error in errors))
 
-    def test_public_marketplace_link_is_required(self) -> None:
+    def test_marketplace_link_is_required_for_listed_products(self) -> None:
         index = self.root / "docs" / "public" / "index.md"
         index.write_text(self.valid_text("https://example.com/product"), encoding="utf-8")
-        result = self.validate("commercial-active")
-        self.assertTrue(any("verified Marketplace" in error for error in result.errors))
+        for availability in (
+            "commercial-active",
+            "commercial-legacy",
+            "public-free",
+        ):
+            with self.subTest(availability=availability):
+                result = self.validate(availability)
+                self.assertTrue(
+                    any("verified Marketplace" in error for error in result.errors)
+                )
+
+    def test_pre_release_does_not_require_a_marketplace_link(self) -> None:
+        index = self.root / "docs" / "public" / "index.md"
+        text = self.valid_text().replace(
+            "Download the ZIP from the [Moodle Marketplace]"
+            "(https://marketplace.moodle.com/plugins/block_example), then install it",
+            "Marketplace publication is pending. If you have been provided with the "
+            "pre-release ZIP, install it",
+        )
+        index.write_text(text, encoding="utf-8")
         result = self.validate("pre-release")
-        self.assertFalse(any("verified Marketplace" in error for error in result.errors))
-        self.assertTrue(any("verified Marketplace" in warning for warning in result.warnings))
+        self.assertEqual([], result.errors)
+        self.assertEqual([], result.warnings)
+
+    def test_pre_release_must_explain_pending_marketplace_publication(self) -> None:
+        index = self.root / "docs" / "public" / "index.md"
+        text = self.valid_text().replace(
+            "Download the ZIP from the [Moodle Marketplace]"
+            "(https://marketplace.moodle.com/plugins/block_example), then install it",
+            "If you have been provided with the pre-release ZIP, install it",
+        )
+        index.write_text(text, encoding="utf-8")
+        result = self.validate("pre-release")
+        self.assertTrue(
+            any("Marketplace publication is pending" in error for error in result.errors)
+        )
 
     def test_alphabetical_navigation_uses_tens(self) -> None:
         alpha = contract.ContractResult(

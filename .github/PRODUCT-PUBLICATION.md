@@ -6,20 +6,25 @@ The documentation workflow discovers repositories through the read-only GitHub A
 
 Every repository selected in the App installation must have these organization custom properties:
 
-- `product_availability`: a required single-select value. Valid values are `commercial-active`, `commercial-legacy`, `public-free`, `pre-release`, `internal-only`, `retired`, and `not-a-product`.
+- `product_availability`: a required single-select value. Valid values are `commercial-active`, `commercial-legacy`, `public-free`, `pre-release`, `in-development`, `internal-only`, `retired`, and `not-a-product`.
 - `docs_branch`: an optional string. When empty, the repository default branch is used.
 
-Only `commercial-active`, `commercial-legacy`, and `public-free` are published. All other values are nonpublic states.
+The publication lifecycle is:
+
+- `in-development`: active product work that is not ready for release; documentation remains nonpublic.
+- `pre-release`: release-ready work being prepared for or awaiting Marketplace publication; documentation is published without requiring a Marketplace URL.
+- `commercial-active`, `commercial-legacy`, and `public-free`: published products whose documentation must link to their verified Marketplace or store listing where applicable.
+- `internal-only`, `retired`, and `not-a-product`: nonpublic states.
 
 A product-facing repository must use the single-page documentation contract. It provides exactly one documentation page at `docs/public/index.md` and may store approved screenshots under `docs/public/images/**`. No other files are allowed beneath `docs/**`; additional guides, PDFs, maintainer notes, and `docs/internal/**` are prohibited.
 
 The source index owns its public `title`, `category`, and positive `nav_order` in front matter. Its H2 headings must be, in order: **Key features**, **Screenshots**, **Requirements**, **Installation**, **Configuration and use**, **Privacy and permissions**, **Troubleshooting**, and **Support and licence**. Product-specific detail belongs under H3 headings on the same page.
 
-Public documentation must describe Marketplace ZIP installation for Moodle plugins and official Chrome Web Store installation for browser extensions. It must not contain source repository, commit, branch, filesystem deployment, Composer, npm, or shell instructions. Public issue links may point to the central `moodle-docs` tracker, but must identify products by their public names rather than repository names.
+Public documentation must describe ZIP installation through Moodle's plugin installer for Moodle plugins and official Chrome Web Store installation for browser extensions. A pre-release Moodle plugin must state that Marketplace publication is pending and explain how to install a provided pre-release ZIP; it does not require a Marketplace URL. Other published Moodle plugins must link to their verified Marketplace page. Public documentation must not contain source repository, commit, branch, filesystem deployment, Composer, npm, or shell instructions. Public issue links may point to the central `moodle-docs` tracker, but must identify products by their public names rather than repository names.
 
 ## Promotional screenshots
 
-Every product with a user interface must maintain a reviewed promotional screenshot set. New or refreshed screenshots may be prepared while the repository's current `product_availability` is `commercial-active`, `commercial-legacy`, `public-free`, or `pre-release`. Pre-release assets remain nonpublic until the product moves to a publishable state. A later transition to another nonpublic state does not require deleting historical source assets; synchronization stops publishing the complete product route through the normal retirement process.
+Every product with a user interface must maintain a reviewed promotional screenshot set. New or refreshed screenshots may be prepared while the repository's current `product_availability` is `commercial-active`, `commercial-legacy`, `public-free`, or `pre-release`. Pre-release assets are published with the rest of the release-ready documentation. A later transition to a nonpublic state does not require deleting historical source assets; synchronization stops publishing the complete product route through the normal retirement process.
 
 The screenshot set must:
 
@@ -42,7 +47,7 @@ The nightly or manually dispatched workflow:
 1. creates a read-only token covering all repositories selected in the App installation;
 2. enumerates that exact installation scope and reads each repository's custom-property values;
 3. fails without changing generated files if any previously published repository is no longer accessible;
-4. clones and validates only repositories in a public availability state;
+4. clones and validates only repositories in a publishable availability state, including `pre-release`;
 5. generates `products/**`, `_data/repositories.yml`, and `_data/provenance.yml` as one complete snapshot; and
 6. opens or updates the protected synchronization pull request.
 
