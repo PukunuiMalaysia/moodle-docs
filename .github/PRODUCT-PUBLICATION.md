@@ -7,7 +7,7 @@ The documentation workflow discovers repositories through the read-only GitHub A
 Every repository selected in the App installation must have these organization custom properties:
 
 - `product_availability`: a required single-select value. Valid values are `commercial-active`, `commercial-legacy`, `public-free`, `pre-release`, `in-development`, `internal-only`, `retired`, and `not-a-product`.
-- `docs_branch`: an optional string. When empty, the repository default branch is used.
+- `docs_branch`: a legacy optional string retained as product-source provenance. When empty, the repository default branch is recorded. Documentation is never read from that branch.
 
 The publication lifecycle is:
 
@@ -16,9 +16,9 @@ The publication lifecycle is:
 - `commercial-active`, `commercial-legacy`, and `public-free`: published products whose documentation must link to their verified Marketplace or store listing where applicable.
 - `internal-only`, `retired`, and `not-a-product`: nonpublic states.
 
-A product-facing repository must use the single-page documentation contract. It provides exactly one documentation page at `docs/public/index.md` and may store approved screenshots under `docs/public/images/**`. No other files are allowed beneath `docs/**`; additional guides, PDFs, maintainer notes, and `docs/internal/**` are prohibited.
+A product's only editable public documentation lives in this repository at `content/products/<repository>/index.md`, with approved screenshots under `content/products/<repository>/images/**`. The product directory must contain exactly that single page and its referenced image files. Additional guides, PDFs, maintainer notes, and private material are prohibited. `products/**` is generated publication output and must not be edited by hand.
 
-The source index owns its public `title`, `category`, and positive `nav_order` in front matter. Its H2 headings must be, in order: **Key features**, **Screenshots**, **Requirements**, **Installation**, **Configuration and use**, **Privacy and permissions**, **Troubleshooting**, and **Support and licence**. Product-specific detail belongs under H3 headings on the same page.
+The central index owns its public `title`, `category`, and positive `nav_order` in front matter. Its H2 headings must be, in order: **Key features**, **Screenshots**, **Requirements**, **Installation**, **Configuration and use**, **Privacy and permissions**, **Troubleshooting**, and **Support and licence**. Product-specific detail belongs under H3 headings on the same page.
 
 Public documentation must describe ZIP installation through Moodle's plugin installer for Moodle plugins and official Chrome Web Store installation for browser extensions. A pre-release Moodle plugin must state that Marketplace publication is pending and explain how to install a provided pre-release ZIP; it does not require a Marketplace URL. Other published Moodle plugins must link to their verified Marketplace page. Public documentation must not contain source repository, commit, branch, filesystem deployment, Composer, npm, or shell instructions. Public issue links may point to the central `moodle-docs` tracker, but must identify products by their public names rather than repository names.
 
@@ -34,9 +34,9 @@ The screenshot set must:
 - use neutral branding, fictional demonstration data, and clean framing, with no personal or customer data, credentials, private or local URLs, debug output, diagnostic footers, distracting browser chrome, unrelated navigation, or implied third-party endorsement;
 - target a final canvas of at least 1280 x 800 where the interface supports it, use high-density capture for narrow panels and blocks, and never upscale a low-resolution source;
 - prefer PNG for text-heavy interfaces and use JPEG or WebP only when it remains sharp and free of visible compression; and
-- live as real, descriptively named kebab-case files under `docs/public/images/`, with no symlinks, and be linked from the index with meaningful alt text, an italic caption, and a fictional-data disclosure.
+- live as real, descriptively named kebab-case files under `content/products/<repository>/images/`, with no symlinks, and be linked from the index with meaningful alt text, an italic caption, and a fictional-data disclosure.
 
-Existing store-listing assets outside `docs/public/**` may be copied or reproducibly regenerated into `docs/public/images/`. Reviewers must inspect file signatures, dimensions, legibility, clipping, compression, factual accuracy, and full-resolution appearance.
+Existing store-listing assets may be copied or reproducibly regenerated into the central product image directory. Reviewers must inspect file signatures, dimensions, legibility, clipping, compression, factual accuracy, and full-resolution appearance.
 
 Screenshot coverage and advertising quality remain manual source-review requirements. Synchronization enforces the presence, location, reference, alt text, caption, and disclosure contract without attempting to judge subjective visual completeness.
 
@@ -47,9 +47,12 @@ The nightly or manually dispatched workflow:
 1. creates a read-only token covering all repositories selected in the App installation;
 2. enumerates that exact installation scope and reads each repository's custom-property values;
 3. fails without changing generated files if any previously published repository is no longer accessible;
-4. clones and validates only repositories in a publishable availability state, including `pre-release`;
-5. generates `products/**`, `_data/repositories.yml`, and `_data/provenance.yml` as one complete snapshot; and
-6. opens or updates the protected synchronization pull request.
+4. validates the matching central source for every repository in a publishable availability state, including `pre-release`;
+5. fails closed when an eligible product has no complete central source;
+6. generates `products/**`, `_data/repositories.yml`, and `_data/provenance.yml` as one complete snapshot; and
+7. opens or updates the protected synchronization pull request.
+
+Transient GitHub API connection errors and HTTP 502–504 responses are retried before the run fails. Contract, lifecycle, App-scope, and missing-content errors are not retried or weakened.
 
 Ordinary additions and updates remain visible for normal pull-request review. A change is classified as retirement-only only when one or more previously published repositories are removed and no public repository is added or updated. Retirement-only pull requests are configured for auto-merge after the required status check passes.
 
@@ -61,4 +64,10 @@ After that pull request merges and the Pages deployment for its merge commit suc
 
 Removing App access first is intentionally not interpreted as retirement. The workflow fails closed and preserves the last published snapshot until access is restored and an explicit state transition is synchronized.
 
-The initial migration from the fixed inventory can contain both additions and removals, so it is not retirement-only and must be reviewed as a normal synchronization pull request.
+The initial migration to central content can update provenance for every published product, so its generated snapshot must be reviewed as a normal synchronization pull request.
+
+## Adding or updating a product
+
+Create a focused change under `content/products/<repository>/**` using source-faithful information from the product's final publication branch and authentic local-runtime screenshots. Merge that central content change, set the repository's `product_availability` to the intended lifecycle state, and select the repository in the App installation. A manual synchronization run must then discover the repository, validate the central source, and expose the generated diff through the protected synchronization pull request.
+
+Product repositories may retain a concise README that directs readers to this public documentation hub. Do not maintain a second canonical `docs/public/**` tree or copy private and maintainer-only material into this repository.

@@ -1,9 +1,7 @@
 ---
 title: SocialLink
 category: Blocks
-parent: "Blocks"
 nav_order: 30
-permalink: /products/moodle-block_sociallink/
 ---
 
 # SocialLink

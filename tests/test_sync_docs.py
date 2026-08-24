@@ -14,16 +14,15 @@ class SyncDocsTest(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
-        self.public = self.root / "docs" / "public"
+        self.public = self.root / "product"
         self.public.mkdir(parents=True)
-        self.write_valid_index(self.root)
+        self.write_valid_index(self.public)
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
 
-    def write_valid_index(self, repository_root: Path, title: str = "Example") -> None:
-        public = repository_root / "docs" / "public"
-        images = public / "images"
+    def write_valid_index(self, product_root: Path, title: str = "Example") -> None:
+        images = product_root / "images"
         images.mkdir(parents=True, exist_ok=True)
         images.joinpath("example-overview.png").write_bytes(
             b"\x89PNG\r\n\x1a\n"
@@ -32,7 +31,7 @@ class SyncDocsTest(unittest.TestCase):
             + struct.pack(">II", 1280, 800)
             + b"\x08\x02\x00\x00\x00"
         )
-        public.joinpath("index.md").write_text(
+        product_root.joinpath("index.md").write_text(
             f"""---
 title: {title}
 category: Blocks
@@ -116,7 +115,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
             "category": "Blocks",
             "content_sha256": sync_docs.content_digest(public),
             "nav_order": 10,
-            "source_commit": "b" * 40,
+            "content_commit": "b" * 40,
             "synced_at": "2026-08-13T00:00:00+00:00",
             "title": "Example",
         }
@@ -141,7 +140,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         with self.assertRaisesRegex(sync_docs.SyncError, "requires front matter"):
             sync_docs.validate_public_tree(self.public)
 
-    def test_index_requires_source_owned_navigation_metadata(self) -> None:
+    def test_index_requires_centrally_owned_navigation_metadata(self) -> None:
         (self.public / "index.md").write_text(
             "---\ntitle: Example\nnav_order: 10\n---\n",
             encoding="utf-8",
@@ -178,7 +177,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertNotIn("Source revision", rendered)
         self.assertNotIn("moodle-block_example/commit", rendered)
 
-    def test_legacy_source_gets_public_status_notice(self) -> None:
+    def test_legacy_product_gets_public_status_notice(self) -> None:
         rendered = sync_docs.inject_navigation(
             (self.public / "index.md").read_text(encoding="utf-8"),
             repository="moodle-block_example",
@@ -192,7 +191,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertIn("**Legacy product:**", rendered)
         self.assertNotIn("moodle-block_example/commit/", rendered)
 
-    def test_pre_release_source_gets_public_status_notice(self) -> None:
+    def test_pre_release_product_gets_public_status_notice(self) -> None:
         rendered = sync_docs.inject_navigation(
             (self.public / "index.md").read_text(encoding="utf-8"),
             repository="moodle-block_example",
@@ -224,16 +223,37 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         with self.assertRaisesRegex(sync_docs.SyncError, "Invalid docs_branch"):
             sync_docs.normalize_inventory([entry])
 
+    def test_transient_github_failure_is_retried(self) -> None:
+        failure = mock.Mock(returncode=1, stderr="HTTP 503: unavailable", stdout="")
+        success = mock.Mock(returncode=0, stderr="", stdout='{"ok": true}\n')
+        with (
+            mock.patch.object(sync_docs.subprocess, "run", side_effect=[failure, success]) as runner,
+            mock.patch.object(sync_docs.time, "sleep") as sleep,
+        ):
+            output = sync_docs.run(["gh", "api", "example"])
+
+        self.assertEqual('{"ok": true}', output)
+        self.assertEqual(2, runner.call_count)
+        sleep.assert_called_once_with(1)
+
+    def test_permanent_github_failure_is_not_retried(self) -> None:
+        failure = mock.Mock(returncode=1, stderr="HTTP 404: not found", stdout="")
+        with mock.patch.object(sync_docs.subprocess, "run", return_value=failure) as runner:
+            with self.assertRaisesRegex(sync_docs.SyncError, "HTTP 404"):
+                sync_docs.run(["gh", "api", "example"])
+
+        runner.assert_called_once()
+
     def test_pre_release_is_published_and_in_development_is_not(self) -> None:
         central = self.root / "central"
         data = central / "_data"
         products = central / "products"
-        sources = self.root / "sources"
+        content = central / "content" / "products"
         data.mkdir(parents=True)
         products.mkdir()
-        pre_release = sources / "moodle-block_prerelease"
+        pre_release = content / "moodle-block_prerelease"
         self.write_valid_index(pre_release, "Pre-release")
-        index = pre_release / "docs" / "public" / "index.md"
+        index = pre_release / "index.md"
         text = index.read_text(encoding="utf-8").replace(
             "Download the ZIP from the [Moodle Marketplace]"
             "(https://marketplace.moodle.com/plugins/block_example), then install it",
@@ -254,8 +274,8 @@ The software is licensed under the GNU General Public License v3 or later. Docum
             encoding="utf-8",
         )
 
-        with mock.patch.object(sync_docs, "docs_commit", return_value="d" * 40):
-            result = sync_docs.synchronize(central, sources, inventory)
+        with mock.patch.object(sync_docs, "content_commit", return_value="d" * 40):
+            result = sync_docs.synchronize(central, inventory_path=inventory)
 
         self.assertEqual(["moodle-block_prerelease"], result["added"])
         self.assertEqual(1, result["public_repository_count"])
@@ -284,33 +304,34 @@ The software is licensed under the GNU General Public License v3 or later. Docum
     def test_previous_provenance_is_reused_for_unchanged_content(self) -> None:
         destination = self.root / "output"
         old = {"moodle-block_example": self.matching_provenance("moodle-block_example", self.public)}
-        result = sync_docs.sync_repository(
-            {
-                "repository": "moodle-block_example",
-                "title": "Example",
-                "category": "Blocks",
-                "nav_order": 10,
-                "availability": "commercial-active",
-                "branch": "main",
-                "source_public": False,
-            },
-            self.root,
-            destination,
-            old,
-        )
-        self.assertEqual("b" * 40, result["source_commit"])
+        with mock.patch.object(sync_docs, "content_commit", return_value="b" * 40):
+            result = sync_docs.sync_repository(
+                {
+                    "repository": "moodle-block_example",
+                    "title": "Example",
+                    "category": "Blocks",
+                    "nav_order": 10,
+                    "availability": "commercial-active",
+                    "branch": "main",
+                    "source_public": False,
+                },
+                self.public,
+                destination,
+                old,
+                self.root,
+            )
+        self.assertEqual("b" * 40, result["content_commit"])
         self.assertEqual("2026-08-13T00:00:00+00:00", result["synced_at"])
 
     def test_explicit_nonpublic_state_deletes_docs_and_is_retirement_only(self) -> None:
         central = self.root / "central"
         data = central / "_data"
         products = central / "products"
-        sources = self.root / "sources"
+        content = central / "content" / "products"
         data.mkdir(parents=True)
         products.mkdir()
-        source_root = sources / "moodle-block_example"
-        self.write_valid_index(source_root)
-        source_public = source_root / "docs" / "public"
+        source_public = content / "moodle-block_example"
+        self.write_valid_index(source_public)
         (products / "moodle-block_example").mkdir()
         (products / "moodle-block_retired").mkdir()
         old = {
@@ -323,7 +344,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
                 "category": "Blocks",
                 "content_sha256": "c" * 64,
                 "nav_order": 20,
-                "source_commit": "c" * 40,
+                "content_commit": "c" * 40,
                 "synced_at": "2026-08-13T00:00:00+00:00",
                 "title": "Retired",
             },
@@ -341,7 +362,8 @@ The software is licensed under the GNU General Public License v3 or later. Docum
             encoding="utf-8",
         )
 
-        result = sync_docs.synchronize(central, sources, inventory)
+        with mock.patch.object(sync_docs, "content_commit", return_value="b" * 40):
+            result = sync_docs.synchronize(central, inventory_path=inventory)
 
         self.assertTrue(result["retirement_only"])
         self.assertEqual(["moodle-block_retired"], result["removed"])
@@ -355,7 +377,6 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         central = self.root / "central"
         data = central / "_data"
         products = central / "products" / "moodle-block_retired"
-        sources = self.root / "sources"
         data.mkdir(parents=True)
         products.mkdir(parents=True)
         data.joinpath("provenance.yml").write_text(
@@ -365,7 +386,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
                         "availability": "commercial-active",
                         "branch": "main",
                         "content_sha256": "c" * 64,
-                        "source_commit": "c" * 40,
+                        "content_commit": "c" * 40,
                         "synced_at": "2026-08-13T00:00:00+00:00",
                     }
                 }
@@ -377,9 +398,29 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         inventory.write_text("[]", encoding="utf-8")
 
         with self.assertRaisesRegex(sync_docs.SyncError, "no longer accessible"):
-            sync_docs.synchronize(central, sources, inventory)
+            sync_docs.synchronize(central, inventory_path=inventory)
 
         self.assertTrue(products.is_dir())
+
+    def test_missing_central_source_fails_without_replacing_generated_docs(self) -> None:
+        central = self.root / "central"
+        data = central / "_data"
+        product = central / "products" / "moodle-block_example"
+        data.mkdir(parents=True)
+        product.mkdir(parents=True)
+        product.joinpath("index.md").write_text("published\n", encoding="utf-8")
+        data.joinpath("provenance.yml").write_text("{}", encoding="utf-8")
+        data.joinpath("repositories.yml").write_text("[]", encoding="utf-8")
+        inventory = self.root / "inventory.json"
+        inventory.write_text(
+            json.dumps([self.inventory_entry("moodle-block_example", "commercial-active")]),
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(sync_docs.SyncError, "Missing required directory"):
+            sync_docs.synchronize(central, inventory_path=inventory)
+
+        self.assertEqual("published\n", product.joinpath("index.md").read_text(encoding="utf-8"))
 
     def test_public_metadata_change_is_not_retirement_only(self) -> None:
         old = {

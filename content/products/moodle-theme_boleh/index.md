@@ -1,12 +1,8 @@
 ---
 title: Boleh
 category: Themes
-parent: "Themes"
 nav_order: 10
-permalink: /products/moodle-theme_boleh/
 ---
-
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
 
 # Boleh
 

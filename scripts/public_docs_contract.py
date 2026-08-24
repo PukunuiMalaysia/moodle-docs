@@ -170,36 +170,32 @@ def normalized_image_target(target: str) -> PurePosixPath | None:
 
 
 def validate_docs_tree(
-    repository_root: Path,
+    product_root: Path,
     repository: str,
     availability: str,
 ) -> ContractResult:
-    """Validate one source repository against the single-page contract."""
+    """Validate one central product source against the single-page contract."""
     result = ContractResult(repository=repository)
-    docs = repository_root / "docs"
-    public = docs / "public"
-    index = public / "index.md"
+    index = product_root / "index.md"
 
-    if not docs.is_dir() or docs.is_symlink():
-        result.errors.append("missing required docs directory")
+    if not product_root.is_dir() or product_root.is_symlink():
+        result.errors.append("missing required central product directory")
         return result
     if not index.is_file() or index.is_symlink():
-        result.errors.append("missing required docs/public/index.md")
+        result.errors.append("missing required central index.md")
 
-    for path in sorted(docs.rglob("*")):
-        relative = path.relative_to(docs)
+    for path in sorted(product_root.rglob("*")):
+        relative = path.relative_to(product_root)
         if path.is_symlink():
-            result.errors.append(f"symlink is not allowed beneath docs: {relative}")
+            result.errors.append(f"symlink is not allowed beneath central product content: {relative}")
             continue
         if path.is_dir():
-            if relative == Path("internal") or relative.parts[:1] == ("internal",):
-                result.errors.append(f"docs/internal is prohibited: {relative}")
             continue
-        if relative == Path("public/index.md"):
+        if relative == Path("index.md"):
             continue
         if (
-            len(relative.parts) >= 3
-            and relative.parts[:2] == ("public", "images")
+            len(relative.parts) >= 2
+            and relative.parts[:1] == ("images",)
             and path.suffix.lower() in IMAGE_SUFFIXES
         ):
             if not KEBAB_IMAGE.fullmatch(path.name):
@@ -215,7 +211,7 @@ def validate_docs_tree(
     try:
         text = index.read_text(encoding="utf-8")
     except UnicodeDecodeError:
-        result.errors.append("docs/public/index.md is not valid UTF-8")
+        result.errors.append("central index.md is not valid UTF-8")
         return result
 
     front_match = FRONT_MATTER.match(text)
@@ -273,9 +269,9 @@ def validate_docs_tree(
             result.errors.append(f"screenshot has empty alt text: {target}")
         pure = normalized_image_target(target)
         if pure is None:
-            result.errors.append(f"screenshot must use a safe docs/public/images path: {target}")
+            result.errors.append(f"screenshot must use a safe images path: {target}")
         else:
-            source = public.joinpath(*pure.parts)
+            source = product_root.joinpath(*pure.parts)
             if not source.is_file() or source.is_symlink():
                 result.errors.append(f"referenced screenshot does not exist: {target}")
         following = screenshot_body[image.end() :]
@@ -428,12 +424,12 @@ def print_results(results: list[ContractResult], navigation_errors: list[str]) -
 def parse_args() -> argparse.Namespace:
     """Parse CLI arguments."""
     parser = argparse.ArgumentParser(description=__doc__)
-    single = parser.add_argument_group("single repository")
-    single.add_argument("--source", type=Path, help="source repository root")
-    single.add_argument("--repository", help="source repository name")
+    single = parser.add_argument_group("single product")
+    single.add_argument("--source", type=Path, help="central product source directory")
+    single.add_argument("--repository", help="product repository identity")
     single.add_argument("--availability", help="product_availability value")
     inventory = parser.add_argument_group("inventory audit")
-    inventory.add_argument("--local-root", type=Path, help="parent of local repositories")
+    inventory.add_argument("--content-root", type=Path, help="central content/products directory")
     inventory.add_argument("--inventory", type=Path, help="reviewed JSON inventory")
     return parser.parse_args()
 
@@ -446,8 +442,8 @@ def main() -> int:
             raise SystemExit("--source, --repository and --availability must be used together")
         result = validate_docs_tree(args.source, args.repository, args.availability)
         return print_results([result], [])
-    if not (args.local_root and args.inventory):
-        raise SystemExit("use either the single-repository arguments or --local-root with --inventory")
+    if not (args.content_root and args.inventory):
+        raise SystemExit("use either the single-product arguments or --content-root with --inventory")
     try:
         raw = json.loads(args.inventory.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
@@ -465,7 +461,7 @@ def main() -> int:
         if availability not in PRODUCT_DOC_AVAILABILITIES:
             continue
         results.append(
-            validate_docs_tree(args.local_root / repository, repository, availability)
+            validate_docs_tree(args.content_root / repository, repository, availability)
         )
     return print_results(results, validate_navigation_order(results))
 

@@ -13,6 +13,7 @@ class PublicDocsContractTest(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
+        self.product = self.root / "moodle-block_example"
         self.write_valid_index()
 
     def tearDown(self) -> None:
@@ -70,8 +71,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
 """
 
     def write_valid_index(self) -> None:
-        public = self.root / "docs" / "public"
-        images = public / "images"
+        images = self.product / "images"
         images.mkdir(parents=True)
         images.joinpath("example-overview.png").write_bytes(
             b"\x89PNG\r\n\x1a\n"
@@ -80,11 +80,11 @@ The software is licensed under the GNU General Public License v3 or later. Docum
             + struct.pack(">II", 1280, 800)
             + b"\x08\x02\x00\x00\x00"
         )
-        public.joinpath("index.md").write_text(self.valid_text(), encoding="utf-8")
+        self.product.joinpath("index.md").write_text(self.valid_text(), encoding="utf-8")
 
     def validate(self, availability: str = "commercial-active") -> contract.ContractResult:
         return contract.validate_docs_tree(
-            self.root, "moodle-block_example", availability
+            self.product, "moodle-block_example", availability
         )
 
     def test_valid_single_page_contract_passes(self) -> None:
@@ -93,7 +93,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertEqual([], result.warnings)
 
     def test_reordered_headings_are_rejected(self) -> None:
-        index = self.root / "docs" / "public" / "index.md"
+        index = self.product / "index.md"
         text = index.read_text(encoding="utf-8")
         text = text.replace("## Requirements", "## Temporary").replace(
             "## Installation", "## Requirements"
@@ -102,18 +102,18 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertTrue(any("required order" in error for error in self.validate().errors))
 
     def test_additional_guide_is_rejected(self) -> None:
-        self.root.joinpath("docs/public/guide.md").write_text("# Guide\n", encoding="utf-8")
+        self.product.joinpath("guide.md").write_text("# Guide\n", encoding="utf-8")
         self.assertTrue(any("prohibited documentation file" in error for error in self.validate().errors))
 
-    def test_docs_internal_is_rejected(self) -> None:
-        internal = self.root / "docs" / "internal"
+    def test_internal_notes_are_rejected(self) -> None:
+        internal = self.product / "internal"
         internal.mkdir()
         internal.joinpath("notes.md").write_text("private\n", encoding="utf-8")
         errors = self.validate().errors
-        self.assertTrue(any("docs/internal is prohibited" in error for error in errors))
+        self.assertTrue(any("prohibited documentation file" in error for error in errors))
 
     def test_screenshot_alt_caption_and_disclosure_are_required(self) -> None:
-        index = self.root / "docs" / "public" / "index.md"
+        index = self.product / "index.md"
         text = index.read_text(encoding="utf-8")
         text = text.replace("![Example product overview]", "![]")
         text = text.replace("*The example workflow shown in Moodle.*\n\n", "")
@@ -125,13 +125,13 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertTrue(any("fictional demonstration data" in error for error in errors))
 
     def test_image_signature_must_match_filename(self) -> None:
-        image = self.root / "docs" / "public" / "images" / "example-overview.png"
+        image = self.product / "images" / "example-overview.png"
         image.write_bytes(b"\xff\xd8\xff\xd9")
         errors = self.validate().errors
         self.assertTrue(any("signature" in error or "start-of-frame" in error for error in errors))
 
     def test_deprecated_and_source_repository_links_are_rejected(self) -> None:
-        index = self.root / "docs" / "public" / "index.md"
+        index = self.product / "index.md"
         text = index.read_text(encoding="utf-8")
         text += "\n[Old support](https://pukunui.com/home/location/malaysia/)\n"
         text += "[Source](https://github.com/PukunuiMalaysia/moodle-block_example/commit/abc)\n"
@@ -141,7 +141,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertTrue(any("source commit" in error for error in errors))
 
     def test_marketplace_link_is_required_for_listed_products(self) -> None:
-        index = self.root / "docs" / "public" / "index.md"
+        index = self.product / "index.md"
         index.write_text(self.valid_text("https://example.com/product"), encoding="utf-8")
         for availability in (
             "commercial-active",
@@ -155,7 +155,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
                 )
 
     def test_pre_release_does_not_require_a_marketplace_link(self) -> None:
-        index = self.root / "docs" / "public" / "index.md"
+        index = self.product / "index.md"
         text = self.valid_text().replace(
             "Download the ZIP from the [Moodle Marketplace]"
             "(https://marketplace.moodle.com/plugins/block_example), then install it",
@@ -168,7 +168,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertEqual([], result.warnings)
 
     def test_pre_release_must_explain_pending_marketplace_publication(self) -> None:
-        index = self.root / "docs" / "public" / "index.md"
+        index = self.product / "index.md"
         text = self.valid_text().replace(
             "Download the ZIP from the [Moodle Marketplace]"
             "(https://marketplace.moodle.com/plugins/block_example), then install it",

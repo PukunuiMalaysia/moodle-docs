@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronize public docs from repositories selected in the GitHub App."""
+"""Publish central product docs using the GitHub App inventory as the lifecycle gate."""
 
 from __future__ import annotations
 
@@ -13,12 +13,13 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 from typing import Any
 
 try:
-    from .public_docs_contract import validate_docs_tree
+    from .public_docs_contract import ContractResult, validate_docs_tree, validate_navigation_order
 except ImportError:  # Direct script execution.
-    from public_docs_contract import validate_docs_tree
+    from public_docs_contract import ContractResult, validate_docs_tree, validate_navigation_order
 
 
 ORGANIZATION = "PukunuiMalaysia"
@@ -56,6 +57,14 @@ FRONT_MATTER = re.compile(r"\A---\r?\n(?P<header>.*?)\r?\n---\r?\n", re.DOTALL)
 TITLE = re.compile(r"^title:\s*(?P<title>.+?)\s*$", re.MULTILINE)
 REPOSITORY_NAME = re.compile(r"[A-Za-z0-9_.-]+")
 BRANCH_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9._/-]*")
+TRANSIENT_GITHUB_ERRORS = (
+    "error connecting to api.github.com",
+    "http 502",
+    "http 503",
+    "http 504",
+    "connection reset",
+    "timed out",
+)
 
 
 class SyncError(RuntimeError):
@@ -63,20 +72,26 @@ class SyncError(RuntimeError):
 
 
 def run(command: list[str], *, cwd: Path | None = None, env: dict[str, str] | None = None) -> str:
-    """Run a command without echoing credentials and return stdout."""
-    result = subprocess.run(
-        command,
-        cwd=cwd,
-        env=env,
-        check=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-    )
-    if result.returncode:
+    """Run a command without echoing credentials and retry transient GitHub failures."""
+    attempts = 3 if command and command[0] == "gh" else 1
+    for attempt in range(attempts):
+        result = subprocess.run(
+            command,
+            cwd=cwd,
+            env=env,
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        if not result.returncode:
+            return result.stdout.strip()
         message = result.stderr.strip() or result.stdout.strip() or "command failed"
-        raise SyncError(f"{command[0]} failed: {message}")
-    return result.stdout.strip()
+        transient = any(marker in message.lower() for marker in TRANSIENT_GITHUB_ERRORS)
+        if not transient or attempt == attempts - 1:
+            raise SyncError(f"{command[0]} failed: {message}")
+        time.sleep(2**attempt)
+    raise AssertionError("unreachable")
 
 
 def load_json(path: Path, default: Any = None) -> Any:
@@ -221,11 +236,14 @@ def discover_selected_repositories(env: dict[str, str]) -> list[dict[str, Any]]:
 
 
 def local_inventory(repo_root: Path, local_root: Path) -> list[dict[str, Any]]:
-    """Provide backward-compatible local reconciliation from the current catalog."""
+    """Provide offline reconciliation from the current public catalog."""
     catalog_path = repo_root / "_data" / "repositories.yml"
     catalog = load_json(catalog_path)
     if not isinstance(catalog, list):
         raise SyncError(f"Expected a repository list in {catalog_path}")
+    provenance = load_json(repo_root / "_data" / "provenance.yml", default={})
+    if not isinstance(provenance, dict):
+        raise SyncError("Expected _data/provenance.yml to contain an object")
 
     raw_inventory: list[dict[str, Any]] = []
     for item in catalog:
@@ -233,10 +251,8 @@ def local_inventory(repo_root: Path, local_root: Path) -> list[dict[str, Any]]:
             raise SyncError(f"Invalid repository entry in {catalog_path}")
         repository = item["repository"]
         source = local_root / repository
-        if not source.is_dir():
-            raise SyncError(f"Missing local source repository: {source}")
         branch = item.get("branch") or item.get("docs_branch")
-        if not branch:
+        if not branch and source.is_dir():
             try:
                 upstream = run(
                     ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"],
@@ -247,11 +263,12 @@ def local_inventory(repo_root: Path, local_root: Path) -> list[dict[str, Any]]:
                 branch = run(["git", "branch", "--show-current"], cwd=source)
         if not branch:
             raise SyncError(f"Cannot resolve a branch for {repository}")
+        previous = provenance.get(repository, {})
         raw_inventory.append(
             {
                 "repository": repository,
                 "default_branch": branch,
-                "visibility": "public" if item.get("source_url") else "private",
+                "visibility": "public" if previous.get("source_url") else "private",
                 PRODUCT_AVAILABILITY_PROPERTY: item.get(
                     "availability", "commercial-active"
                 ),
@@ -261,29 +278,11 @@ def local_inventory(repo_root: Path, local_root: Path) -> list[dict[str, Any]]:
     return normalize_inventory(raw_inventory)
 
 
-def clone_source(repository: str, branch: str, destination: Path, env: dict[str, str]) -> None:
-    """Clone one source without placing the token in command arguments."""
-    run(
-        [
-            "gh",
-            "repo",
-            "clone",
-            f"{ORGANIZATION}/{repository}",
-            str(destination),
-            "--",
-            "--branch",
-            branch,
-            "--single-branch",
-            "--filter=blob:none",
-        ],
-        env=env,
-    )
-
-
-def docs_commit(source: Path) -> str:
-    """Return the most recent commit that changed the public subtree."""
-    commit = run(["git", "log", "-1", "--format=%H", "--", "docs/public"], cwd=source)
-    return commit or run(["git", "rev-parse", "HEAD"], cwd=source)
+def content_commit(repo_root: Path, repository: str) -> str:
+    """Return the most recent central commit that changed one product source."""
+    relative = Path("content") / "products" / repository
+    commit = run(["git", "log", "-1", "--format=%H", "--", str(relative)], cwd=repo_root)
+    return commit or run(["git", "rev-parse", "HEAD"], cwd=repo_root)
 
 
 def content_digest(public_root: Path) -> str:
@@ -349,7 +348,7 @@ def front_matter_value(header: str, key: str, repository: str) -> str:
 
 
 def source_metadata(public_root: Path, repository: str) -> dict[str, Any]:
-    """Read title and navigation metadata from docs/public/index.md."""
+    """Read title and navigation metadata from the central product index."""
     text = (public_root / "index.md").read_text(encoding="utf-8")
     match = FRONT_MATTER.match(text)
     if not match:
@@ -435,29 +434,29 @@ def inject_navigation(
 
 def sync_repository(
     item: dict[str, Any],
-    source: Path,
+    public_root: Path,
     destination: Path,
     old_provenance: dict[str, Any],
+    repo_root: Path,
 ) -> dict[str, Any]:
-    """Validate and render one source repository."""
-    public_root = source / "docs" / "public"
+    """Validate and render one centrally owned product source."""
     files = validate_public_tree(public_root)
-    contract = validate_docs_tree(source, item["repository"], item["availability"])
+    contract = validate_docs_tree(public_root, item["repository"], item["availability"])
     if contract.errors:
         raise SyncError(
             f"{item['repository']} public documentation contract failed: "
             + "; ".join(contract.errors)
         )
     digest = content_digest(public_root)
+    current_content_commit = content_commit(repo_root, item["repository"])
     previous = old_provenance.get(item["repository"], {})
     if (
         previous.get("content_sha256") == digest
         and previous.get("branch") == item["branch"]
+        and previous.get("content_commit") == current_content_commit
     ):
-        source_commit = previous["source_commit"]
         synced_at = previous["synced_at"]
     else:
-        source_commit = docs_commit(source)
         synced_at = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
     markdown_files = [path for path in files if path.suffix.lower() in MARKDOWN_SUFFIXES]
@@ -484,9 +483,9 @@ def sync_repository(
         "availability": item["availability"],
         "branch": item["branch"],
         "category": item["category"],
+        "content_commit": current_content_commit,
         "content_sha256": digest,
         "nav_order": item["nav_order"],
-        "source_commit": source_commit,
         "synced_at": synced_at,
         "title": item["title"],
     }
@@ -521,9 +520,9 @@ def classify_changes(
         "availability",
         "branch",
         "category",
+        "content_commit",
         "content_sha256",
         "nav_order",
-        "source_commit",
         "source_url",
         "title",
     )
@@ -607,8 +606,8 @@ def synchronize(
         raise SyncError("Expected _data/provenance.yml to contain an object")
 
     token = os.environ.get("GH_TOKEN", "")
-    if local_root is None and not token:
-        raise SyncError("GH_TOKEN is required for remote discovery and cloning")
+    if inventory_path is None and local_root is None and not token:
+        raise SyncError("GH_TOKEN is required for remote inventory discovery")
     env = dict(os.environ)
     env["GH_TOKEN"] = token
 
@@ -637,31 +636,30 @@ def synchronize(
     with tempfile.TemporaryDirectory(prefix=".moodle-docs-sync-", dir=repo_root) as temporary:
         temp_root = Path(temporary)
         generated = temp_root / "products"
-        sources = temp_root / "sources"
         generated.mkdir()
         source_items: list[tuple[dict[str, Any], Path]] = []
+        contract_results: list[ContractResult] = []
+        central_products = repo_root / "content" / "products"
 
         for selected_item in selected:
             item = dict(selected_item)
             repository = item["repository"]
-            if local_root is None:
-                source = sources / repository
-                clone_source(repository, item["branch"], source, env)
-            else:
-                source = local_root / repository
-                if not source.is_dir():
-                    raise SyncError(f"Missing local source repository: {source}")
-            validate_public_tree(source / "docs" / "public")
-            contract = validate_docs_tree(source, repository, item["availability"])
+            public_root = central_products / repository
+            validate_public_tree(public_root)
+            contract = validate_docs_tree(public_root, repository, item["availability"])
             if contract.errors:
                 raise SyncError(
                     f"{repository} public documentation contract failed: "
                     + "; ".join(contract.errors)
                 )
-            item.update(source_metadata(source / "docs" / "public", repository))
-            source_items.append((item, source))
+            item.update(source_metadata(public_root, repository))
+            source_items.append((item, public_root))
+            contract_results.append(contract)
 
         validate_navigation([item for item, _source in source_items])
+        navigation_errors = validate_navigation_order(contract_results)
+        if navigation_errors:
+            raise SyncError("Central product navigation failed: " + "; ".join(navigation_errors))
         category_position = {category: index for index, category in enumerate(CATEGORY_ORDER)}
         source_items.sort(
             key=lambda pair: (
@@ -673,13 +671,14 @@ def synchronize(
 
         provenance: dict[str, Any] = {}
         catalog: list[dict[str, Any]] = []
-        for item, source in source_items:
+        for item, public_root in source_items:
             repository = item["repository"]
             provenance[repository] = sync_repository(
                 item,
-                source,
+                public_root,
                 generated / repository,
                 old_provenance,
+                repo_root,
             )
             catalog.append(catalog_entry(item))
 
@@ -706,7 +705,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--local-root",
         type=Path,
-        help="parent directory containing local source repositories",
+        help="optional checkout parent used for offline catalog branch fallback",
     )
     parser.add_argument(
         "--inventory",
@@ -716,7 +715,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="clone and validate sources without replacing generated files",
+        help="validate central sources without replacing generated files",
     )
     parser.add_argument(
         "--result-file",

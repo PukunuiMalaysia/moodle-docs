@@ -1,9 +1,7 @@
 ---
 title: Skills card
 category: Blocks
-parent: "Blocks"
 nav_order: 20
-permalink: /products/moodle-block_skillscard/
 ---
 
 # Skills card

@@ -1,6 +1,6 @@
 # Public product index template
 
-Use this exact H2 structure for every product-facing `docs/public/index.md`. Replace bracketed instructions with source-faithful product information and remove the brackets before review.
+Use this exact H2 structure for every central `content/products/<repository>/index.md`. Replace bracketed instructions with source-faithful product information and remove the brackets before review.
 
 ```markdown
 ---
