@@ -44,7 +44,7 @@ jobs:
       - name: Run synchronization unit tests
         run: python3 -m unittest discover -s tests
 
-      - name: Synchronize selected public repositories
+      - name: Publish selected public products
         id: sync
         env:
           GH_TOKEN: ${{ steps.source-token.outputs.token }}
@@ -109,8 +109,8 @@ jobs:
             '## Summary' \
             '' \
             '- discovers only repositories selected in the read-only source App installation' \
-            '- publishes only approved `product_availability` states from validated `docs/public/**` trees' \
-            '- generates the public catalog and source provenance from repository properties and source metadata' \
+            '- publishes only approved `product_availability` states from validated central `content/products/**` sources' \
+            '- generates the public catalog and provenance from repository properties and central content' \
             "- added: ${{ steps.sync.outputs.added_count }}; updated: ${{ steps.sync.outputs.updated_count }}; removed: ${{ steps.sync.outputs.removed_count }}" \
             '' \
             '## Validation' \

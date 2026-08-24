@@ -17,6 +17,9 @@ jobs:
       - name: Run synchronization unit tests
         run: python3 -m unittest discover -s tests
 
+      - name: Validate canonical product content
+        run: python3 scripts/public_docs_contract.py --content-root content/products --inventory _data/repositories.yml
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.280.0
         with:
@@ -39,15 +42,15 @@ jobs:
 
       - name: Reject internal or sensitive paths
         run: |
-          if find products -type l -print -quit | grep -q .; then
-            echo "Generated products must not contain symlinks" >&2
+          if find content/products products -type l -print -quit | grep -q .; then
+            echo "Product sources and generated products must not contain symlinks" >&2
             exit 1
           fi
-          if find products -type f \( -name '*.env' -o -name '*.key' -o -name '*.pem' -o -name 'AGENTS.md' \) -print -quit | grep -q .; then
-            echo "Generated products contain a forbidden file" >&2
+          if find content/products products -type f \( -name '*.env' -o -name '*.key' -o -name '*.pem' -o -name 'AGENTS.md' \) -print -quit | grep -q .; then
+            echo "Product sources or generated products contain a forbidden file" >&2
             exit 1
           fi
-          if rg -n -i '/Users/|localhost:[0-9]+|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|docs/internal' products; then
-            echo "Generated products contain an internal-only marker" >&2
+          if rg -n -i '/Users/|localhost:[0-9]+|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|docs/internal' content/products products; then
+            echo "Product sources or generated products contain an internal-only marker" >&2
             exit 1
           fi
