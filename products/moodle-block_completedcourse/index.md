@@ -23,7 +23,7 @@ Completed courses gives Moodle learners a compact dashboard list of the courses 
 
 ### Learner dashboard block
 
-![Completed courses block showing a learner's completed course list](images/completed-courses-block.jpg)
+![Completed courses block showing a learner's completed course list](images/completed-courses-block.png)
 
 *The block presents completed courses with the details selected by the administrator. All people, courses, and results shown are fictional demonstration data.*
 
