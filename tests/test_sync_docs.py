@@ -205,15 +205,23 @@ The software is licensed under the GNU General Public License v3 or later. Docum
         self.assertIn("**Pre-release product:**", rendered)
         self.assertIn("Marketplace listing may not yet be available", rendered)
 
-    def test_inventory_requires_known_product_availability(self) -> None:
-        with self.assertRaisesRegex(sync_docs.SyncError, "must define product_availability"):
+    def test_inventory_ignores_missing_product_availability(self) -> None:
+        inventory = sync_docs.normalize_inventory(
+            [
+                {
+                    "repository": "moodle-block_example",
+                    "default_branch": "main",
+                    "visibility": "private",
+                }
+            ]
+        )
+        self.assertIsNone(inventory[0]["availability"])
+
+    def test_inventory_rejects_invalid_product_availability(self) -> None:
+        with self.assertRaisesRegex(sync_docs.SyncError, "invalid product_availability"):
             sync_docs.normalize_inventory(
                 [
-                    {
-                        "repository": "moodle-block_example",
-                        "default_branch": "main",
-                        "visibility": "private",
-                    }
+                    self.inventory_entry("moodle-block_example", "commercial-actve")
                 ]
             )
 
@@ -243,6 +251,44 @@ The software is licensed under the GNU General Public License v3 or later. Docum
                 sync_docs.run(["gh", "api", "example"])
 
         runner.assert_called_once()
+
+    def test_remote_discovery_requires_all_repository_app_scope(self) -> None:
+        with mock.patch.object(
+            sync_docs,
+            "command_json",
+            return_value={"repository_selection": "selected"},
+        ) as command:
+            with self.assertRaisesRegex(
+                sync_docs.SyncError, "must grant access to all repositories"
+            ):
+                sync_docs.discover_all_repositories({"GH_TOKEN": "test-token"})
+
+        command.assert_called_once_with(
+            ["gh", "api", "installation"], env={"GH_TOKEN": "test-token"}
+        )
+
+    def test_user_token_discovery_uses_organization_repository_list(self) -> None:
+        with mock.patch.object(
+            sync_docs,
+            "command_json",
+            side_effect=[
+                [[
+                    {
+                        "name": "moodle-block_example",
+                        "owner": {"login": "PukunuiMalaysia"},
+                        "default_branch": "main",
+                        "visibility": "private",
+                        "private": True,
+                    }
+                ]],
+                [{"property_name": "product_availability", "value": None}],
+            ],
+        ) as command:
+            inventory = sync_docs.discover_org_repositories({"GH_TOKEN": "test-token"})
+
+        self.assertEqual("moodle-block_example", inventory[0]["repository"])
+        self.assertIsNone(inventory[0]["availability"])
+        self.assertEqual(2, command.call_count)
 
     def test_pre_release_is_published_and_in_development_is_not(self) -> None:
         central = self.root / "central"
@@ -278,7 +324,7 @@ The software is licensed under the GNU General Public License v3 or later. Docum
             result = sync_docs.synchronize(central, inventory_path=inventory)
 
         self.assertEqual(["moodle-block_prerelease"], result["added"])
-        self.assertEqual(1, result["public_repository_count"])
+        self.assertEqual(1, result["published_repository_count"])
         self.assertTrue((products / "moodle-block_prerelease" / "index.md").is_file())
         self.assertFalse((products / "moodle-block_development").exists())
         provenance = json.loads(data.joinpath("provenance.yml").read_text(encoding="utf-8"))

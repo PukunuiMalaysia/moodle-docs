@@ -128,20 +128,20 @@ def property_map(raw: Any, repository: str) -> dict[str, Any]:
 
 
 def normalize_inventory(raw: Any) -> list[dict[str, Any]]:
-    """Validate and normalize the selected-repository inventory."""
+    """Validate and normalize the App-visible repository inventory."""
     if not isinstance(raw, list):
-        raise SyncError("Expected the selected-repository inventory to be a list")
+        raise SyncError("Expected the App-visible repository inventory to be a list")
 
     inventory: list[dict[str, Any]] = []
     names: set[str] = set()
     for entry in raw:
         if not isinstance(entry, dict):
-            raise SyncError("Each selected-repository entry must be an object")
+            raise SyncError("Each App-visible repository entry must be an object")
         repository = entry.get("repository") or entry.get("name")
         if not isinstance(repository, str) or not REPOSITORY_NAME.fullmatch(repository):
             raise SyncError(f"Invalid repository name: {repository!r}")
         if repository in names:
-            raise SyncError(f"Duplicate selected repository: {repository}")
+            raise SyncError(f"Duplicate App-visible repository: {repository}")
         names.add(repository)
 
         properties = property_map(entry.get("properties", {}), repository)
@@ -149,9 +149,9 @@ def normalize_inventory(raw: Any) -> list[dict[str, Any]]:
             PRODUCT_AVAILABILITY_PROPERTY,
             properties.get(PRODUCT_AVAILABILITY_PROPERTY),
         )
-        if availability not in PRODUCT_AVAILABILITIES:
+        if availability is not None and availability not in PRODUCT_AVAILABILITIES:
             raise SyncError(
-                f"{repository} must define {PRODUCT_AVAILABILITY_PROPERTY} as one of: "
+                f"{repository} has an invalid {PRODUCT_AVAILABILITY_PROPERTY}; expected one of: "
                 + ", ".join(sorted(PRODUCT_AVAILABILITIES))
             )
 
@@ -193,8 +193,17 @@ def normalize_inventory(raw: Any) -> list[dict[str, Any]]:
     return sorted(inventory, key=lambda item: item["repository"])
 
 
-def discover_selected_repositories(env: dict[str, str]) -> list[dict[str, Any]]:
-    """Discover exactly the repositories selected in the App installation."""
+def discover_all_repositories(env: dict[str, str]) -> list[dict[str, Any]]:
+    """Discover every repository covered by the source App installation."""
+    installation = command_json(["gh", "api", "installation"], env=env)
+    if not isinstance(installation, dict):
+        raise SyncError("GitHub returned an invalid source App installation response")
+    if installation.get("repository_selection") != "all":
+        raise SyncError(
+            "The source App installation must grant access to all repositories; "
+            "update its repository access before synchronizing."
+        )
+
     pages = command_json(
         [
             "gh",
@@ -208,17 +217,43 @@ def discover_selected_repositories(env: dict[str, str]) -> list[dict[str, Any]]:
     if not isinstance(pages, list):
         raise SyncError("GitHub returned an invalid installation repository response")
 
+    return inventory_from_repository_pages(pages, env)
+
+
+def discover_org_repositories(env: dict[str, str]) -> list[dict[str, Any]]:
+    """Discover repositories visible to a user's organization token for local checks."""
+    pages = command_json(
+        [
+            "gh",
+            "api",
+            "--paginate",
+            "--slurp",
+            f"orgs/{ORGANIZATION}/repos?per_page=100&type=all",
+        ],
+        env=env,
+    )
+    if not isinstance(pages, list):
+        raise SyncError("GitHub returned an invalid organization repository response")
+    return inventory_from_repository_pages(pages, env)
+
+
+def inventory_from_repository_pages(
+    pages: list[Any], env: dict[str, str]
+) -> list[dict[str, Any]]:
+    """Read properties and normalize repositories returned by GitHub."""
     raw_inventory: list[dict[str, Any]] = []
     for page in pages:
-        if not isinstance(page, dict) or not isinstance(page.get("repositories"), list):
-            raise SyncError("GitHub returned an invalid installation repository page")
-        for repository in page["repositories"]:
+        repositories = page.get("repositories") if isinstance(page, dict) else page
+        if not isinstance(repositories, list):
+            raise SyncError("GitHub returned an invalid repository page")
+        for repository in repositories:
             if not isinstance(repository, dict):
                 raise SyncError("GitHub returned an invalid installation repository")
-            owner = repository.get("owner", {}).get("login")
+            owner_data = repository.get("owner")
+            owner = owner_data.get("login") if isinstance(owner_data, dict) else None
             name = repository.get("name")
             if owner != ORGANIZATION or not isinstance(name, str):
-                raise SyncError("The source App returned a repository outside its organization")
+                raise SyncError("GitHub returned a repository outside its organization")
             properties = command_json(
                 ["gh", "api", f"repos/{ORGANIZATION}/{name}/properties/values"],
                 env=env,
@@ -539,7 +574,7 @@ def classify_changes(
     return {
         "accessible_repository_count": len(inventory),
         "added": added,
-        "public_repository_count": len(provenance),
+        "published_repository_count": len(provenance),
         "removed": removed,
         "removed_states": {repository: availability[repository] for repository in removed},
         "retirement_only": bool(removed) and not added and not updated,
@@ -599,6 +634,7 @@ def synchronize(
     *,
     dry_run: bool = False,
     result_file: Path | None = None,
+    user_token_discovery: bool = False,
 ) -> dict[str, Any]:
     """Build, classify, and optionally install a complete generated snapshot."""
     old_provenance = load_json(repo_root / "_data" / "provenance.yml", default={})
@@ -615,8 +651,10 @@ def synchronize(
         inventory = normalize_inventory(load_json(inventory_path))
     elif local_root is not None:
         inventory = local_inventory(repo_root, local_root)
+    elif user_token_discovery:
+        inventory = discover_org_repositories(env)
     else:
-        inventory = discover_selected_repositories(env)
+        inventory = discover_all_repositories(env)
 
     accessible = {item["repository"] for item in inventory}
     inaccessible_published = sorted(set(old_provenance) - accessible)
@@ -722,6 +760,11 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="write the synchronization classification as JSON",
     )
+    parser.add_argument(
+        "--user-token-discovery",
+        action="store_true",
+        help="for local checks, discover the organisation repository list using GH_TOKEN instead of the App installation",
+    )
     return parser.parse_args()
 
 
@@ -734,6 +777,7 @@ def main() -> int:
             args.inventory.resolve() if args.inventory else None,
             dry_run=args.dry_run,
             result_file=args.result_file.resolve() if args.result_file else None,
+            user_token_discovery=args.user_token_discovery,
         )
     except SyncError as error:
         print(f"sync error: {error}", file=os.sys.stderr)
