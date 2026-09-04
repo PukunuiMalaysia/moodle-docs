@@ -1,8 +1,12 @@
 ---
 title: Auth login redirect
 category: Local plugins
+parent: "Local plugins"
 nav_order: 10
+permalink: /products/moodle-local_authredirect/
 ---
+
+> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
 
 # Auth login redirect
 
