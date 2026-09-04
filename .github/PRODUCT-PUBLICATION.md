@@ -47,7 +47,7 @@ Screenshot coverage and advertising quality remain manual source-review requirem
 The nightly or manually dispatched workflow:
 
 1. creates a read-only token covering all repositories in the App installation;
-2. verifies that the installation is configured for **All repositories**, then enumerates that scope and reads each repository's custom-property values;
+2. enumerates the repositories returned by the **All repositories** installation scope and reads each repository's custom-property values;
 3. fails without changing generated files if any previously published repository is no longer accessible;
 4. validates the matching central source for every repository in a publishable availability state, including `pre-release`;
 5. fails closed when an eligible product has no complete central source;

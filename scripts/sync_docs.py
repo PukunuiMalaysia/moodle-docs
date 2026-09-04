@@ -194,16 +194,7 @@ def normalize_inventory(raw: Any) -> list[dict[str, Any]]:
 
 
 def discover_all_repositories(env: dict[str, str]) -> list[dict[str, Any]]:
-    """Discover every repository covered by the source App installation."""
-    installation = command_json(["gh", "api", "installation"], env=env)
-    if not isinstance(installation, dict):
-        raise SyncError("GitHub returned an invalid source App installation response")
-    if installation.get("repository_selection") != "all":
-        raise SyncError(
-            "The source App installation must grant access to all repositories; "
-            "update its repository access before synchronizing."
-        )
-
+    """Discover every repository returned by the source App installation."""
     pages = command_json(
         [
             "gh",

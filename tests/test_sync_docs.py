@@ -252,19 +252,23 @@ The software is licensed under the GNU General Public License v3 or later. Docum
 
         runner.assert_called_once()
 
-    def test_remote_discovery_requires_all_repository_app_scope(self) -> None:
+    def test_remote_discovery_uses_installation_repository_scope(self) -> None:
         with mock.patch.object(
             sync_docs,
             "command_json",
-            return_value={"repository_selection": "selected"},
+            side_effect=[
+                [{
+                    "repositories": [],
+                }],
+            ],
         ) as command:
-            with self.assertRaisesRegex(
-                sync_docs.SyncError, "must grant access to all repositories"
-            ):
-                sync_docs.discover_all_repositories({"GH_TOKEN": "test-token"})
+            inventory = sync_docs.discover_all_repositories({"GH_TOKEN": "test-token"})
 
-        command.assert_called_once_with(
-            ["gh", "api", "installation"], env={"GH_TOKEN": "test-token"}
+        self.assertEqual([], inventory)
+        command.assert_called_once()
+        self.assertEqual(
+            ["gh", "api", "--paginate", "--slurp", "installation/repositories?per_page=100"],
+            command.call_args.args[0],
         )
 
     def test_user_token_discovery_uses_organization_repository_list(self) -> None:
