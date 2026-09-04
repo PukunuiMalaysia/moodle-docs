@@ -1,13 +1,15 @@
 # Product documentation publication
 
-The documentation workflow discovers repositories through the read-only GitHub App installation. The App must remain configured for **Only select repositories**. Selecting a repository grants discovery and read access; it does not make the repository or its documentation public.
+The documentation workflow discovers repositories through the read-only GitHub App installation. The App must remain configured for **All repositories**. App access grants discovery and read access; it does not make a repository or its documentation public. The `product_availability` property remains the publication gate.
 
 ## Repository properties
 
-Every repository selected in the App installation must have these organization custom properties:
+Every repository in the organization must have these organization custom properties:
 
 - `product_availability`: a required single-select value. Valid values are `commercial-active`, `commercial-legacy`, `public-free`, `pre-release`, `in-development`, `internal-only`, `retired`, and `not-a-product`.
 - `docs_branch`: a legacy optional string retained as product-source provenance. When empty, the repository default branch is recorded. Documentation is never read from that branch.
+
+Because the App can see every repository, assign `product_availability: not-a-product` to repositories that are not documentation products when practical. Repositories with no property value are ignored as non-products. An explicitly invalid value remains an error, so a typo cannot silently suppress or alter publication.
 
 The publication lifecycle is:
 
@@ -44,8 +46,8 @@ Screenshot coverage and advertising quality remain manual source-review requirem
 
 The nightly or manually dispatched workflow:
 
-1. creates a read-only token covering all repositories selected in the App installation;
-2. enumerates that exact installation scope and reads each repository's custom-property values;
+1. creates a read-only token covering all repositories in the App installation;
+2. verifies that the installation is configured for **All repositories**, then enumerates that scope and reads each repository's custom-property values;
 3. fails without changing generated files if any previously published repository is no longer accessible;
 4. validates the matching central source for every repository in a publishable availability state, including `pre-release`;
 5. fails closed when an eligible product has no complete central source;
@@ -68,6 +70,6 @@ The initial migration to central content can update provenance for every publish
 
 ## Adding or updating a product
 
-Create a focused change under `content/products/<repository>/**` using source-faithful information from the product's final publication branch and authentic local-runtime screenshots. Merge that central content change, set the repository's `product_availability` to the intended lifecycle state, and select the repository in the App installation. A manual synchronization run must then discover the repository, validate the central source, and expose the generated diff through the protected synchronization pull request.
+Create a focused change under `content/products/<repository>/**` using source-faithful information from the product's final publication branch and authentic local-runtime screenshots. Merge that central content change and set the repository's `product_availability` to the intended lifecycle state. A manual synchronization run will then discover the repository, validate the central source, and expose the generated diff through the protected synchronization pull request.
 
 Product repositories may retain a concise README that directs readers to this public documentation hub. Do not maintain a second canonical `docs/public/**` tree or copy private and maintainer-only material into this repository.
