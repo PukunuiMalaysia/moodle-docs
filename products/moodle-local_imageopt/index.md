@@ -1,8 +1,12 @@
 ---
 title: Image optimizer
 category: Local plugins
+parent: "Local plugins"
 nav_order: 30
+permalink: /products/moodle-local_imageopt/
 ---
+
+> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
 
 # Image optimizer
 

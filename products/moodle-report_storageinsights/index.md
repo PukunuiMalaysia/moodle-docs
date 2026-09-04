@@ -1,8 +1,12 @@
 ---
 title: Storage insights
 category: Reports
+parent: "Reports"
 nav_order: 20
+permalink: /products/moodle-report_storageinsights/
 ---
+
+> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
 
 # Storage insights
 

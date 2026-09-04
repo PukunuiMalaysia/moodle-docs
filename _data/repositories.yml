@@ -34,8 +34,56 @@
   {
     "availability": "pre-release",
     "branch": "main",
+    "category": "Local plugins",
+    "nav_order": 10,
+    "repository": "moodle-local_authredirect",
+    "title": "Auth login redirect"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Local plugins",
+    "nav_order": 20,
+    "repository": "moodle-local_completionpoints",
+    "title": "Course completion points"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Local plugins",
+    "nav_order": 30,
+    "repository": "moodle-local_imageopt",
+    "title": "Image optimizer"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Reports",
+    "nav_order": 10,
+    "repository": "moodle-report_pluginhealth",
+    "title": "Plugin health"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Reports",
+    "nav_order": 20,
+    "repository": "moodle-report_storageinsights",
+    "title": "Storage insights"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "MOODLE_502_STABLE",
     "category": "Themes",
     "nav_order": 10,
+    "repository": "moodle-theme_aurora",
+    "title": "Aurora"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Themes",
+    "nav_order": 20,
     "repository": "moodle-theme_boleh",
     "title": "Boleh"
   },

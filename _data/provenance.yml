@@ -50,6 +50,36 @@
     "synced_at": "2026-08-24T16:18:15+00:00",
     "title": "Configurable Reports SQL query library"
   },
+  "moodle-local_authredirect": {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Local plugins",
+    "content_commit": "287d193e9c58f6ebf9ab8e5f966bfb231869fe35",
+    "content_sha256": "cfe267fce4db0d581925a69d941ca94ded11b8d2d38150338c01faff88ffe8cb",
+    "nav_order": 10,
+    "synced_at": "2026-09-04T08:03:31+00:00",
+    "title": "Auth login redirect"
+  },
+  "moodle-local_completionpoints": {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Local plugins",
+    "content_commit": "8ddb4748483fbdb0abc7919f6275eb785221c4bd",
+    "content_sha256": "486917a1cc90e63a3caea7b2f4345fde7d3c2b084ec17b84eea5eac71f2f1c37",
+    "nav_order": 20,
+    "synced_at": "2026-09-04T08:03:31+00:00",
+    "title": "Course completion points"
+  },
+  "moodle-local_imageopt": {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Local plugins",
+    "content_commit": "c7bb0d52bfaf9970f467e3ef1e6c8df5c38f1ccc",
+    "content_sha256": "af714231b42f6b3fae1505f66feff7a4f51b9dc858fc434ed55d6c539dd87bc2",
+    "nav_order": 30,
+    "synced_at": "2026-09-04T08:03:31+00:00",
+    "title": "Image optimizer"
+  },
   "moodle-mod_scratchpad": {
     "availability": "commercial-active",
     "branch": "MOODLE_502_STABLE",
@@ -60,14 +90,44 @@
     "synced_at": "2026-08-24T16:18:15+00:00",
     "title": "Scratchpad activity"
   },
+  "moodle-report_pluginhealth": {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Reports",
+    "content_commit": "da1c3a94f7de06b71598f4f32cfe9c11e1213d8c",
+    "content_sha256": "a3a5597ef8621b56cbb625bca5c120f472abe0222b63b3b0db267d5efc9f83c3",
+    "nav_order": 10,
+    "synced_at": "2026-09-04T08:03:31+00:00",
+    "title": "Plugin health"
+  },
+  "moodle-report_storageinsights": {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Reports",
+    "content_commit": "333aad125f19ac5d81f0db111f82efce48963827",
+    "content_sha256": "eb024e795cbb708b6b396c05ab26e09cf872a50966f2d5fefdc63cbb88e64a4b",
+    "nav_order": 20,
+    "synced_at": "2026-09-04T08:03:31+00:00",
+    "title": "Storage insights"
+  },
+  "moodle-theme_aurora": {
+    "availability": "pre-release",
+    "branch": "MOODLE_502_STABLE",
+    "category": "Themes",
+    "content_commit": "ad71f3ceb05573a8315be4e73cc4215d0750e7f2",
+    "content_sha256": "593be2e4d77e3f8520aacb2b9aa1786a4e890eab6bf64f67c110b622a7e4f3fe",
+    "nav_order": 10,
+    "synced_at": "2026-09-04T08:03:31+00:00",
+    "title": "Aurora"
+  },
   "moodle-theme_boleh": {
     "availability": "pre-release",
     "branch": "main",
     "category": "Themes",
     "content_commit": "24342ce1f9dbf13bbbf234c4d3b4c55cc2a611c8",
-    "content_sha256": "187b22b7d41a377f335e5b6f6bc5803bbf68ed9e607ef39f4e4fd6ae1acb1bba",
-    "nav_order": 10,
-    "synced_at": "2026-08-24T16:18:15+00:00",
+    "content_sha256": "76de39f051cf4ec647f231cd49d2eb34b750a001c476f840fad6a2c46bed60e7",
+    "nav_order": 20,
+    "synced_at": "2026-09-04T08:03:31+00:00",
     "title": "Boleh"
   },
   "quicknav-lms": {
