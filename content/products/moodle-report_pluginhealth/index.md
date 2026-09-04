@@ -27,13 +27,13 @@ Compatibility results describe declared metadata, not runtime certification. Alw
 
 ![Plugin health report showing the target version, analysis results, and export controls](images/plugin-health-report.jpg)
 
-*The report combines local declarations with available release evidence. Results are planning guidance, not a guarantee of runtime compatibility. All site names and content shown are fictional demonstration data.*
+*The report combines local declarations with available release evidence. Results are planning guidance, not a guarantee of runtime compatibility. The screenshot uses real release metadata in an isolated test site with fictional demonstration data.*
 
 ### Administrator About page
 
 ![Plugin health About page showing installed release, supported Moodle versions, maintainer information, and support links](images/plugin-health-about.jpg)
 
-*The static About page derives the release and compatibility range from installed plugin metadata and provides documentation and support links. All site names and content shown are fictional demonstration data.*
+*The static About page derives the release and compatibility range from installed plugin metadata and provides documentation and support links. The screenshot uses real release metadata in an isolated test site with fictional demonstration data.*
 
 ## Requirements
 
