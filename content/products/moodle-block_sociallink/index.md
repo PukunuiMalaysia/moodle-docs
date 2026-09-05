@@ -1,7 +1,7 @@
 ---
 title: SocialLink
 category: Blocks
-nav_order: 30
+nav_order: 40
 ---
 
 # SocialLink

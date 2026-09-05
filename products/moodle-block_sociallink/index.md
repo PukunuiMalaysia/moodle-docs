@@ -2,7 +2,7 @@
 title: SocialLink
 category: Blocks
 parent: "Blocks"
-nav_order: 30
+nav_order: 40
 permalink: /products/moodle-block_sociallink/
 ---
 

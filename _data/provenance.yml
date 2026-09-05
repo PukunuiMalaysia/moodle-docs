@@ -19,24 +19,34 @@
     "synced_at": "2026-08-24T16:18:15+00:00",
     "title": "Completed courses"
   },
+  "moodle-block_cr_charts": {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Blocks",
+    "content_commit": "f950ea7ea0c3649901d25a37cae779ea00ef8595",
+    "content_sha256": "7f63d6ff7051117b5f947de97da124cc7a02734c6d4586ef33992ae7be1f3c5c",
+    "nav_order": 20,
+    "synced_at": "2026-09-05T00:21:44+00:00",
+    "title": "Configurable reports chart"
+  },
   "moodle-block_skillscard": {
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "24342ce1f9dbf13bbbf234c4d3b4c55cc2a611c8",
-    "content_sha256": "92bbbcf11f61984662f0455ce7af475eddc2fc793539e304b9fd7c6eb84dc79d",
-    "nav_order": 20,
-    "synced_at": "2026-08-24T16:18:15+00:00",
+    "content_commit": "f950ea7ea0c3649901d25a37cae779ea00ef8595",
+    "content_sha256": "37c7eed66171089ff970776545f8e314e7e6bae03c985b89d12ba42977506bdc",
+    "nav_order": 30,
+    "synced_at": "2026-09-05T00:21:44+00:00",
     "title": "Skills card"
   },
   "moodle-block_sociallink": {
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "24342ce1f9dbf13bbbf234c4d3b4c55cc2a611c8",
-    "content_sha256": "39995d066c1319dab93908b664e89b4f727c0171d66db9cf358d8510b6a22cba",
-    "nav_order": 30,
-    "synced_at": "2026-08-24T16:18:15+00:00",
+    "content_commit": "f950ea7ea0c3649901d25a37cae779ea00ef8595",
+    "content_sha256": "a657ca7b64609021e377d2d3eb06700a26f82a1b7e071ee8861b93bc2e623bfe",
+    "nav_order": 40,
+    "synced_at": "2026-09-05T00:21:44+00:00",
     "title": "SocialLink"
   },
   "moodle-configurable_reports-custom_sql_queries": {

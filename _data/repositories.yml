@@ -8,10 +8,18 @@
     "title": "Completed courses"
   },
   {
-    "availability": "commercial-active",
+    "availability": "pre-release",
     "branch": "main",
     "category": "Blocks",
     "nav_order": 20,
+    "repository": "moodle-block_cr_charts",
+    "title": "Configurable reports chart"
+  },
+  {
+    "availability": "commercial-active",
+    "branch": "main",
+    "category": "Blocks",
+    "nav_order": 30,
     "repository": "moodle-block_skillscard",
     "title": "Skills card"
   },
@@ -19,7 +27,7 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "nav_order": 30,
+    "nav_order": 40,
     "repository": "moodle-block_sociallink",
     "title": "SocialLink"
   },
