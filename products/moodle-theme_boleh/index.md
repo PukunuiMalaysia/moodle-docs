@@ -6,8 +6,6 @@ nav_order: 20
 permalink: /products/moodle-theme_boleh/
 ---
 
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
-
 # Boleh
 
 Boleh is a Boost-based Moodle theme for organisations that want a clean, branded learning experience without replacing Moodle's standard navigation and course workflows. It combines configurable branding, a video-led site home, course presentation options, accessibility preferences, and responsive layouts in one theme.
@@ -59,7 +57,7 @@ One current Boleh release package supports the full Moodle 4.5–5.2 range. Keep
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release Boleh ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. Then open **Site administration > Appearance > Theme selector** and select **Boleh**.
+[Get Boleh from Moodle Marketplace](https://marketplace.moodle.com/plugins/theme_boleh). After downloading the installation ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. Then open **Site administration > Appearance > Theme selector** and select **Boleh**.
 
 ## Configuration and use
 

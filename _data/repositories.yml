@@ -60,6 +60,14 @@
     "branch": "main",
     "category": "Local plugins",
     "nav_order": 30,
+    "repository": "moodle-local_clm",
+    "title": "Credential Lifecycle Manager"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Local plugins",
+    "nav_order": 40,
     "repository": "moodle-local_imageopt",
     "title": "Image optimizer"
   },
@@ -88,7 +96,7 @@
     "title": "Aurora"
   },
   {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Themes",
     "nav_order": 20,

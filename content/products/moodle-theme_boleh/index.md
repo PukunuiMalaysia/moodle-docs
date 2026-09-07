@@ -55,7 +55,7 @@ One current Boleh release package supports the full Moodle 4.5–5.2 range. Keep
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release Boleh ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. Then open **Site administration > Appearance > Theme selector** and select **Boleh**.
+[Get Boleh from Moodle Marketplace](https://marketplace.moodle.com/plugins/theme_boleh). After downloading the installation ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. Then open **Site administration > Appearance > Theme selector** and select **Boleh**.
 
 ## Configuration and use
 

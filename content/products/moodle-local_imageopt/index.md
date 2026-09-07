@@ -1,7 +1,7 @@
 ---
 title: Image optimizer
 category: Local plugins
-nav_order: 30
+nav_order: 40
 ---
 
 # Image optimizer
