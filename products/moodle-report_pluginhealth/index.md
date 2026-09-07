@@ -2,7 +2,7 @@
 title: Plugin health
 category: Reports
 parent: "Reports"
-nav_order: 10
+nav_order: 20
 permalink: /products/moodle-report_pluginhealth/
 ---
 

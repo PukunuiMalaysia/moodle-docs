@@ -2,7 +2,7 @@
 title: Storage insights
 category: Reports
 parent: "Reports"
-nav_order: 20
+nav_order: 30
 permalink: /products/moodle-report_storageinsights/
 ---
 

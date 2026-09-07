@@ -110,24 +110,34 @@
     "synced_at": "2026-08-24T16:18:15+00:00",
     "title": "Scratchpad activity"
   },
+  "moodle-report_hrdc": {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Reports",
+    "content_commit": "d7cb9d01520b0b59ee089bd3ac7b82be4cdea97a",
+    "content_sha256": "a9d58c5828d71d3ac4fbfb74db2c183829006ba5eba64bde78047b04c0c8f84e",
+    "nav_order": 10,
+    "synced_at": "2026-09-07T06:21:22+00:00",
+    "title": "HRD Corp attendance report"
+  },
   "moodle-report_pluginhealth": {
     "availability": "pre-release",
     "branch": "main",
     "category": "Reports",
-    "content_commit": "da1c3a94f7de06b71598f4f32cfe9c11e1213d8c",
-    "content_sha256": "a3a5597ef8621b56cbb625bca5c120f472abe0222b63b3b0db267d5efc9f83c3",
-    "nav_order": 10,
-    "synced_at": "2026-09-04T08:03:31+00:00",
+    "content_commit": "d28dcf9d236070995a403b3d8128a9836c108282",
+    "content_sha256": "2ee3747b1ab5cc555c59c2caec9e994879fd9f81b60e42f67c6eacce3c772682",
+    "nav_order": 20,
+    "synced_at": "2026-09-07T06:21:22+00:00",
     "title": "Plugin health"
   },
   "moodle-report_storageinsights": {
     "availability": "pre-release",
     "branch": "main",
     "category": "Reports",
-    "content_commit": "0acc5a21cf4240fa3bf15d421bda7f7a27d1e7e7",
-    "content_sha256": "eb024e795cbb708b6b396c05ab26e09cf872a50966f2d5fefdc63cbb88e64a4b",
-    "nav_order": 20,
-    "synced_at": "2026-09-04T08:12:39+00:00",
+    "content_commit": "d28dcf9d236070995a403b3d8128a9836c108282",
+    "content_sha256": "dac74d7f55002b104196cc3d6e86a62762b09d7f19f2911b9cbe8eaa165f06b6",
+    "nav_order": 30,
+    "synced_at": "2026-09-07T06:21:22+00:00",
     "title": "Storage insights"
   },
   "moodle-theme_aurora": {
