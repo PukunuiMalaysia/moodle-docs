@@ -1,7 +1,7 @@
 ---
 title: Plugin health
 category: Reports
-nav_order: 10
+nav_order: 20
 ---
 
 # Plugin health

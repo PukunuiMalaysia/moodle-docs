@@ -1,7 +1,7 @@
 ---
 title: Storage insights
 category: Reports
-nav_order: 20
+nav_order: 30
 ---
 
 # Storage insights
