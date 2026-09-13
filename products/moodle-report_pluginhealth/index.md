@@ -12,15 +12,15 @@ permalink: /products/moodle-report_pluginhealth/
 
 Plugin health helps Moodle administrators plan upgrades by combining installed plugin declarations with public release metadata from Moodle's official plugin information service. It shows likely upgrade actions for third-party plugins without downloading, installing, or changing them.
 
-Compatibility results describe declared metadata, not runtime certification. Always test the selected plugins together in a staging environment before upgrading a production site.
+The report uses compatibility information from installed plugins and Moodle Marketplace. Test plugins together on a copy of the site before upgrading a live site.
 
 ## Key features
 
 - Inventory installed third-party plugins using Moodle's plugin manager.
 - Compare the exact installed release and the best available release with a selected Moodle target.
-- Distinguish **Ready**, **Update required**, **Blocked**, **Manual review**, and **Unknown** results, with supporting evidence and suggested actions.
+- Distinguish **Ready**, **Update required**, **Blocked**, **Manual review**, and **Unknown** results, with accessible explanations, supporting evidence, and concise recommendations.
 - Show local code and database state, requirements, dependencies, and reverse dependencies.
-- Add aggregate usage counts for activities, blocks, question types, course formats, and enrolment methods.
+- Add short-lived, cached aggregate usage counts for installed contributed activities, blocks, question types, course formats, and enrolment methods.
 - Load external results progressively and cache responses to reduce repeat requests.
 - Export complete CSV and JSON action registers for upgrade planning.
 - Handle custom plugins, missing listings, paid listings, rate limits, and external-service outages without treating missing information as proof of incompatibility.
@@ -33,11 +33,11 @@ Compatibility results describe declared metadata, not runtime certification. Alw
 
 *The report combines local declarations with available release evidence. Results are planning guidance, not a guarantee of runtime compatibility. The screenshot uses real release metadata in an isolated test site with fictional demonstration data.*
 
-### Administrator About page
+### Administrator About tab
 
-![Plugin health About page showing installed release, supported Moodle versions, maintainer information, and support links](images/plugin-health-about.jpg)
+![Plugin health About tab showing installed release, supported Moodle versions, maintainer information, and support links](images/plugin-health-about.jpg)
 
-*The static About page derives the release and compatibility range from installed plugin metadata and provides documentation and support links. The screenshot uses real release metadata in an isolated test site with fictional demonstration data.*
+*The static About tab derives the release and compatibility range from installed plugin metadata and provides documentation and support links. The screenshot uses real release metadata in an isolated test site with fictional demonstration data.*
 
 ## Requirements
 
@@ -58,11 +58,11 @@ No separate dependency installation or command-line setup is required. The repor
 
 ### Analyse installed plugins
 
-Open **Site administration > Reports > Plugin health**, select the target Moodle version, and choose **Analyse plugin health**. The local inventory is available immediately; external results appear progressively. Review each plugin's evidence, dependency information, usage impact, and required action.
+Open **Site administration > Reports > Plugin health**, select the target Moodle version, and choose **Analyse plugin health**. The local inventory is available immediately; external results appear progressively. Review each plugin's evidence, dependency information, usage impact, and recommendation. Hover over or focus a readiness state to see its explanation.
 
 ### Interpret results
 
-- **Ready:** the installed code or exact release declares support for the target, and local dependencies pass.
+- **Ready:** the installed code or exact release declares support for the target, and no local dependency blocker was found. This is not runtime certification.
 - **Update required:** a newer target-compatible release is available.
 - **Blocked:** local plugin state or a dependency is invalid, or a listed plugin has no target-compatible release.
 - **Manual review:** declarations conflict, or a custom or unlisted plugin has insufficient decisive local metadata.
@@ -76,13 +76,13 @@ Use **Download CSV** or **Download JSON** to obtain a complete target report for
 
 ### View plugin information
 
-Open **Site administration > Plugins > Reports > About** for the installed release, supported Moodle range, licence, maintainer websites, and documentation and support links. The page is headed **About Plugin health**. It is informational only; Plugin health has no configurable settings.
+Open **Site administration > Reports > Plugin health > About** for the installed release, supported Moodle range, licence, maintainer websites, and documentation and support links. It is informational only; Plugin health has no configurable settings or Plugins-page settings link.
 
 ## Privacy and permissions
 
-The report and exports require the system capability `report/pluginhealth:view`, granted to managers by default. The About page requires Moodle's site-configuration capability. Learners and other users without the report capability cannot access the report or its exports.
+The report, About tab, and exports require the system capability `report/pluginhealth:view`, granted to managers by default. Learners and other users without the report capability cannot access them.
 
-Plugin health stores no personal data. It reads aggregate usage counts through Moodle's database API and does not display or export individual user records. Its Privacy API provider declares that no personal data is stored and describes the external metadata lookup.
+Plugin health stores no personal data. It reads aggregate usage counts through Moodle's database API, retains them briefly in Moodle's cache, and does not display or export individual user records. Its Privacy API provider declares that no personal data is stored and describes the external metadata lookup.
 
 External requests send plugin component names, installed version numbers, and the selected Moodle target to Moodle's public metadata service. Moodle's configured proxy is respected, TLS certificates are verified, and responses are cached. No credentials are required. If the service is unavailable, local evidence remains available and inconclusive results are reported explicitly.
 
@@ -97,6 +97,7 @@ The plugin does not purchase, download, install, or update Marketplace packages.
 - If declarations conflict, do not treat a Marketplace listing alone as proof that the installed code is compatible.
 - Successful and missing-listing responses are cached for up to one day; temporary failures are cached for five minutes. A site administrator can purge Moodle caches when an immediate refresh is necessary.
 - If exports or analysis appear incomplete, reload the report and repeat the analysis; the plugin makes no installation changes that need to be rolled back.
+- If the report layout appears unstyled after an upgrade, purge Moodle caches so the current plugin stylesheet is served.
 
 ## Support and licence
 
