@@ -13,10 +13,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "24342ce1f9dbf13bbbf234c4d3b4c55cc2a611c8",
-    "content_sha256": "0f2bf95bf6e73e739df2bc7e356bac5607094e079c3188748afdc4ad3e7aa66a",
+    "content_commit": "0dc6080ae8bda59d21a06936a7b4785b1064f08b",
+    "content_sha256": "1369798d24a6252c4c7c1ec1031dcc469e88e5ae9608e11277d6fb677fa7b3ac",
     "nav_order": 10,
-    "synced_at": "2026-08-24T16:18:15+00:00",
+    "synced_at": "2026-09-13T06:36:04+00:00",
     "title": "Completed courses"
   },
   "moodle-block_cr_charts": {
