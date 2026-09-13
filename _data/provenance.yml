@@ -124,20 +124,20 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Reports",
-    "content_commit": "d28dcf9d236070995a403b3d8128a9836c108282",
-    "content_sha256": "2ee3747b1ab5cc555c59c2caec9e994879fd9f81b60e42f67c6eacce3c772682",
+    "content_commit": "ef64cf988159a73e418c6d3a558a4dcb9d9e0e3a",
+    "content_sha256": "cd2f3fae918ddf4be14ce1ba0628eb1033e59cf746069f0d80ae6be2547de4b2",
     "nav_order": 20,
-    "synced_at": "2026-09-07T06:21:22+00:00",
+    "synced_at": "2026-09-11T11:32:12+00:00",
     "title": "Plugin health"
   },
   "moodle-report_storageinsights": {
     "availability": "pre-release",
     "branch": "main",
     "category": "Reports",
-    "content_commit": "d28dcf9d236070995a403b3d8128a9836c108282",
+    "content_commit": "5c7318b35cd0b690b8e17652c5ca785543bd287c",
     "content_sha256": "dac74d7f55002b104196cc3d6e86a62762b09d7f19f2911b9cbe8eaa165f06b6",
     "nav_order": 30,
-    "synced_at": "2026-09-07T06:21:22+00:00",
+    "synced_at": "2026-09-11T11:32:12+00:00",
     "title": "Storage insights"
   },
   "moodle-theme_aurora": {
