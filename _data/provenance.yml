@@ -144,10 +144,10 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Themes",
-    "content_commit": "5f00b1399661beebc8c47dbef5b75f6cbc39268f",
-    "content_sha256": "0849031d4d22afe6be18d04472244307fdfe0ab0e69a61a44041716aac8192bd",
+    "content_commit": "9763aacc2f25ea0e813b35a58a7e8d868b889932",
+    "content_sha256": "d99bc9742a38e0684c8c24fc2be653f1ff16fb2ab3c60719044f0be7ca5db0ed",
     "nav_order": 10,
-    "synced_at": "2026-09-14T05:00:28+00:00",
+    "synced_at": "2026-09-14T05:32:11+00:00",
     "title": "Aurora"
   },
   "moodle-theme_boleh": {
