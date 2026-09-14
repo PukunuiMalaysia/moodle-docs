@@ -80,7 +80,7 @@
     "title": "HRD Corp attendance report"
   },
   {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Reports",
     "nav_order": 20,
@@ -97,7 +97,7 @@
   },
   {
     "availability": "pre-release",
-    "branch": "MOODLE_502_STABLE",
+    "branch": "main",
     "category": "Themes",
     "nav_order": 10,
     "repository": "moodle-theme_aurora",

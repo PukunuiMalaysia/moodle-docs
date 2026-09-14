@@ -6,8 +6,6 @@ nav_order: 20
 permalink: /products/moodle-report_pluginhealth/
 ---
 
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
-
 # Plugin health
 
 Plugin health helps Moodle administrators plan upgrades by combining installed plugin declarations with public release metadata from Moodle's official plugin information service. It shows likely upgrade actions for third-party plugins without downloading, installing, or changing them.
@@ -50,7 +48,7 @@ One release package supports the full Moodle 4.5–5.2 range. Confirm compatibil
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release Plugin health ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps.
+Get the Plugin health ZIP from [Plugin health on Moodle Marketplace](https://marketplace.moodle.com/plugins/report_pluginhealth). For a pre-release build whose Marketplace publication is pending, use only a ZIP provided by Pukunui. Open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps.
 
 No separate dependency installation or command-line setup is required. The report does not create its own database tables or scheduled tasks.
 
