@@ -24,7 +24,7 @@ Aurora is a Boost child theme for learning sites and online courses. It combines
 
 ## Screenshots
 
-These captures show Aurora 5.2.2 on Moodle 5.2 at a narrow browser width, using a configured course-header gradient. All people and content shown are fictional demonstration data.
+The course captures show the retained Aurora course layout on Moodle 5.2 at a narrow browser width, using a configured course-header gradient; they were captured with Aurora 5.2.2. The About capture shows the unified Aurora 6.0.0 release. All people and content shown are fictional demonstration data.
 
 ![Aurora course in dark mode with a responsive heading, course navigation, and learning activities](images/course-dark-responsive.jpg)
 
@@ -34,28 +34,21 @@ These captures show Aurora 5.2.2 on Moodle 5.2 at a narrow browser width, using 
 
 *Light mode uses the same course structure and configured gradient with a coordinated light palette.*
 
-![About Aurora settings showing release 5.2.2, Moodle 5.2 support, licence, maintainer websites, and support links](images/about-dark-responsive.jpg)
+![About Aurora settings showing release 6.0.0, Moodle 4.5–5.2 support, licence, maintainer websites, and support links](images/about-unified-dark.jpg)
 
 *The informational About tab presents installed metadata and public support links within standard site administration.*
 
 ## Requirements
 
-Aurora currently has separate release packages for these Moodle lines:
-
-- Aurora 4.5.3: Moodle 4.5 LTS.
-- Aurora 5.0.1: Moodle 5.0.
-- Aurora 5.1.2: Moodle 5.1.
-- Aurora 5.2.2: Moodle 5.2.
-
-Choose the package for the Moodle line used by your site. Moodle versions earlier than 4.5 and Moodle 5.3 or later are not supported.
+Aurora 6.0.0 uses one package for Moodle 4.5 LTS, 5.0, 5.1 and 5.2. The theme's release number is independent of the Moodle version. Moodle versions earlier than 4.5 and Moodle 5.3 or later are not supported.
 
 Aurora requires the Boost theme supplied with Moodle and the PHP and browser versions supported by the selected Moodle line. No additional Moodle plugin, external service, or post-installation build step is required.
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided a pre-release Aurora ZIP, open **Site administration > Plugins > Install plugins**, upload the matching package, complete validation, and follow Moodle's installation instructions. Select **Aurora** on the theme selection page under **Site administration > Appearance**.
+Marketplace publication is pending. If Pukunui has provided a pre-release Aurora ZIP, open **Site administration > Plugins > Install plugins**, upload the package, complete validation, and follow Moodle's installation instructions. Select **Aurora** on the theme selection page under **Site administration > Appearance**.
 
-Back up the site before an upgrade. When upgrading Moodle to another supported line, use the corresponding Aurora package and complete Moodle's upgrade process. Purge caches after changing the theme or its appearance settings.
+Back up the site before an upgrade. Existing Aurora 4.5.x, 5.0.x, 5.1.x and 5.2.x installations can upgrade to Aurora 6.0.0 through Moodle's normal upgrade process, retaining saved theme settings, uploaded branding and colour-mode preferences. The same package works when moving between supported Moodle lines. Purge caches after changing the theme or its appearance settings.
 
 ## Configuration and use
 
