@@ -24,7 +24,23 @@ Aurora is a Boost child theme for learning sites and online courses. It combines
 
 ## Screenshots
 
-The course captures show the retained Aurora course layout on Moodle 5.2 at a narrow browser width, using a configured course-header gradient; they were captured with Aurora 5.2.2. The About capture shows the unified Aurora 6.0.0 release. All people and content shown are fictional demonstration data.
+The desktop homepage, dashboard, course activities and About captures show Aurora 6.0.0 on Moodle 5.2. The retained narrow-screen course captures show Aurora 5.2.2 with a configured course-header gradient. All people and content shown are fictional demonstration data.
+
+![Aurora homepage hero in dark mode with a configured learning headline and site navigation](images/homepage-dark.jpg)
+
+*The homepage hero uses configurable text and Aurora's gradient fallback when no background media is uploaded. This image focuses on the hero and navigation, not the complete page.*
+
+![The same Aurora homepage hero in light mode with coordinated navigation and background colours](images/homepage-light.jpg)
+
+*Light mode keeps the configured hero content while changing the surrounding site palette.*
+
+![Aurora dashboard in dark mode with three populated course cards and course filtering controls](images/dashboard-dark.jpg)
+
+*The dashboard combines searchable course cards, course sorting and consistent navigation.*
+
+![Aurora course activities in light mode with an open course index and page, forum, assignment and quiz links](images/course-activities-light.jpg)
+
+*The course index stays available beside grouped learning activities; Moodle's standard activity links remain intact.*
 
 ![Aurora course in dark mode with a responsive heading, course navigation, and learning activities](images/course-dark-responsive.jpg)
 
