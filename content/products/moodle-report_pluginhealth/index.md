@@ -46,7 +46,7 @@ One release package supports the full Moodle 4.5–5.2 range. Confirm compatibil
 
 ## Installation
 
-Get the Plugin health ZIP from [Plugin health on Moodle Marketplace](https://marketplace.moodle.com/plugins/report_pluginhealth). Open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps.
+Get the Plugin health ZIP from [Plugin health on Moodle Marketplace](https://marketplace.moodle.com/plugins/report_pluginhealth). For a pre-release build whose Marketplace publication is pending, use only a ZIP provided by Pukunui. Open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps.
 
 No separate dependency installation or command-line setup is required. The report does not create its own database tables or scheduled tasks.
 
