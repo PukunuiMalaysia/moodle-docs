@@ -23,10 +23,10 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "b469c21557825c4049e29ff11bb62cdfd0777738",
-    "content_sha256": "7f63d6ff7051117b5f947de97da124cc7a02734c6d4586ef33992ae7be1f3c5c",
+    "content_commit": "d740877524aa7484a877805f4a599664258c9f2a",
+    "content_sha256": "35b40c03b2bcec1346e420904791c6c6bbdc2e6c850852274ec77fb82501d15c",
     "nav_order": 20,
-    "synced_at": "2026-09-05T00:24:04+00:00",
+    "synced_at": "2026-09-16T02:33:11+00:00",
     "title": "Configurable reports chart"
   },
   "moodle-block_skillscard": {
