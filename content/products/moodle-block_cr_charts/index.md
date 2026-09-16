@@ -8,6 +8,8 @@ nav_order: 20
 
 Configurable reports chart turns saved SQL reports from Configurable Reports into accessible Moodle core charts. Authorised report viewers can place focused visual summaries on dashboards, course pages, and the site home page without duplicating the source report.
 
+**Required dependency: Configurable Reports (`block_configurable_reports`) version `2024051300` (4.1.0) or later must already be installed and upgraded before installing this block.** The source report must be an SQL report.
+
 ## Key features
 
 - Display saved SQL results as bar, line, pie, or doughnut charts using Moodle's core Chart API.
@@ -27,6 +29,12 @@ Configurable reports chart turns saved SQL reports from Configurable Reports int
 
 *The dashboard block presents a saved SQL report as a Moodle core chart with its accessible data table. All people, organisations, reports, and content shown are fictional demonstration data.*
 
+### Course doughnut chart
+
+![Course activities and a doughnut chart showing one assignment, one forum, one page, and two files](images/course-doughnut-chart.jpg)
+
+*The course block uses a SQL query against Moodle's course-module tables, scoped to the current course with `%%COURSEID%%`, to count visible activities by type. The doughnut chart shows the actual counts from this demonstration course. All people and content shown are fictional demonstration data.*
+
 ### Block configuration
 
 ![Configurable reports chart block configuration showing the report, column aliases, date range, and colour scheme](images/block-configuration.jpg)
@@ -43,7 +51,7 @@ Configurable reports chart turns saved SQL reports from Configurable Reports int
 
 - Moodle 4.5 through Moodle 5.2.
 - PHP and a database version supported by the selected Moodle release.
-- [Configurable Reports](https://marketplace.moodle.com/plugins/block_configurable_reports) 4.1.0 or later installed and upgraded first.
+- **[Configurable Reports](https://marketplace.moodle.com/plugins/block_configurable_reports) (`block_configurable_reports`) version `2024051300` (4.1.0) or later must already be installed and upgraded.**
 - At least one visible SQL report whose viewer permissions allow the intended user to see it.
 - No external service, service account, API credential, or additional build step is required.
 
@@ -53,7 +61,7 @@ One Configurable reports chart release package supports the full Moodle 4.5–5.
 
 Marketplace publication is pending. If Pukunui has provided the pre-release Configurable reports chart ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete Moodle's validation, and follow the displayed upgrade steps.
 
-Install or upgrade the required [Configurable Reports](https://marketplace.moodle.com/plugins/block_configurable_reports) dependency before installing this block. No post-install build, external service configuration, or manual database step is required.
+Install or upgrade [Configurable Reports](https://marketplace.moodle.com/plugins/block_configurable_reports) (`block_configurable_reports`) to **version `2024051300` (4.1.0) or later** before installing this block. No post-install build, external service configuration, or manual database step is required.
 
 ## Configuration and use
 
