@@ -18,6 +18,26 @@ Completion points view displays completion-point records supplied by the Course 
 - Provide a static site-administration About page with installed release, compatibility, licence, maintainer, documentation, and support details.
 - Work entirely within Moodle without external services, credentials, or build steps.
 
+## Screenshots
+
+### Current-year points
+
+![Completion points view block showing course awards and the yearly total](images/completion-points-block.png)
+
+*The block presents existing course awards and their total. All people, courses, and content shown are fictional demonstration data. Narrow block regions support horizontal scrolling.*
+
+### Empty state
+
+![Completion points view block with no current-year records](images/completion-points-empty.png)
+
+*A learner with no current-year records sees a clear empty state. All people and content shown are fictional demonstration data.*
+
+### Administration About page
+
+![Completion points view About page with release, compatibility, licence, and support information](images/completion-points-about.png)
+
+*The static About page derives release and compatibility from installed plugin metadata. All people and content shown are fictional demonstration data.*
+
 ## Requirements
 
 - Moodle 4.5 through Moodle 5.2 only.
@@ -28,7 +48,7 @@ The block displays existing records; it does not award points or manage course c
 
 ## Installation
 
-Marketplace publication is pending. Obtain both plugin ZIPs from Pukunui for pre-release testing. Install Course completion points first, then upload the block ZIP through **Site administration > Plugins > Install plugins** and complete Moodle's validation and upgrade process. The block ZIP contains one `completionpoints_view` directory. No post-install command, Composer, or npm step is needed.
+Marketplace publication is pending. Obtain both plugin ZIPs from Pukunui for pre-release testing. Install Course completion points first, then upload the block ZIP through **Site administration > Plugins > Install plugins** and complete Moodle's validation and upgrade process. The block ZIP contains one `completionpoints_view` directory. No post-install command or build step is needed.
 
 ## Configuration and use
 
@@ -63,5 +83,6 @@ Record notes and values are escaped for output, and queries use Moodle's paramet
 - [Request a feature](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=feature.yml)
 - [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml)
 - [Contact Pukunui Malaysia](mailto:hello.my@pukunui.com)
+- [Pukunui Malaysia support](https://pukunui.com/location/malaysia/)
 
 Completion points view is licensed under the GNU General Public License v3 or later. This documentation is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
