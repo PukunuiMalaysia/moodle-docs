@@ -1,7 +1,7 @@
 ---
 title: Completion points view
 category: Blocks
-nav_order: 10
+nav_order: 20
 ---
 
 # Completion points view

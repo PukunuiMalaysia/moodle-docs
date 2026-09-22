@@ -1,7 +1,7 @@
 ---
 title: Skills card
 category: Blocks
-nav_order: 30
+nav_order: 40
 ---
 
 # Skills card
