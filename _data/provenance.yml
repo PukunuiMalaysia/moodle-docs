@@ -19,34 +19,44 @@
     "synced_at": "2026-09-13T06:36:04+00:00",
     "title": "Completed courses"
   },
-  "moodle-block_cr_charts": {
+  "moodle-block_completionpoints_view": {
     "availability": "pre-release",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "d740877524aa7484a877805f4a599664258c9f2a",
-    "content_sha256": "35b40c03b2bcec1346e420904791c6c6bbdc2e6c850852274ec77fb82501d15c",
+    "content_commit": "3a4ce484a17e1a27e9fc45350746829e65bb4c59",
+    "content_sha256": "480345bd57f09ff21c82da938fd5557a433eeb8aacf9dfd3395556dfb3b887e7",
     "nav_order": 20,
-    "synced_at": "2026-09-16T02:33:11+00:00",
+    "synced_at": "2026-09-22T13:26:21+00:00",
+    "title": "Completion points view"
+  },
+  "moodle-block_cr_charts": {
+    "availability": "commercial-active",
+    "branch": "main",
+    "category": "Blocks",
+    "content_commit": "3a4ce484a17e1a27e9fc45350746829e65bb4c59",
+    "content_sha256": "62e42e1715302e4c537ba76e174baffe66a63f262531a91abddb6136bc5ad827",
+    "nav_order": 30,
+    "synced_at": "2026-09-22T13:26:21+00:00",
     "title": "Configurable reports chart"
   },
   "moodle-block_skillscard": {
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "b469c21557825c4049e29ff11bb62cdfd0777738",
-    "content_sha256": "37c7eed66171089ff970776545f8e314e7e6bae03c985b89d12ba42977506bdc",
-    "nav_order": 30,
-    "synced_at": "2026-09-05T00:24:04+00:00",
+    "content_commit": "3a4ce484a17e1a27e9fc45350746829e65bb4c59",
+    "content_sha256": "b71ac3dccb4faf58feaa123212aa3f89d7df81f46655e0bd10c458157c32ce89",
+    "nav_order": 40,
+    "synced_at": "2026-09-22T13:26:21+00:00",
     "title": "Skills card"
   },
   "moodle-block_sociallink": {
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "b469c21557825c4049e29ff11bb62cdfd0777738",
-    "content_sha256": "a657ca7b64609021e377d2d3eb06700a26f82a1b7e071ee8861b93bc2e623bfe",
-    "nav_order": 40,
-    "synced_at": "2026-09-05T00:24:04+00:00",
+    "content_commit": "3a4ce484a17e1a27e9fc45350746829e65bb4c59",
+    "content_sha256": "cb10f118f29e0dd76e8bc44de1952ca2a495aad537df5dd5443b59493042706d",
+    "nav_order": 50,
+    "synced_at": "2026-09-22T13:26:21+00:00",
     "title": "SocialLink"
   },
   "moodle-configurable_reports-custom_sql_queries": {
@@ -112,12 +122,12 @@
   },
   "moodle-mod_scratchpad": {
     "availability": "commercial-active",
-    "branch": "MOODLE_502_STABLE",
+    "branch": "main",
     "category": "Activities",
     "content_commit": "24342ce1f9dbf13bbbf234c4d3b4c55cc2a611c8",
     "content_sha256": "aadfcb9dac23fbb3cf706f83ac4d4294b4f3454713ba71812ee2d527a6777425",
     "nav_order": 10,
-    "synced_at": "2026-08-24T16:18:15+00:00",
+    "synced_at": "2026-09-22T13:25:30+00:00",
     "title": "Scratchpad activity"
   },
   "moodle-report_hrdc": {
