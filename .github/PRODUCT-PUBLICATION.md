@@ -44,7 +44,7 @@ Screenshot coverage and advertising quality remain manual source-review requirem
 
 ## Synchronization behavior
 
-The nightly or manually dispatched workflow:
+The manually dispatched workflow:
 
 1. creates a read-only token covering all repositories in the App installation;
 2. enumerates the repositories returned by the **All repositories** installation scope and reads each repository's custom-property values;
@@ -57,6 +57,26 @@ The nightly or manually dispatched workflow:
 Transient GitHub API connection errors and HTTP 502–504 responses are retried before the run fails. Contract, lifecycle, App-scope, and missing-content errors are not retried or weakened.
 
 Ordinary additions and updates remain visible for normal pull-request review. A change is classified as retirement-only only when one or more previously published repositories are removed and no public repository is added or updated. Retirement-only pull requests are configured for auto-merge after the required status check passes.
+
+## Run synchronization manually
+
+After merging central documentation changes or updating product availability, open
+**Actions → Synchronize public documentation → Run workflow** and select `main`.
+The equivalent GitHub CLI command is:
+
+```sh
+gh workflow run sync-docs.yml --repo PukunuiMalaysia/moodle-docs --ref main
+```
+
+There is no nightly documentation schedule. Changing a custom property or repository
+topic does not itself trigger synchronization. Repository topics are descriptive;
+publication eligibility comes directly from `product_availability`.
+
+Inspect the resulting run and synchronization pull request. Ordinary additions and
+updates require the existing review and merge flow; retirement-only changes retain
+their existing checked auto-merge behavior. A successful synchronization run is not
+proof of deployment: verify the Pages run for the merged snapshot and the affected
+public routes. If there is no generated diff, no synchronization PR is needed.
 
 ## Removing public documentation
 
