@@ -44,6 +44,14 @@
     "branch": "main",
     "category": "Local plugins",
     "nav_order": 10,
+    "repository": "moodle-local_authcategoryaccess",
+    "title": "Auth category access"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Local plugins",
+    "nav_order": 20,
     "repository": "moodle-local_authredirect",
     "title": "Auth login redirect"
   },
@@ -51,7 +59,7 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Local plugins",
-    "nav_order": 20,
+    "nav_order": 30,
     "repository": "moodle-local_completionpoints",
     "title": "Course completion points"
   },
@@ -59,7 +67,7 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Local plugins",
-    "nav_order": 30,
+    "nav_order": 40,
     "repository": "moodle-local_clm",
     "title": "Credential Lifecycle Manager"
   },
@@ -67,7 +75,7 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Local plugins",
-    "nav_order": 40,
+    "nav_order": 50,
     "repository": "moodle-local_imageopt",
     "title": "Image optimizer"
   },

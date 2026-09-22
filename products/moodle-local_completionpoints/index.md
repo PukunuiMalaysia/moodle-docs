@@ -2,7 +2,7 @@
 title: Course completion points
 category: Local plugins
 parent: "Local plugins"
-nav_order: 20
+nav_order: 30
 permalink: /products/moodle-local_completionpoints/
 ---
 
