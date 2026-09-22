@@ -1,7 +1,7 @@
 ---
 title: Configurable reports chart
 category: Blocks
-nav_order: 20
+nav_order: 30
 ---
 
 # Configurable reports chart

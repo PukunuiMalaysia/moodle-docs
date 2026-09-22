@@ -1,8 +1,12 @@
 ---
 title: Completion points view
 category: Blocks
+parent: "Blocks"
 nav_order: 20
+permalink: /products/moodle-block_completionpoints_view/
 ---
+
+> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
 
 # Completion points view
 
