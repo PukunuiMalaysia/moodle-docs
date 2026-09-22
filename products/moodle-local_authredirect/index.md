@@ -2,7 +2,7 @@
 title: Auth login redirect
 category: Local plugins
 parent: "Local plugins"
-nav_order: 10
+nav_order: 20
 permalink: /products/moodle-local_authredirect/
 ---
 
