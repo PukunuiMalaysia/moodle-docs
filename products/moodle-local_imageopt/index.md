@@ -2,7 +2,7 @@
 title: Image optimizer
 category: Local plugins
 parent: "Local plugins"
-nav_order: 40
+nav_order: 50
 permalink: /products/moodle-local_imageopt/
 ---
 
