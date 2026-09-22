@@ -1,7 +1,7 @@
 ---
 title: Auth login redirect
 category: Local plugins
-nav_order: 10
+nav_order: 20
 ---
 
 # Auth login redirect
