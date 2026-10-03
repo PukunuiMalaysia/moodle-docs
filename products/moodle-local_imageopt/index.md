@@ -6,8 +6,6 @@ nav_order: 50
 permalink: /products/moodle-local_imageopt/
 ---
 
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
-
 # Image optimizer
 
 Image optimizer helps site administrators reduce the size of eligible existing JPEG and PNG images in Moodle's File API. The Settings, Report and About tabs provide a collect, preview and approve workflow. Inventory collection and previews leave original images unchanged; replacement requires explicit approval of a completed preview within seven days.
@@ -53,7 +51,7 @@ Image optimizer helps site administrators reduce the size of eligible existing J
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release Image optimizer plugin ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. No manual dependency installation is required.
+Obtain the plugin ZIP from [Image optimizer on Moodle Marketplace](https://marketplace.moodle.com/plugins/local_imageopt). Open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. No manual dependency installation is required.
 
 ## Configuration and use
 

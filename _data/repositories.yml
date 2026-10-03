@@ -48,7 +48,7 @@
     "title": "Scratchpad activity"
   },
   {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Local plugins",
     "nav_order": 10,
@@ -80,7 +80,7 @@
     "title": "Credential Lifecycle Manager"
   },
   {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Local plugins",
     "nav_order": 50,
