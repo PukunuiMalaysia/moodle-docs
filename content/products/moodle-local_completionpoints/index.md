@@ -1,7 +1,7 @@
 ---
 title: Course completion points
 category: Local plugins
-nav_order: 20
+nav_order: 30
 ---
 
 # Course completion points

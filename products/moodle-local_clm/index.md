@@ -2,7 +2,7 @@
 title: Credential Lifecycle Manager
 category: Local plugins
 parent: "Local plugins"
-nav_order: 30
+nav_order: 40
 permalink: /products/moodle-local_clm/
 ---
 
