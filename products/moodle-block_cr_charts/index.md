@@ -2,11 +2,9 @@
 title: Configurable reports chart
 category: Blocks
 parent: "Blocks"
-nav_order: 20
+nav_order: 30
 permalink: /products/moodle-block_cr_charts/
 ---
-
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
 
 # Configurable reports chart
 
@@ -63,7 +61,9 @@ One Configurable reports chart release package supports the full Moodle 4.5–5.
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release Configurable reports chart ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete Moodle's validation, and follow the displayed upgrade steps.
+Obtain the plugin from the [Configurable Reports Chart Marketplace page](https://marketplace.moodle.com/plugins/block_cr_charts). Open **Site administration > Plugins > Install plugins**, upload the plugin ZIP, complete Moodle's validation, and follow the displayed upgrade steps.
+
+For a pre-release build whose Marketplace publication is pending, use only a testing ZIP supplied by Pukunui; it is not a published Marketplace release.
 
 Install or upgrade [Configurable Reports](https://marketplace.moodle.com/plugins/block_configurable_reports) (`block_configurable_reports`) to **version `2024051300` (4.1.0) or later** before installing this block. No post-install build, external service configuration, or manual database step is required.
 
