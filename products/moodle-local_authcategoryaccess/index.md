@@ -6,8 +6,6 @@ nav_order: 10
 permalink: /products/moodle-local_authcategoryaccess/
 ---
 
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
-
 # Auth category access
 
 `local_authcategoryaccess` maps the authentication method stored on each Moodle account to one or more course-category trees. It uses Moodle's core `moodle/category:viewcourselist` capability so the wrong audience cannot discover protected categories, courses, or the non-enrolled course-information and enrolment page.
@@ -41,9 +39,9 @@ The plugin is intended for sites that separate audiences by authentication metho
 
 ## Installation
 
-Marketplace publication is pending. No post-install build or manual database step is required.
+Auth category access is available from [Moodle Marketplace](https://marketplace.moodle.com/plugins/local_authcategoryaccess). No post-install build or manual database step is required.
 
-1. Obtain the pre-release ZIP whose top-level directory is `authcategoryaccess`.
+1. Obtain the plugin ZIP from Moodle Marketplace; its top-level directory is `authcategoryaccess`.
 2. In Moodle, open **Site administration > Plugins > Install plugins**.
 3. Upload the ZIP and complete the normal Moodle upgrade screen.
 4. Open **Site administration > Plugins > Local plugins > Auth category access > Settings**.

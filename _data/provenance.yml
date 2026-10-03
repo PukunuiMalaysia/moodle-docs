@@ -71,13 +71,13 @@
     "title": "Configurable Reports SQL query library"
   },
   "moodle-local_authcategoryaccess": {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Local plugins",
-    "content_commit": "c525a59693f0d57a87bebada603b9a5792b876de",
-    "content_sha256": "bb1c16e8923c61bfea9247499426bcab9600c599aea564ba787a4ac90ec5b02a",
+    "content_commit": "3d33bd8c21cba962ee3b5b7abf6985f8faa106c2",
+    "content_sha256": "ae00e7935f20ff27270e038c8f77975c8cf254a70d5b639de15bbdb373868ecf",
     "nav_order": 10,
-    "synced_at": "2026-09-22T08:00:03+00:00",
+    "synced_at": "2026-10-03T04:13:39+00:00",
     "title": "Auth category access"
   },
   "moodle-local_authredirect": {
@@ -111,13 +111,13 @@
     "title": "Course completion points"
   },
   "moodle-local_imageopt": {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Local plugins",
-    "content_commit": "f72986e7278169c4b6e45d180061e21d3165677d",
-    "content_sha256": "4fc0421f848e531abf151c8734648ba28767cc40a31def8a42aba10b69b2c475",
+    "content_commit": "3d33bd8c21cba962ee3b5b7abf6985f8faa106c2",
+    "content_sha256": "9691c42abdadb9b59464e586ed1b10b1a1e648d2a2110f4aadd9d60a19b48aed",
     "nav_order": 50,
-    "synced_at": "2026-09-26T02:43:41+00:00",
+    "synced_at": "2026-10-03T04:13:40+00:00",
     "title": "Image optimizer"
   },
   "moodle-mod_scratchpad": {
