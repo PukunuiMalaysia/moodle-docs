@@ -174,10 +174,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Themes",
-    "content_commit": "1230a03c57d00567387027a157e161fb1c9bd83a",
-    "content_sha256": "aa9e8f9ed0471fb9ffe57f1f47f01827c3af566918409ebc12ea168046e9c988",
+    "content_commit": "2269598bef416a0aa412729ece78c9008607e351",
+    "content_sha256": "cf8e77878e4ccf27adfea7759bcfde80d41f6f24a1c63c95d8b00f844726e290",
     "nav_order": 20,
-    "synced_at": "2026-09-07T06:07:35+00:00",
+    "synced_at": "2026-10-02T21:30:04+00:00",
     "title": "Boleh"
   },
   "quicknav-lms": {
