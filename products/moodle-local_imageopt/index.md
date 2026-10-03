@@ -10,88 +10,93 @@ permalink: /products/moodle-local_imageopt/
 
 # Image optimizer
 
-Image optimizer reduces the storage used by eligible existing JPEG and PNG files in Moodle's File API. It gives site administrators a safety-first batch workflow with dry-run analysis, bounded scheduled runs, a supported command-line runner, and an administrative report while keeping Moodle file references stable.
+Image optimizer helps site administrators reduce the size of eligible existing JPEG and PNG images in Moodle's File API. The Settings, Report and About tabs provide a collect, preview and approve workflow. Inventory collection and previews leave original images unchanged; replacement requires explicit approval of a completed preview within seven days.
 
 ## Key features
 
-- Discover eligible user-uploaded JPEG and PNG files while excluding transient drafts, generated assets, and known non-target file areas.
-- Start new installations disabled and in dry-run mode so administrators can review results before allowing file changes.
-- Keep Moodle File API references and file URLs stable when an image is replaced with its optimized version.
-- Review current size, estimated or completed savings, status, and bounded processing details in an administrator-only report.
-- Control image quality, minimum file size, manual-run limits, scheduled batch size, scheduled runtime, large-image resizing, and EXIF preservation.
-- Prevent concurrent manual, scheduled, and command-line runs with Moodle's Lock API.
-- Avoid repeatedly processing unchanged dry-run, incompressible, invalid, or failed files while automatically reconsidering files or output settings that change.
-- Process JPEG and PNG images with PHP GD, with optional Imagick support for JPEG optimization when it is available.
+- Collect a paginated inventory of recorded images, including protected and unsupported files, and filter or sort the report before previewing eligible matches across all filtered pages.
+- Optimize only reviewed teaching-content areas: course summary and overview images, Page content, Text and media areas, and Book chapters.
+- Protect submissions, feedback, private files, other unreviewed file areas, repository aliases and images referenced by aliases.
+- Review estimated reductions before approving replacements. Completed logical file-size reductions are reported separately and do not measure immediate physical disk reclamation.
+- Preserve file IDs, filenames, Moodle URLs, ownership, source information and supported embedded metadata when replacing images.
+- Run bounded, resumable background jobs through Moodle cron, continuing after the browser closes. A shared lock prevents overlapping image operations.
+- Optionally schedule inventory refreshes and preview preparation. Scheduled work never approves replacements, and new installations leave recurring work disabled.
+- Use PHP GD for image processing, with configurable JPEG quality, minimum image size and optional resizing. No external image-processing service is used.
 
 ## Screenshots
 
-### Safe default settings
+### Settings
 
-![Image optimizer settings showing disabled optimization and dry-run mode](images/image-optimizer-settings.png)
+![Image optimizer settings](images/image-optimizer-settings.png)
 
-*New installations start disabled and in dry-run mode. All site names, files, and content shown are fictional demonstration data.*
+*New installations leave scheduled inventory refreshes and previews disabled. Settings control processing quality, batch limits and optional resizing. All site names and content shown are fictional demonstration data.*
 
-### Optimization report
+### Report
 
-![Image optimization report showing dry-run results for demonstration images](images/image-optimization-report.png)
+![Image optimizer Report tab showing an inventory and completed preview awaiting approval](images/image-optimization-report.png)
 
-*The administrator report shows eligible files, size estimates, status, and processing details without changing files during a dry run. All site names, files, and content shown are fictional demonstration data.*
+*The report provides collection, filtering, preview and approval controls. Previewed images remain unchanged until an administrator approves replacement. All files and course names shown are fictional demonstration data.*
 
-### About page
+### About
 
-![Image optimizer About page showing release, compatibility, documentation, and support details](images/image-optimizer-about.png)
+![Image optimizer About page showing release, compatibility and support links](images/image-optimizer-about.png)
 
-*The About page derives installed release and Moodle compatibility details from the plugin metadata and provides maintained documentation and support links. All site names and content shown are fictional demonstration data.*
+*The About tab derives its release and compatibility details from installed plugin metadata and provides documentation, support and licence links.*
 
 ## Requirements
 
 - Moodle 4.5 through Moodle 5.2.
-- PHP GD for image processing.
-- Moodle cron configured for scheduled execution.
-- Imagick is optional and is used for JPEG optimization when available.
-- No external service or additional Moodle plugin is required.
-
-One Image optimizer release package supports the full Moodle 4.5–5.2 range. Confirm compatibility before upgrading Moodle beyond that published range.
+- PHP GD for image processing and zlib for PNG recompression.
+- PHP EXIF support to read JPEG EXIF orientation; affected images are skipped if that support is unavailable.
+- Working Moodle cron for background jobs, including operations started from the Report tab.
+- No additional Moodle plugin or external service is required.
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release Image optimizer ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps.
+Marketplace publication is pending. If Pukunui has provided the pre-release Image optimizer plugin ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. No manual dependency installation is required.
 
 ## Configuration and use
 
-### Review the safety defaults
+### Configure processing
 
-Open **Site administration > Plugins > Local plugins > Image optimizer > Image optimizer settings**. New installations have **Enable image optimization** switched off and **Dry run mode** switched on. Leave dry-run mode enabled for the first scan, review the report, and allow real writes only after the selected files and estimated savings are appropriate for the site.
+Open **Site administration > Plugins > Local plugins > Image optimizer**. Use **Settings** to configure JPEG quality, the minimum image size, images per processing batch and the maximum processing time per batch. Optionally enable resizing and set maximum width and height. Lower JPEG quality and resizing can reduce visual detail. PNG compression without resizing is lossless.
 
-### Configure image processing
+Keep a current database and file-storage backup before approving replacements: there is no built-in undo. Supported embedded metadata and orientation are retained automatically; this is not an optional EXIF-preservation setting. Unknown metadata, animation, unsupported colour encodings and unsafe inputs are skipped. Images exceeding the byte, pixel, dimension or estimated memory safeguards remain visible in the inventory but are not processed.
 
-Set the compression quality and minimum eligible file size. Optionally limit the number of files in manual and command-line runs, resize images larger than 1024 by 1024 pixels, or preserve JPEG EXIF metadata. Lower quality values usually create smaller files; preserving metadata can make output larger.
+### Collect and preview
 
-Image optimizer works only on eligible existing files. It excludes directories, transient draft files, core and theme assets, question content, known generated file areas, and files already marked as optimized by the plugin.
+1. Open **Report**, choose **Collect/refresh inventory**, and confirm collection. Collection reads recorded file metadata without replacing images.
+2. Wait for background collection to finish. Filter and sort the report to identify the images to review; protected and unsupported images remain identifiable.
+3. Choose **Preview filtered images** and confirm. The preview includes eligible matches across every filtered page and does not replace original files.
+4. Review the completed preview, estimated reductions and per-file results.
 
-### Run and review a scan
+### Approve reviewed images
 
-Use **Run now** from the settings page for an immediate administrator-controlled scan, or open **Image optimization report** to review the current candidate and processing ledger. Manual, scheduled, and supported command-line runs use the same optimization manager, safety filters, and global lock.
+Choose **Optimize reviewed images** within seven days of preview completion. Confirm that you have reviewed the preview and have a current database and file-storage backup, then approve replacement. The job processes the frozen preview membership in background batches.
 
-### Configure scheduled execution
+A preview cannot be reused after optimization has been requested. Expired previews or changed processing settings require a fresh preview. Files changed since collection or preview are skipped, and replacements must match the reviewed output. Only smaller outputs are installed. The completed report distinguishes actual replacements from estimates, skipped images and failures.
 
-The scheduled task runs hourly at a randomised minute by default. The scheduled batch-size and runtime settings limit the work started by each task execution. Confirm that Moodle cron runs regularly, then enable optimization only when the site's dry-run results have been reviewed.
+### Optional recurring preparation
+
+Enable **Enable scheduled inventory refresh and previews** only if recurring preparation is wanted. Keep Moodle cron running and review the scheduled-task status shown in Settings. Recurring work collects inventory and prepares previews; an administrator must still approve replacements from Report. Batch controls limit each processing slice, not the total number of filtered images in a job.
 
 ## Privacy and permissions
 
-Only users with Moodle's site-configuration capability can view settings, run an immediate scan, or open the report. Image optimizer processes eligible images already stored in Moodle's File API and sends no image content or personal data to an external service.
+Only users with Moodle's site-configuration capability can access the administration workflow. Images and personal data are not sent to an external service.
 
-The plugin stores operational statistics linked to Moodle File API records. Its Privacy API provider supports discovery, export, and deletion of those statistics. Privacy deletion removes Image optimizer statistics only; the original file remains governed by the Moodle component that owns it.
+The plugin stores four groups of related data: optimization statistics, image inventory, per-file preview and replacement results, and background operation requests. These can include file owners and contexts, filenames and logical file paths, course and activity names, content fingerprints, requesting users, frozen settings and filters, progress and timestamps. Moodle's Privacy API describes the retained fields and supports discovery, export and deletion, including retained ownership metadata after an original file is deleted.
+
+Privacy deletion removes plugin records, not the original files managed by their owning Moodle components. Operation history is retained for 30 days; inventories needed by retained jobs remain until those jobs expire.
 
 ## Troubleshooting
 
-- If no files are scanned, confirm that PHP GD is available and that images meet the configured size and eligibility rules.
-- If scheduled optimization does not run, confirm that the plugin is enabled, Moodle cron is active, and the **Run image optimization batch** task is enabled.
-- If an unchanged file is not retried, modify the file or an output-affecting setting to make it eligible for reconsideration.
-- A **Can't compress** result means the generated image was not smaller than the original under the selected settings.
-- An **Invalid image** result means the source could not be decoded as an eligible image; the run continues with later files.
-- If a run reports that another run is in progress, wait for the current manual, scheduled, or command-line run to finish before retrying.
-- If recent settings or report changes are not visible, purge Moodle caches and reload the administration page.
+- If a queued job does not progress, check Moodle cron and scheduled/ad hoc task failures. Closing the browser does not stop a job.
+- If an image cannot be previewed, check its eligibility reason, minimum size, supported format and safety limits, and confirm PHP GD and zlib are available.
+- If a JPEG with orientation metadata is skipped, check PHP EXIF availability.
+- If approval is unavailable, complete a fresh preview using the current processing settings and approve within seven days.
+- A result indicating that the image cannot be compressed means processing did not produce a smaller acceptable output. An invalid-image result indicates that the source could not be safely processed.
+- If another operation is active, allow it to finish or use **Stop operation** in Report. Incomplete collection does not replace the previous complete inventory.
+- If updated interface text is not visible after upgrading, purge Moodle caches and reload the page.
 
 ## Support and licence
 
