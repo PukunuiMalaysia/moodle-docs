@@ -37,9 +37,9 @@ The plugin is intended for sites that separate audiences by authentication metho
 
 ## Installation
 
-Marketplace publication is pending. No post-install build or manual database step is required.
+Auth category access is available from [Moodle Marketplace](https://marketplace.moodle.com/plugins/local_authcategoryaccess). No post-install build or manual database step is required.
 
-1. Obtain the pre-release ZIP whose top-level directory is `authcategoryaccess`.
+1. Obtain the plugin ZIP from Moodle Marketplace; its top-level directory is `authcategoryaccess`.
 2. In Moodle, open **Site administration > Plugins > Install plugins**.
 3. Upload the ZIP and complete the normal Moodle upgrade screen.
 4. Open **Site administration > Plugins > Local plugins > Auth category access > Settings**.

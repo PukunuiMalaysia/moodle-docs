@@ -49,7 +49,7 @@ Image optimizer helps site administrators reduce the size of eligible existing J
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release Image optimizer plugin ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. No manual dependency installation is required.
+Obtain the plugin ZIP from [Image optimizer on Moodle Marketplace](https://marketplace.moodle.com/plugins/local_imageopt). Open **Site administration > Plugins > Install plugins**, upload the ZIP, complete validation, and follow the displayed upgrade steps. No manual dependency installation is required.
 
 ## Configuration and use
 
