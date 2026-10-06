@@ -23,10 +23,10 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "3a4ce484a17e1a27e9fc45350746829e65bb4c59",
-    "content_sha256": "480345bd57f09ff21c82da938fd5557a433eeb8aacf9dfd3395556dfb3b887e7",
+    "content_commit": "cf7f619f2d5dfee4ece659e74d2ee06b6071400a",
+    "content_sha256": "35af6a29e7e9074f909a8254f65e9fe439147f54c5fd4a8fa75c288cd207e85e",
     "nav_order": 20,
-    "synced_at": "2026-09-22T13:26:21+00:00",
+    "synced_at": "2026-10-06T05:53:48+00:00",
     "title": "Completion points view"
   },
   "moodle-block_cr_charts": {
@@ -104,11 +104,11 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Local plugins",
-    "content_commit": "c525a59693f0d57a87bebada603b9a5792b876de",
-    "content_sha256": "9c85043f56ce05584d1f8a3675b2474cf40e42344ddb8df3411bd2e06bc8a5ba",
+    "content_commit": "cf7f619f2d5dfee4ece659e74d2ee06b6071400a",
+    "content_sha256": "74f322008e66ac51355f03e444aa7f681199ad1462b7f96e6e75dfea152ba3bb",
     "nav_order": 30,
-    "synced_at": "2026-09-22T08:00:03+00:00",
-    "title": "Course completion points"
+    "synced_at": "2026-10-06T05:53:48+00:00",
+    "title": "Completion points"
   },
   "moodle-local_imageopt": {
     "availability": "commercial-active",
