@@ -69,7 +69,7 @@
     "category": "Local plugins",
     "nav_order": 30,
     "repository": "moodle-local_completionpoints",
-    "title": "Course completion points"
+    "title": "Completion points"
   },
   {
     "availability": "pre-release",

@@ -10,7 +10,7 @@ permalink: /products/moodle-block_completionpoints_view/
 
 # Completion points view
 
-Completion points view displays completion-point records supplied by the Course completion points local plugin. Learners can see their course links, points, notes, award dates, and running total from the beginning of the current calendar year.
+Completion points view displays completion-point records supplied by the Completion points local plugin. Learners can see course and activity awards, their sources, course links, visible activity names, notes, award dates, and one combined total from the beginning of the current calendar year. Manual, imported, and legacy records are included.
 
 ## Key features
 
@@ -26,9 +26,9 @@ Completion points view displays completion-point records supplied by the Course 
 
 ### Current-year points
 
-![Completion points view block showing course awards and the yearly total](images/completion-points-block.png)
+![Completion points view block showing course and activity awards and the yearly total](images/completionpoints-view-records.jpg)
 
-*The block presents existing course awards and their total. All people, courses, and content shown are fictional demonstration data. Narrow block regions support horizontal scrolling.*
+*The compact two-column block presents course and activity awards and their combined total. All people, courses, and content shown are fictional demonstration data. Award details are stacked to fit narrow block regions.*
 
 ### Empty state
 
@@ -38,25 +38,25 @@ Completion points view displays completion-point records supplied by the Course 
 
 ### Administration About page
 
-![Completion points view About page with release, compatibility, licence, and support information](images/completion-points-about.png)
+![Completion points view About page with release, compatibility, licence, and support information](images/completionpoints-view-about.jpg)
 
 *The static About page derives release and compatibility from installed plugin metadata. All people and content shown are fictional demonstration data.*
 
 ## Requirements
 
 - Moodle 4.5 through Moodle 5.2 only.
-- Course completion points (`local_completionpoints`) version `2026082400` or later, installed separately before this block.
+- Completion points (`local_completionpoints`) version `2026100600` or later, installed separately before this block.
 - A database supported by the installed Moodle release. The block uses Moodle DML and no database-specific SQL.
 
 The block displays existing records; it does not award points or manage course completion. Those functions belong to the required local plugin.
 
 ## Installation
 
-Marketplace publication is pending. Obtain both plugin ZIPs from Pukunui for pre-release testing. Install Course completion points first, then upload the block ZIP through **Site administration > Plugins > Install plugins** and complete Moodle's validation and upgrade process. The block ZIP contains one `completionpoints_view` directory. No post-install command or build step is needed.
+Marketplace publication is pending. Obtain both plugin ZIPs from Pukunui for pre-release testing. Install Completion points first, then upload the block ZIP through **Site administration > Plugins > Install plugins** and complete Moodle's validation and upgrade process. The block ZIP contains one `completionpoints_view` directory. No post-install command or build step is needed.
 
 ## Configuration and use
 
-Turn editing on in Dashboard or a course page and add **Completion points view** to a block region. It reads the signed-in user's records from 1 January of the current year, using Moodle's user date/time handling. Narrow block drawers may require horizontal scrolling to read every table column.
+Turn editing on in Dashboard or a course page and add **Completion points view** to a block region. It reads the signed-in user's records from 1 January of the current year, using Moodle's user date/time handling. Award details are stacked beside the points value. Activity names are shown only when the current viewer can access the course and activity; hidden, deleted, or inaccessible activities use an unavailable label.
 
 An administrator or a user explicitly granted `block/completionpoints_view:viewotherusers` in the system context can add `userid=<Moodle user ID>` to the page URL to display another user's records. Unauthorised users cannot change the displayed user with this parameter. Invalid or deleted user IDs produce an invalid-user message. Legacy `id` links are retained where they do not conflict with the current course ID; new integrations should use `userid`.
 
@@ -64,7 +64,7 @@ Site administrators can open **Site administration > Plugins > Blocks > Completi
 
 ## Privacy and permissions
 
-The block reads user-linked point records for display but does not create, update, export, or delete the underlying data. It supplies a Privacy API null provider; Course completion points owns storage, metadata declarations, export, and deletion. No data is sent to an external service.
+The block reads user-linked point records for display but does not create, update, export, or delete the underlying data. It supplies a Privacy API null provider; Completion points owns storage, metadata declarations, export, and deletion. No data is sent to an external service.
 
 - `block/completionpoints_view:addinstance` controls adding the block to supported pages.
 - `block/completionpoints_view:myaddinstance` controls adding it to Dashboard.
@@ -74,7 +74,7 @@ Record notes and values are escaped for output, and queries use Moodle's paramet
 
 ## Troubleshooting
 
-- If no records appear, confirm that Course completion points is installed and has records for the displayed user dated in the current year.
+- If no records appear, confirm that Completion points is installed and has records for the displayed user dated in the current year.
 - If a record was awarded near New Year, check the user's Moodle time zone and its creation date.
 - If another user's records cannot be selected, check the system capability and use `userid`, not a course-page `id` parameter.
 - If a course link is unavailable, confirm that the course still exists and the user has access to it.
