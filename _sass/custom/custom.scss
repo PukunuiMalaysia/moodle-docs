@@ -1,16 +1,15 @@
 @font-face {
-  font-family: "Mona Sans";
-  src: url("../fonts/Mona-Sans.woff2") format("woff2");
+  font-family: "Roboto";
+  src: url("../fonts/roboto-latin.woff2") format("woff2");
   font-display: swap;
   font-style: normal;
-  font-weight: 300 900;
-  font-stretch: 75% 125%;
+  font-weight: 400 600;
 }
 
 :root {
   --pukunui-blue: #005b9b;
-  --pukunui-blue-dark: #003f6b;
-  --pukunui-blue-light: #76a5c6;
+  --pukunui-blue-dark: #004675;
+  --pukunui-blue-light: #b6c7d9;
   --pukunui-yellow: #ffe14f;
   --pukunui-ink: #171a1f;
   --pukunui-slate: #3b5570;
@@ -24,20 +23,25 @@ body {
 }
 
 .side-bar {
-  background:
-    radial-gradient(circle at 12% 4%, rgba(255, 255, 255, 0.14), transparent 12rem),
-    var(--pukunui-blue);
+  background: var(--pukunui-blue);
   border-right: 0;
   box-shadow: 5px 0 24px rgba(0, 63, 107, 0.12);
 }
 
 .site-header {
+  // 200px artwork at its supplied 2112:771 ratio, plus quarter-height clearance.
+  height: auto;
+  min-height: 110px;
+  max-height: none;
+  flex-shrink: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .site-title {
-  padding-top: 0.375rem;
-  padding-bottom: 0.375rem;
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  padding: 19px;
 }
 
 .site-title:hover {
@@ -45,8 +49,9 @@ body {
 }
 
 .site-logo {
-  width: 100%;
-  height: 3rem;
+  width: 200px;
+  height: auto;
+  aspect-ratio: 2112 / 771;
   background-size: contain;
 }
 
@@ -72,7 +77,7 @@ body {
 
 .nav-list .nav-list-item .nav-list-link.active {
   box-shadow: inset 4px 0 0 var(--pukunui-yellow);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .nav-list .nav-list-item .nav-list-expander:hover {
@@ -103,8 +108,9 @@ body {
 }
 
 .search-input {
-  border: 1px solid var(--pukunui-border);
-  border-radius: 999px;
+  border: 1px solid var(--pukunui-slate);
+  font-size: 1rem;
+  border-radius: 0.5rem;
   box-shadow: 0 1px 4px rgba(20, 17, 31, 0.04);
 }
 
@@ -113,13 +119,23 @@ body {
   box-shadow: 0 0 0 3px rgba(0, 91, 155, 0.16);
 }
 
+.search-result-doc.search-result-doc-parent {
+  color: var(--pukunui-slate);
+  opacity: 1;
+}
+
+.search-result.active {
+  box-shadow: inset 3px 0 0 var(--pukunui-blue);
+}
+
 .aux-nav-list-item a {
   color: var(--pukunui-blue);
   font-weight: 600;
 }
 
 .main-content {
-  color: var(--pukunui-slate);
+  color: var(--pukunui-ink);
+  font-size: 1rem;
 }
 
 .main-content h1,
@@ -127,7 +143,7 @@ body {
 .main-content h3,
 .main-content h4 {
   color: var(--pukunui-ink);
-  font-weight: 650;
+  font-weight: 500;
   letter-spacing: -0.025em;
 }
 
@@ -148,8 +164,8 @@ body {
 }
 
 .btn {
-  border-radius: 999px;
-  font-weight: 650;
+  border-radius: 0.5rem;
+  font-weight: 600;
   letter-spacing: 0;
 }
 
@@ -159,7 +175,8 @@ body {
   background-image: none;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:active {
   color: #ffffff;
   background-color: var(--pukunui-blue-dark);
   background-image: none;
@@ -168,12 +185,13 @@ body {
 .btn-outline {
   color: var(--pukunui-blue);
   background: #ffffff;
-  border: 1px solid var(--pukunui-blue-light);
+  border: 1px solid var(--pukunui-blue);
 }
 
-.btn-outline:hover {
+.btn-outline:hover,
+.btn-outline:active {
   color: var(--pukunui-blue-dark);
-  background: #f3f8fc;
+  background: var(--pukunui-surface);
 }
 
 .main-content code {
@@ -183,7 +201,7 @@ body {
 }
 
 .main-content table {
-  border-radius: 0.65rem;
+  border-radius: 0.5rem;
   box-shadow: 0 0 0 1px var(--pukunui-border);
   overflow: hidden;
 }
@@ -206,22 +224,9 @@ body {
   padding: clamp(2rem, 5vw, 4rem);
   overflow: hidden;
   color: #ffffff;
-  background:
-    radial-gradient(circle at 92% 16%, rgba(255, 225, 79, 0.32), transparent 10rem),
-    linear-gradient(135deg, var(--pukunui-blue-dark), var(--pukunui-blue));
-  border-radius: 1.25rem;
+  background: var(--pukunui-blue-dark);
+  border-radius: 0.5rem;
   box-shadow: var(--pukunui-shadow);
-}
-
-.pukunui-hero::after {
-  position: absolute;
-  right: -4.5rem;
-  bottom: -5rem;
-  width: 15rem;
-  height: 15rem;
-  content: "";
-  border: 2rem solid rgba(255, 255, 255, 0.08);
-  border-radius: 50%;
 }
 
 .pukunui-hero h1 {
@@ -240,7 +245,7 @@ body {
   margin: 0;
   color: var(--pukunui-yellow);
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.11em;
   text-transform: uppercase;
 }
@@ -267,20 +272,10 @@ body {
   background: var(--pukunui-yellow);
 }
 
-.pukunui-hero .btn-primary:hover {
+.pukunui-hero .btn-primary:hover,
+.pukunui-hero .btn-primary:active {
   color: var(--pukunui-ink);
-  background: #ffea81;
-}
-
-.pukunui-hero .btn-outline {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
-.pukunui-hero .btn-outline:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.16);
+  background: #ffffff;
 }
 
 .pukunui-category-grid {
@@ -294,7 +289,7 @@ body {
   padding: 1.35rem 1.4rem;
   background: #ffffff;
   border: 1px solid var(--pukunui-border);
-  border-radius: 0.85rem;
+  border-radius: 0.5rem;
   box-shadow: 0 3px 14px rgba(20, 17, 31, 0.045);
   transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
@@ -324,9 +319,9 @@ body {
   margin-top: 2rem;
   padding: 1.4rem 1.5rem;
   color: var(--pukunui-ink);
-  background: linear-gradient(135deg, #fff9d6, #ffffff);
-  border: 1px solid #f1d43d;
-  border-radius: 0.85rem;
+  background: var(--pukunui-surface);
+  border: 1px solid var(--pukunui-yellow);
+  border-radius: 0.5rem;
 }
 
 .pukunui-callout p:last-child {
@@ -334,8 +329,55 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--pukunui-yellow);
+  outline: 3px solid var(--pukunui-blue);
   outline-offset: 3px;
+}
+
+// Keep theme emphasis within the approved font weights.
+strong, b, .main-content h3, .main-content h4,
+.main-content h5, .main-content h6 {
+  font-weight: 600;
+}
+
+.nav-list .nav-list-item .nav-list-link {
+  font-weight: 600;
+}
+
+.btn:active {
+  box-shadow: inset 0 2px 4px rgba(23, 26, 31, 0.25);
+}
+
+.side-bar :focus-visible,
+.pukunui-hero :focus-visible,
+.main-content > footer :focus-visible {
+  outline-color: var(--pukunui-yellow);
+}
+
+.site-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.main-content > footer {
+  padding: 1.5rem;
+  color: #ffffff;
+  background: var(--pukunui-blue-dark);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.main-content > footer .nav-footer {
+  color: var(--pukunui-blue-light) !important;
+}
+
+.main-content > footer .text-small {
+  font-size: 0.875rem;
+}
+
+.main-content > footer a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 @media (max-width: 50rem) {
@@ -360,7 +402,8 @@ body {
 }
 
 @media print {
-  .pukunui-hero {
+  .pukunui-hero,
+  .main-content > footer {
     color: var(--pukunui-ink);
     background: #ffffff;
     border: 1px solid var(--pukunui-border);
@@ -369,7 +412,9 @@ body {
 
   .pukunui-hero h1,
   .pukunui-eyebrow,
-  .pukunui-lead {
-    color: var(--pukunui-ink);
+  .pukunui-lead,
+  .main-content > footer a,
+  .main-content > footer .nav-footer {
+    color: var(--pukunui-ink) !important;
   }
 }
