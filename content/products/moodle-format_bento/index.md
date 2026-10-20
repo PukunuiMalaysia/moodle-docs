@@ -8,7 +8,7 @@ nav_order: 10
 
 Bento arranges course sections as responsive cards. Learners open a card to study its section using Moodle’s standard activity pages. Teachers can give sections different card sizes and images while retaining native course editing.
 
-This product is in development. Compatibility testing and Marketplace preparation are incomplete; it is not available as an approved release.
+Bento 1.0.0-rc1 is a review candidate. The full release validation matrix and Marketplace preparation remain in progress; it is not a Marketplace-approved release.
 
 ## Key features
 
@@ -51,7 +51,7 @@ Turning editing off displays the learner overview. Selecting a section opens its
 
 ### Converting from Tiles
 
-Conversion targets Tiles 4.5.0.28 (build 2025070355) on Moodle 4.5. Other source versions and Moodle branches are rejected. Full database coverage remains pending. Tiles is optional and is not needed for ordinary Bento courses.
+Conversion targets Tiles 4.5.0.28 (build 2025070355) on Moodle 4.5. Other source versions and Moodle branches are rejected. Final release database coverage remains pending. Tiles is optional and is not needed for ordinary Bento courses.
 
 For an eligible Tiles course, a teacher with course-update permission can choose **Convert from Tiles** from the course menu. Review the preview before confirming. Take a course backup first. Interactive conversion is limited to 200 sections (including General) and 50 MB of source images; larger courses are refused without changes and need a planned migration.
 
