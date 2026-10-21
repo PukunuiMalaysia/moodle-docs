@@ -57,7 +57,7 @@ The optional Completion points view block can display records created by this pl
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release plugin ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete Moodle's validation and upgrade steps, and then open **Site administration > Plugins > Local plugins > Completion points > Settings**. No post-install build or command-line step is required.
+Download the plugin ZIP from the [Completion points Marketplace listing](https://marketplace.moodle.com/plugins/local_completionpoints). Open **Site administration > Plugins > Install plugins**, upload the ZIP, complete Moodle's validation and upgrade steps, and then open **Site administration > Plugins > Local plugins > Completion points > Settings**. No post-install build or command-line step is required.
 
 ## Configuration and use
 
