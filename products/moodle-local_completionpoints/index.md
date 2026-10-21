@@ -6,8 +6,6 @@ nav_order: 30
 permalink: /products/moodle-local_completionpoints/
 ---
 
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
-
 # Completion points
 
 Completion points awards configurable points for course and activity completion. Site administrators can enable each award type independently, set site defaults, override either value per course, and manage or import records.
@@ -61,7 +59,7 @@ The optional Completion points view block can display records created by this pl
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the pre-release plugin ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete Moodle's validation and upgrade steps, and then open **Site administration > Plugins > Local plugins > Completion points > Settings**. No post-install build or command-line step is required.
+Download the plugin ZIP from the [Completion points Marketplace listing](https://marketplace.moodle.com/plugins/local_completionpoints). Open **Site administration > Plugins > Install plugins**, upload the ZIP, complete Moodle's validation and upgrade steps, and then open **Site administration > Plugins > Local plugins > Completion points > Settings**. No post-install build or command-line step is required.
 
 ## Configuration and use
 

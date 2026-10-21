@@ -6,8 +6,6 @@ nav_order: 20
 permalink: /products/moodle-block_completionpoints_view/
 ---
 
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
-
 # Completion points view
 
 Completion points view displays completion-point records supplied by the Completion points local plugin. Learners can see course and activity awards, their sources, course links, visible activity names, notes, award dates, and one combined total from the beginning of the current calendar year. Manual, imported, and legacy records are included.
@@ -52,7 +50,7 @@ The block displays existing records; it does not award points or manage course c
 
 ## Installation
 
-Marketplace publication is pending. Obtain both plugin ZIPs from Pukunui for pre-release testing. Install Completion points first, then upload the block ZIP through **Site administration > Plugins > Install plugins** and complete Moodle's validation and upgrade process. The block ZIP contains one `completionpoints_view` directory. No post-install command or build step is needed.
+Download the block ZIP from the [Completion points view Marketplace listing](https://marketplace.moodle.com/plugins/block_completionpoints_view) and obtain its required companion from the [Completion points Marketplace listing](https://marketplace.moodle.com/plugins/local_completionpoints). Install Completion points first, then upload the block ZIP through **Site administration > Plugins > Install plugins** and complete Moodle's validation and upgrade process. The block ZIP contains one `completionpoints_view` directory. No post-install command or build step is needed.
 
 ## Configuration and use
 
