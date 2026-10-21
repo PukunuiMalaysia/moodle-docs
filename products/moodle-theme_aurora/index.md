@@ -24,13 +24,13 @@ Aurora is a Boost child theme for learning sites and online courses. It combines
 
 ## Screenshots
 
-The desktop homepage, dashboard, course activities and About captures show Aurora 6.0.0 on Moodle 5.2. The retained narrow-screen course captures show Aurora 5.2.2 with a configured course-header gradient. All people and content shown are fictional demonstration data.
+The homepage and About captures and the light-mode dashboard detail show Aurora 6.1.0 on Moodle 5.3. The retained dark dashboard and course activities captures show Aurora 6.0.0 on Moodle 5.2; narrow-screen course captures show Aurora 5.2.2 with a configured course-header gradient. All people and content shown are fictional demonstration data.
 
-![Aurora homepage hero in dark mode with a configured learning headline and site navigation](images/homepage-dark.jpg)
+![Aurora homepage hero in dark mode with a configured learning headline and site navigation](images/homepage-dark-610.jpg)
 
 *The homepage hero uses configurable text and Aurora's gradient fallback when no background media is uploaded. This image focuses on the hero and navigation, not the complete page.*
 
-![The same Aurora homepage hero in light mode with coordinated navigation and background colours](images/homepage-light.jpg)
+![The same Aurora homepage hero in light mode with coordinated navigation and background colours](images/homepage-light-610.jpg)
 
 *Light mode keeps the configured hero content while changing the surrounding site palette.*
 
@@ -50,13 +50,17 @@ The desktop homepage, dashboard, course activities and About captures show Auror
 
 *Light mode uses the same course structure and configured gradient with a coordinated light palette.*
 
-![About Aurora settings showing release 6.0.0, Moodle 4.5–5.2 support, licence, maintainer websites, and support links](images/about-unified-dark.jpg)
+![About Aurora settings showing release 6.1.0, Moodle 4.5–5.3 support, licence, maintainer websites, and support links](images/about-610.jpg)
 
 *The informational About tab presents installed metadata and public support links within standard site administration.*
 
+![Aurora 6.1.0 light-mode dashboard course cards and navigation on Moodle 5.3](images/dashboard-light-610.jpg)
+
+*This viewport detail shows the populated course cards and filters after scrolling down the dashboard.*
+
 ## Requirements
 
-Aurora 6.0.0 uses one package for Moodle 4.5 LTS, 5.0, 5.1 and 5.2. The theme's release number is independent of the Moodle version. Moodle versions earlier than 4.5 and Moodle 5.3 or later are not supported.
+Aurora 6.1.0 uses one package for Moodle 4.5 LTS, 5.0, 5.1, 5.2 and 5.3. The theme's release number is independent of the Moodle version. Moodle versions earlier than 4.5 and Moodle 5.4 or later are not supported.
 
 Aurora requires the Boost theme supplied with Moodle and the PHP and browser versions supported by the selected Moodle line. No additional Moodle plugin, external service, or post-installation build step is required.
 
@@ -64,7 +68,7 @@ Aurora requires the Boost theme supplied with Moodle and the PHP and browser ver
 
 Marketplace publication is pending. If Pukunui has provided a pre-release Aurora ZIP, open **Site administration > Plugins > Install plugins**, upload the package, complete validation, and follow Moodle's installation instructions. Select **Aurora** on the theme selection page under **Site administration > Appearance**.
 
-Back up the site before an upgrade. Existing Aurora 4.5.x, 5.0.x, 5.1.x and 5.2.x installations can upgrade to Aurora 6.0.0 through Moodle's normal upgrade process, retaining saved theme settings, uploaded branding and colour-mode preferences. The same package works when moving between supported Moodle lines. Purge caches after changing the theme or its appearance settings.
+Back up the site before an upgrade. Existing Aurora 4.5.x, 5.0.x, 5.1.x, 5.2.x and 6.0.x installations can upgrade to Aurora 6.1.0 through Moodle's normal upgrade process, retaining saved theme settings, uploaded branding and colour-mode preferences. The same package works when moving between supported Moodle lines. Upgrade Aurora before upgrading Moodle to 5.3 because earlier Aurora packages explicitly block that Moodle version. Purge caches after changing the theme or its appearance settings.
 
 ## Configuration and use
 
@@ -74,11 +78,17 @@ Open **Site administration > Appearance > Custom theme settings > Aurora**. Only
 
 Use **Brand** to upload light-mode and dark-mode logos, a fallback logo, and a favicon. Check each logo against its actual background in both modes.
 
+Aurora 6.1.0 styles Moodle 5.3's navigation pills and edit-mode label for both colour modes. Its homepage hero stays within the available content width on desktop and mobile screens.
+
 Under **Design system**, choose the default colour mode, colours, gradient, font pairing, density, course-card style, login treatment, and course-header options. **Load Google Fonts** is disabled by default. Without it, the chosen font families use locally available fonts and system fallbacks.
 
 Signed-in users can activate **Toggle colour mode** with a pointer, Enter, or Space. Their choice is stored as a Moodle user preference and applies to their own presentation. Guest choices are stored in the current browser when browser storage is available.
 
 ### Front page and content cards
+
+Under **Front page**, set **Maximum available courses** and **Maximum enrolled courses** independently from 1 to 48 (default: 12 each). These cap front-page cards before category, media, contact and completion rendering. Moodle's own front-page limit remains an upper bound. Missing or invalid saved limits fall back to 12. Ordering and visibility remain controlled by Moodle, and trimmed lists retain links to the course catalogue or My courses.
+
+The limits do not affect catalogue pages, dashboard cards or remote MNet lists. Moodle still retrieves the enrolled-course collection; the limits reduce per-card rendering work. Course-header progress is independently configurable under **Design system**.
 
 Use **Front page** to configure the hero media. Uploaded media is served through Moodle's File API. Keep essential information in page text, not only in a background image or video.
 

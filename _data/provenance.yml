@@ -20,13 +20,13 @@
     "title": "Completed courses"
   },
   "moodle-block_completionpoints_view": {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "cf7f619f2d5dfee4ece659e74d2ee06b6071400a",
-    "content_sha256": "35af6a29e7e9074f909a8254f65e9fe439147f54c5fd4a8fa75c288cd207e85e",
+    "content_commit": "ef4e4e962d465efa10f2eae9222efb62c9c3bf44",
+    "content_sha256": "5b7d0d07571440130000f8dc4fb11f4e7f3d321405958a3b1514029eb6b68cdf",
     "nav_order": 20,
-    "synced_at": "2026-10-06T05:53:48+00:00",
+    "synced_at": "2026-10-21T00:38:33+00:00",
     "title": "Completion points view"
   },
   "moodle-block_cr_charts": {
@@ -101,13 +101,13 @@
     "title": "Credential Lifecycle Manager"
   },
   "moodle-local_completionpoints": {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Local plugins",
-    "content_commit": "cf7f619f2d5dfee4ece659e74d2ee06b6071400a",
-    "content_sha256": "74f322008e66ac51355f03e444aa7f681199ad1462b7f96e6e75dfea152ba3bb",
+    "content_commit": "ef4e4e962d465efa10f2eae9222efb62c9c3bf44",
+    "content_sha256": "4a56be944acb7f0b49e955ae523a66815efe046151f31a472b71e637ad729fdd",
     "nav_order": 30,
-    "synced_at": "2026-10-06T05:53:48+00:00",
+    "synced_at": "2026-10-21T00:38:34+00:00",
     "title": "Completion points"
   },
   "moodle-local_imageopt": {
@@ -164,10 +164,10 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Themes",
-    "content_commit": "9763aacc2f25ea0e813b35a58a7e8d868b889932",
-    "content_sha256": "d99bc9742a38e0684c8c24fc2be653f1ff16fb2ab3c60719044f0be7ca5db0ed",
+    "content_commit": "c0339139fb38355dafcda0ecc7a2c333427c3ece",
+    "content_sha256": "ef5bddd7d1f10b54c43a965260d225a2e20f2d04807a99c6cad6b8c6e4a9eedc",
     "nav_order": 10,
-    "synced_at": "2026-09-14T05:32:11+00:00",
+    "synced_at": "2026-10-21T00:38:34+00:00",
     "title": "Aurora"
   },
   "moodle-theme_boleh": {
