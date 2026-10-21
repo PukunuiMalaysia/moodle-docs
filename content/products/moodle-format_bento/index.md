@@ -39,6 +39,8 @@ Bento depends on the core Topics format. It does not require a paid service, ext
 
 ## Installation
 
+Moodle Marketplace publication is pending.
+
 A release package is not yet approved for installation on production sites. Once an approved ZIP is supplied, install it through **Site administration > Plugins > Install plugins**. The package contains a single `bento` directory. Select **Bento** in the course format setting.
 
 ## Configuration and use
