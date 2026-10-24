@@ -23,10 +23,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "ef4e4e962d465efa10f2eae9222efb62c9c3bf44",
+    "content_commit": "d29f6506067e33a16b4bd3e925afd7abff694ba9",
     "content_sha256": "5b7d0d07571440130000f8dc4fb11f4e7f3d321405958a3b1514029eb6b68cdf",
     "nav_order": 20,
-    "synced_at": "2026-10-21T00:38:33+00:00",
+    "synced_at": "2026-10-24T06:26:26+00:00",
     "title": "Completion points view"
   },
   "moodle-block_cr_charts": {
@@ -104,10 +104,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Local plugins",
-    "content_commit": "ef4e4e962d465efa10f2eae9222efb62c9c3bf44",
+    "content_commit": "d29f6506067e33a16b4bd3e925afd7abff694ba9",
     "content_sha256": "4a56be944acb7f0b49e955ae523a66815efe046151f31a472b71e637ad729fdd",
     "nav_order": 30,
-    "synced_at": "2026-10-21T00:38:34+00:00",
+    "synced_at": "2026-10-24T06:26:26+00:00",
     "title": "Completion points"
   },
   "moodle-local_imageopt": {
@@ -174,10 +174,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Themes",
-    "content_commit": "2269598bef416a0aa412729ece78c9008607e351",
-    "content_sha256": "cf8e77878e4ccf27adfea7759bcfde80d41f6f24a1c63c95d8b00f844726e290",
+    "content_commit": "0a89afce344a7ff880624f1af69dfeb076cba165",
+    "content_sha256": "5e2af3c5df5e41d089c1197188e5ab610a51c6538750eea0fa7913795623e24d",
     "nav_order": 20,
-    "synced_at": "2026-10-02T21:30:04+00:00",
+    "synced_at": "2026-10-24T06:26:26+00:00",
     "title": "Boleh"
   },
   "quicknav-lms": {
