@@ -10,7 +10,7 @@ permalink: /products/moodle-theme_boleh/
 
 Boleh is a Boost-based Moodle theme for organisations that want a clean, branded learning experience without replacing Moodle's standard navigation and course workflows. It combines configurable branding, a video-led site home, site-wide Fancy Cards, rich-text callouts, accessibility preferences, and responsive layouts in one theme.
 
-**Latest update — Boleh 5.11.0** fixes repeated mobile menu buttons and drawers, including sites using the dual-brand masthead. It adds Moodle 5.3 support, corrects Fancy Cards spacing and desktop drawer positioning, and improves saving accessibility preferences.
+**Latest source release — Boleh 5.12.0** adds a configurable login-box order, with keyboard-accessible move controls and a reset to Moodle’s normal order. Moodle authentication settings still control which sign-in choices are available. Marketplace availability is confirmed separately from the source release.
 
 ## Key features
 
@@ -23,11 +23,12 @@ Boleh is a Boost-based Moodle theme for organisations that want a clean, branded
 - Use Moodle course overview images, stable bundled fallback media, and optional course-page covers.
 - Choose a light or dark navbar treatment while retaining Moodle's primary navigation, user menu, messages, notifications, edit switch, course index, and drawers.
 - Give users presentation preferences for toolbar visibility, font size, colour mode, and a dyslexia-friendly font.
+- Reorder the password form, instructions and registration, guest access, and configured identity-provider buttons without changing authentication settings.
 - Apply responsive Boleh styling to the login page, dashboard, courses, activities, reports, administration pages, and footer.
 
 ## Screenshots
 
-These screenshots show Boleh 5.10.0 on Moodle 5.2. All people, courses, organisations, and content shown are fictional demonstration data.
+The login-order screenshots show the Boleh 5.12.0 feature on Moodle 5.3. Other screenshots show Boleh 5.10.0 on Moodle 5.2. All people, courses, organisations, and content shown are fictional demonstration data.
 
 ### Site home and callouts
 
@@ -82,6 +83,16 @@ These screenshots show Boleh 5.10.0 on Moodle 5.2. All people, courses, organisa
 ![Boleh login page with branded header and sign-in form](images/login-page.jpg)
 
 *The login page preserves Moodle's normal sign-in workflow and supports a configurable background and login-box position.*
+
+### Login order settings
+
+![Boleh Login box order with instructions saved above the username and password form](images/login-order-settings.png)
+
+*Move up and Move down change the presentation order. Save changes to apply it; Reset to Moodle order restores the normal sequence.*
+
+![Boleh login page showing instructions above the username and password form after an administrator saves that order](images/login-custom-order.png)
+
+*The saved order appears on the login page while the normal password, guest-access, and recovery controls remain available.*
 
 ### Mobile callouts
 
@@ -185,6 +196,17 @@ Older Boleh guides may mention sponsor and client logo rows. These sections have
 
 Choose the login background and **Login box position** under **Branding & appearance**. The box can sit on the left, in the centre, or on the right. **Extend to full-height side panel** applies to left- or right-aligned boxes on larger screens; phones use the centred layout.
 
+#### Reorder sign-in choices
+
+1. In **Branding & appearance**, find **Login box order**.
+2. Use **Move up** or **Move down** beside a section to choose its position. These buttons also work with the keyboard.
+3. Select **Save changes**, then check the login page while signed out.
+4. To restore the default sequence, select **Reset to Moodle order** and **Save changes**.
+
+The list includes the available username and password form, login instructions and registration, guest access, and configured identity-provider buttons. Moodle authentication and site settings continue to control availability and sign-in behavior. An unavailable section is not enabled by placing it in the order. Newly available choices that are not in the saved order follow the saved items in Moodle’s normal sequence.
+
+Existing sites retain Moodle’s normal order until an administrator saves a custom order. No authentication provider, account, credential, or provider URL is changed by this setting.
+
 ### Review changes
 
 After changing theme settings or media, purge Moodle caches and inspect the guest and signed-in site home, login page, dashboard, course and activity pages, administration pages, drawers, modals, and mobile layouts. Review custom styling in both navbar modes and with accessibility preferences enabled.
@@ -197,6 +219,7 @@ Only authorised site administrators can change theme settings and uploaded media
 
 ## Troubleshooting
 
+- If a sign-in choice is missing from Login box order, check its Moodle authentication or site setting first. The theme does not enable authentication methods.
 - If a visual or media change is not visible, confirm that Boleh is the active theme and purge Moodle caches.
 - If uploaded media is missing, reopen the relevant Boleh setting, confirm that the file was saved, and check that the browser can load it through Moodle's File API.
 - If the bundled images appear unexpectedly, review **Use bundled starter media** and the relevant uploaded-media setting.
