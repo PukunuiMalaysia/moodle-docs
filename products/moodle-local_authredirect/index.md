@@ -6,7 +6,7 @@ nav_order: 20
 permalink: /products/moodle-local_authredirect/
 ---
 
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
+> **Pre-release product:** This product is in pre-release. Marketplace publication is pending. Its Marketplace listing may not yet be available.
 
 # Auth login redirect
 
