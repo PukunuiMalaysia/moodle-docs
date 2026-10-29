@@ -2,7 +2,7 @@
 title: Bento
 category: Course formats
 parent: "Course formats"
-nav_order: 10
+nav_order: 20
 permalink: /products/moodle-format_bento/
 ---
 

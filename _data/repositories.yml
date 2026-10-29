@@ -52,6 +52,14 @@
     "branch": "main",
     "category": "Course formats",
     "nav_order": 10,
+    "repository": "moodle-format_activitygroups",
+    "title": "Activity Groups Format"
+  },
+  {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Course formats",
+    "nav_order": 20,
     "repository": "moodle-format_bento",
     "title": "Bento"
   },
