@@ -656,6 +656,15 @@ def synchronize(
             + ". Restore access, synchronize an explicit nonpublic state, and remove App access only after the deletion merges."
         )
 
+    old_catalog = load_json(repo_root / "_data" / "repositories.yml", default=[])
+    if not isinstance(old_catalog, list) or any(
+        not isinstance(item, dict) or not isinstance(item.get("repository"), str)
+        for item in old_catalog
+    ):
+        raise SyncError("Expected _data/repositories.yml to contain repository records")
+    catalog_names = {item["repository"] for item in old_catalog}
+    blocked_new_products: dict[str, str] = {}
+
     selected = [
         item for item in inventory if item["availability"] in PUBLIC_AVAILABILITIES
     ]
@@ -674,6 +683,15 @@ def synchronize(
             item = dict(selected_item)
             repository = item["repository"]
             public_root = central_products / repository
+            # Only an entirely absent, never-published source may be deferred.
+            # lexists semantics preserve fail-closed handling of broken symlinks.
+            generated_root = repo_root / "products" / repository
+            if (not public_root.exists() and not public_root.is_symlink()
+                    and repository not in old_provenance
+                    and repository not in catalog_names
+                    and not generated_root.exists() and not generated_root.is_symlink()):
+                blocked_new_products[repository] = "Central source directory is absent; product remains unpublished"
+                continue
             validate_public_tree(public_root)
             contract = validate_docs_tree(public_root, repository, item["availability"])
             if contract.errors:
@@ -712,6 +730,9 @@ def synchronize(
             catalog.append(catalog_entry(item))
 
         result = classify_changes(old_provenance, provenance, inventory)
+        result["blocked_new_products"] = blocked_new_products
+        if blocked_new_products:
+            result["retirement_only"] = False
         provenance_file = temp_root / "provenance.yml"
         catalog_file = temp_root / "repositories.yml"
         write_json(provenance_file, provenance)

@@ -472,6 +472,72 @@ The software is licensed under the GNU General Public License v3 or later. Docum
 
         self.assertEqual("published\n", product.joinpath("index.md").read_text(encoding="utf-8"))
 
+    def deferred_fixture(self):
+        central = self.root / "central"
+        data = central / "_data"
+        data.mkdir(parents=True)
+        data.joinpath("provenance.yml").write_text("{}")
+        data.joinpath("repositories.yml").write_text("[]")
+        source = central / "content/products/moodle-block_example"
+        self.write_valid_index(source)
+        inventory = self.root / "inventory.json"
+        inventory.write_text(json.dumps([
+            self.inventory_entry("moodle-block_example", "commercial-active"),
+        ]))
+        with mock.patch.object(sync_docs, "content_commit", return_value="d" * 40):
+            sync_docs.synchronize(central, inventory_path=inventory)
+        inventory.write_text(json.dumps([
+            self.inventory_entry("moodle-block_example", "commercial-active"),
+            self.inventory_entry("moodle-format_absent", "pre-release"),
+        ]))
+        return central, inventory
+
+    def test_absent_new_source_deferred_and_existing_product_retained(self):
+        central, inventory = self.deferred_fixture()
+        previous = json.loads((central / "_data/provenance.yml").read_text())
+        with mock.patch.object(sync_docs, "content_commit", return_value="d" * 40):
+            result = sync_docs.synchronize(central, inventory_path=inventory)
+        self.assertEqual(["moodle-format_absent"], list(result["blocked_new_products"]))
+        self.assertEqual(["moodle-block_example"], result["unchanged"])
+        self.assertEqual([], result["removed"])
+        self.assertFalse(result["retirement_only"])
+        self.assertEqual(previous, json.loads((central / "_data/provenance.yml").read_text()))
+        self.assertTrue((central / "products/moodle-block_example/index.md").is_file())
+        self.assertFalse((central / "products/moodle-format_absent").exists())
+
+    def test_partial_new_source_still_fails(self):
+        central, inventory = self.deferred_fixture()
+        (central / "content/products/moodle-format_absent").mkdir()
+        before = (central / "_data/provenance.yml").read_bytes()
+        with self.assertRaises(sync_docs.SyncError):
+            sync_docs.synchronize(central, inventory_path=inventory)
+        self.assertEqual(before, (central / "_data/provenance.yml").read_bytes())
+
+    def test_absent_catalogued_or_previously_published_source_still_fails(self):
+        central, inventory = self.deferred_fixture()
+        source = central / "content/products/moodle-block_example"
+        source.rename(source.with_name("hidden"))
+        with self.assertRaisesRegex(sync_docs.SyncError, "Missing required directory"):
+            sync_docs.synchronize(central, inventory_path=inventory)
+        self.assertTrue((central / "products/moodle-block_example/index.md").is_file())
+        # A catalog-only orphan must also fail, even without a generated route.
+        (central / "_data/provenance.yml").write_text("{}")
+        import shutil
+        shutil.rmtree(central / "products/moodle-block_example")
+        with self.assertRaisesRegex(sync_docs.SyncError, "Missing required directory"):
+            sync_docs.synchronize(central, inventory_path=inventory)
+
+    def test_blocked_new_product_disables_retirement_auto_merge(self):
+        central, inventory = self.deferred_fixture()
+        inventory.write_text(json.dumps([
+            self.inventory_entry("moodle-block_example", "in-development"),
+            self.inventory_entry("moodle-format_absent", "pre-release"),
+        ]))
+        result = sync_docs.synchronize(central, inventory_path=inventory)
+        self.assertEqual(["moodle-block_example"], result["removed"])
+        self.assertFalse(result["retirement_only"])
+        self.assertIn("moodle-format_absent", result["blocked_new_products"])
+
     def test_public_metadata_change_is_not_retirement_only(self) -> None:
         old = {
             "moodle-block_example": {

@@ -54,6 +54,20 @@ jobs:
           echo "updated_count=$(python3 -c 'import json, sys; print(len(json.load(open(sys.argv[1], encoding="utf-8"))["updated"]))' "$result_file")" >> "$GITHUB_OUTPUT"
           echo "removed_count=$(python3 -c 'import json, sys; print(len(json.load(open(sys.argv[1], encoding="utf-8"))["removed"]))' "$result_file")" >> "$GITHUB_OUTPUT"
           echo "removed=$(python3 -c 'import json, sys; print(", ".join(json.load(open(sys.argv[1], encoding="utf-8"))["removed"]))' "$result_file")" >> "$GITHUB_OUTPUT"
+          python3 - "$result_file" <<'PYBLOCK'
+          import json, os, sys
+          blocked = json.load(open(sys.argv[1], encoding="utf-8"))["blocked_new_products"]
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write("blocked=" + ", ".join(sorted(blocked)) + "\n")
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
+              summary.write("## Products blocked from first publication\n\n")
+              if blocked:
+                  for name, reason in sorted(blocked.items()):
+                      summary.write(f"- `{name}`: {reason}.\n")
+                      print(f"::warning::{name}: {reason}")
+              else:
+                  summary.write("None.\n")
+          PYBLOCK
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.280.0
@@ -118,6 +132,10 @@ jobs:
             '- generated local-link check' > "$body_file"
           if [ -n "${{ steps.sync.outputs.removed }}" ]; then
             printf '%s\n' '' "Removed public routes: ${{ steps.sync.outputs.removed }}" >> "$body_file"
+          fi
+          if [ -n "${{ steps.sync.outputs.blocked }}" ]; then
+            printf '%s\n' '' '## Blocked first publications' \
+              "${{ steps.sync.outputs.blocked }}: central source directory absent; these products remain unpublished. Existing published routes are not deferred. Resolve their central sources before first publication. Retirement auto-merge is disabled while blockers exist." >> "$body_file"
           fi
           existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --head automation/docs-sync --base main --state open --json number --jq '.[0].number')"
           if [ -n "$existing" ]; then
