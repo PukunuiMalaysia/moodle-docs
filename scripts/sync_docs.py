@@ -450,8 +450,8 @@ def inject_navigation(
         )
     elif relative.as_posix() == "index.md" and availability == "pre-release":
         body = (
-            "\n> **Pre-release product:** This product is ready for release and awaiting "
-            "Marketplace publication. Its Marketplace listing may not yet be available.\n\n"
+            "\n> **Pre-release product:** This product is in pre-release. "
+            "Marketplace publication is pending. Its Marketplace listing may not yet be available.\n\n"
             + body.lstrip()
         )
     rendered += body
