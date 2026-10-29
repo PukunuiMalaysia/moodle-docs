@@ -40,6 +40,8 @@ Completion points view displays completion-point records supplied by the Complet
 
 ## Requirements
 
+This guide covers version 1.2.2. Moodle 5.3 is explicitly incompatible with this release.
+
 - Moodle 4.5 through Moodle 5.2 only.
 - Completion points (`local_completionpoints`) version `2026100600` or later, installed separately before this block.
 - A database supported by the installed Moodle release. The block uses Moodle DML and no database-specific SQL.
@@ -54,7 +56,7 @@ Download the block ZIP from the [Completion points view Marketplace listing](htt
 
 Turn editing on in Dashboard or a course page and add **Completion points view** to a block region. It reads the signed-in user's records from 1 January of the current year, using Moodle's user date/time handling. Award details are stacked beside the points value. Activity names are shown only when the current viewer can access the course and activity; hidden, deleted, or inaccessible activities use an unavailable label.
 
-An administrator or a user explicitly granted `block/completionpoints_view:viewotherusers` in the system context can add `userid=<Moodle user ID>` to the page URL to display another user's records. Unauthorised users cannot change the displayed user with this parameter. Invalid or deleted user IDs produce an invalid-user message. Legacy `id` links are retained where they do not conflict with the current course ID; new integrations should use `userid`.
+An administrator or a user explicitly granted `block/completionpoints_view:viewotherusers` in the system context can add `userid=<Moodle user ID>` to the page URL to display another user's records. Unauthorised users cannot change the displayed user with this parameter. Invalid or deleted user IDs produce an invalid-user message. The page URL’s `id` parameter is not a user selector. Update older links to use `userid`; course-page IDs continue to identify the course.
 
 Site administrators can open **Site administration > Plugins > Blocks > Completion points view > About**. The page derives release and supported versions from installed metadata. It contains no configuration form, tracking, or state-changing action.
 

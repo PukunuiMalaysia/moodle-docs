@@ -48,6 +48,8 @@ Completion points awards configurable points for course and activity completion.
 
 ## Requirements
 
+This guide covers version 1.1.1. Moodle 5.3 is explicitly incompatible with this release.
+
 - Moodle 4.5 LTS through Moodle 5.2.
 - Moodle completion tracking must be enabled for the applicable course or activity.
 - Any database supported by the applicable Moodle release.
