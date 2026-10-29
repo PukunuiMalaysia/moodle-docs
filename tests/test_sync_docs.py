@@ -203,6 +203,8 @@ The software is licensed under the GNU General Public License v3 or later. Docum
             has_children=False,
         )
         self.assertIn("**Pre-release product:**", rendered)
+        self.assertIn("Marketplace publication is pending", rendered)
+        self.assertNotIn("ready for release", rendered)
         self.assertIn("Marketplace listing may not yet be available", rendered)
 
     def test_inventory_ignores_missing_product_availability(self) -> None:
