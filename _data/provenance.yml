@@ -23,10 +23,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "d29f6506067e33a16b4bd3e925afd7abff694ba9",
-    "content_sha256": "5b7d0d07571440130000f8dc4fb11f4e7f3d321405958a3b1514029eb6b68cdf",
+    "content_commit": "4a4ee66a91468c9a2c651b05979c07e138d0fc79",
+    "content_sha256": "a07cde8ae609bcbc4ec43c316a3c1ad0923323bcebd1e7eea74602ceb2a12727",
     "nav_order": 20,
-    "synced_at": "2026-10-24T06:26:26+00:00",
+    "synced_at": "2026-10-29T02:21:18+00:00",
     "title": "Completion points view"
   },
   "moodle-block_cr_charts": {
@@ -70,14 +70,24 @@
     "synced_at": "2026-08-24T16:18:15+00:00",
     "title": "Configurable Reports SQL query library"
   },
+  "moodle-format_activitygroups": {
+    "availability": "pre-release",
+    "branch": "main",
+    "category": "Course formats",
+    "content_commit": "ce31fcd34bf446380be84fa973b03a55ee594da1",
+    "content_sha256": "49a6449e6a7030eb2089bb1f60846204c9e8c77edb78aaeb0cd32130b11941fd",
+    "nav_order": 10,
+    "synced_at": "2026-10-29T02:21:19+00:00",
+    "title": "Activity Groups Format"
+  },
   "moodle-format_bento": {
     "availability": "pre-release",
     "branch": "main",
     "category": "Course formats",
-    "content_commit": "ddaed2f5c66edd7eb849907b8a0f5ddeb14e16b3",
-    "content_sha256": "8fbb84623f10ab3d1652e1beff93e9fd4b5fc5a054af121c849f1a5c8d90afb8",
-    "nav_order": 10,
-    "synced_at": "2026-10-29T01:57:15+00:00",
+    "content_commit": "14113c9a5837325d85cf9fe5f7fd8812bf083694",
+    "content_sha256": "a877e445ee4f79c14fb1b8a199ebb3f5e928d94b9db8095edab94b2a1677cfb8",
+    "nav_order": 20,
+    "synced_at": "2026-10-29T02:21:19+00:00",
     "title": "Bento"
   },
   "moodle-local_authcategoryaccess": {
@@ -114,10 +124,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Local plugins",
-    "content_commit": "d29f6506067e33a16b4bd3e925afd7abff694ba9",
-    "content_sha256": "4a56be944acb7f0b49e955ae523a66815efe046151f31a472b71e637ad729fdd",
+    "content_commit": "4a4ee66a91468c9a2c651b05979c07e138d0fc79",
+    "content_sha256": "fffbca273a64a106a8c80ed529e13d7ef74886cc1e8b9cf4f5178c3d971a7e59",
     "nav_order": 30,
-    "synced_at": "2026-10-24T06:26:26+00:00",
+    "synced_at": "2026-10-29T02:21:19+00:00",
     "title": "Completion points"
   },
   "moodle-local_imageopt": {
