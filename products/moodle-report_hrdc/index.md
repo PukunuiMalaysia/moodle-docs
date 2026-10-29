@@ -6,7 +6,7 @@ nav_order: 10
 permalink: /products/moodle-report_hrdc/
 ---
 
-> **Pre-release product:** This product is ready for release and awaiting Marketplace publication. Its Marketplace listing may not yet be available.
+> **Pre-release product:** This product is in pre-release. Marketplace publication is pending. Its Marketplace listing may not yet be available.
 
 # HRD Corp attendance report
 
