@@ -10,6 +10,8 @@ permalink: /products/moodle-theme_boleh/
 
 Boleh is a Boost-based Moodle theme for organisations that want a clean, branded learning experience without replacing Moodle's standard navigation and course workflows. It combines configurable branding, a video-led site home, site-wide Fancy Cards, rich-text callouts, accessibility preferences, and responsive layouts in one theme.
 
+**Latest update — Boleh 5.11.0** fixes repeated mobile menu buttons and drawers, including sites using the dual-brand masthead. It adds Moodle 5.3 support, corrects Fancy Cards spacing and desktop drawer positioning, and improves saving accessibility preferences.
+
 ## Key features
 
 - Configure organisation and learning-platform logos, colours, typography, spacing density, favicon, and optional dual-brand mastheads.
@@ -95,12 +97,12 @@ These screenshots show Boleh 5.10.0 on Moodle 5.2. All people, courses, organisa
 
 ## Requirements
 
-- Moodle 4.5 LTS through Moodle 5.2.
+- Moodle 4.5 LTS through Moodle 5.3.
 - Moodle's Boost theme, which is included with Moodle.
 - A modern supported browser.
 - No additional Moodle plugin or external service is required for normal operation.
 
-One current Boleh release package supports the full Moodle 4.5–5.2 range. Keep Boleh updated when upgrading Moodle, and confirm compatibility before moving beyond that published range.
+One current Boleh release package supports the full Moodle 4.5–5.3 range. Keep Boleh updated when upgrading Moodle, and confirm compatibility before moving beyond that published range.
 
 ## Installation
 
