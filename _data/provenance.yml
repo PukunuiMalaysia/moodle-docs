@@ -33,10 +33,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "3a4ce484a17e1a27e9fc45350746829e65bb4c59",
-    "content_sha256": "62e42e1715302e4c537ba76e174baffe66a63f262531a91abddb6136bc5ad827",
+    "content_commit": "abe525512a28b18954e756405d48c74d1eb11748",
+    "content_sha256": "70af29016745ed457083829233591d55ee578189123997852b2dcc5bec6b11b0",
     "nav_order": 30,
-    "synced_at": "2026-09-22T13:26:21+00:00",
+    "synced_at": "2026-10-30T02:35:38+00:00",
     "title": "Configurable reports chart"
   },
   "moodle-block_skillscard": {
@@ -53,10 +53,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Blocks",
-    "content_commit": "3a4ce484a17e1a27e9fc45350746829e65bb4c59",
-    "content_sha256": "cb10f118f29e0dd76e8bc44de1952ca2a495aad537df5dd5443b59493042706d",
+    "content_commit": "abe525512a28b18954e756405d48c74d1eb11748",
+    "content_sha256": "21e07ea32746f9de08e8c74f71f39160a46003e384b82c5b6e83bd3e3099a153",
     "nav_order": 50,
-    "synced_at": "2026-09-22T13:26:21+00:00",
+    "synced_at": "2026-10-30T02:35:38+00:00",
     "title": "SocialLink"
   },
   "moodle-configurable_reports-custom_sql_queries": {
@@ -70,24 +70,14 @@
     "synced_at": "2026-08-24T16:18:15+00:00",
     "title": "Configurable Reports SQL query library"
   },
-  "moodle-format_activitygroups": {
-    "availability": "pre-release",
-    "branch": "main",
-    "category": "Course formats",
-    "content_commit": "ce31fcd34bf446380be84fa973b03a55ee594da1",
-    "content_sha256": "49a6449e6a7030eb2089bb1f60846204c9e8c77edb78aaeb0cd32130b11941fd",
-    "nav_order": 10,
-    "synced_at": "2026-10-29T02:21:19+00:00",
-    "title": "Activity Groups Format"
-  },
   "moodle-format_bento": {
     "availability": "pre-release",
     "branch": "main",
     "category": "Course formats",
-    "content_commit": "14113c9a5837325d85cf9fe5f7fd8812bf083694",
-    "content_sha256": "a877e445ee4f79c14fb1b8a199ebb3f5e928d94b9db8095edab94b2a1677cfb8",
-    "nav_order": 20,
-    "synced_at": "2026-10-29T02:21:19+00:00",
+    "content_commit": "0d5a5e2ce5f81ad68a3f328dec84cfd694727d91",
+    "content_sha256": "8fbb84623f10ab3d1652e1beff93e9fd4b5fc5a054af121c849f1a5c8d90afb8",
+    "nav_order": 10,
+    "synced_at": "2026-10-30T02:35:38+00:00",
     "title": "Bento"
   },
   "moodle-local_authcategoryaccess": {
@@ -144,10 +134,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Activities",
-    "content_commit": "24342ce1f9dbf13bbbf234c4d3b4c55cc2a611c8",
-    "content_sha256": "aadfcb9dac23fbb3cf706f83ac4d4294b4f3454713ba71812ee2d527a6777425",
+    "content_commit": "abe525512a28b18954e756405d48c74d1eb11748",
+    "content_sha256": "4fd247146ddaf1e30e41f401b1b2cfcfffbdf8f62680d5d2659c695797f241bf",
     "nav_order": 10,
-    "synced_at": "2026-09-22T13:25:30+00:00",
+    "synced_at": "2026-10-30T02:35:38+00:00",
     "title": "Scratchpad activity"
   },
   "moodle-report_hrdc": {
@@ -164,10 +154,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Reports",
-    "content_commit": "feab3311691c2e49cfd847b1e53f55fa6aa27e4b",
-    "content_sha256": "94a493d660b5b8090ad4edfd82d1b00616e4d244ecbd9aa0d686b7ea093f5603",
+    "content_commit": "abe525512a28b18954e756405d48c74d1eb11748",
+    "content_sha256": "db05f2944e75d958b80ec0f1969f71f67ef2d1d59980561d1d7df47ec0c2e31d",
     "nav_order": 20,
-    "synced_at": "2026-09-14T05:00:28+00:00",
+    "synced_at": "2026-10-30T02:35:38+00:00",
     "title": "Plugin health"
   },
   "moodle-report_storageinsights": {
