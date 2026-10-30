@@ -21,7 +21,7 @@ Configurable reports chart turns saved SQL reports from Configurable Reports int
 - Supply all-time, 30-day, or 90-day values to supported Configurable Reports date placeholders.
 - Preserve Configurable Reports visibility, course scope, and viewer permissions before reading cached or current results.
 - Show an accessible data table alongside the chart through Moodle's standard chart output.
-- Cache mapped chart data for up to 15 minutes while invalidating it when report SQL changes.
+- Reuse mapped chart data only within the current page request; later requests read current source data.
 
 ## Screenshots
 
@@ -67,6 +67,8 @@ For a pre-release build whose Marketplace publication is pending, use only a tes
 
 Install or upgrade [Configurable Reports](https://marketplace.moodle.com/plugins/block_configurable_reports) (`block_configurable_reports`) to **version `2024051300` (4.1.0) or later** before installing this block. No post-install build, external service configuration, or manual database step is required.
 
+When upgrading to version 1.0.2, complete the Moodle upgrade through **Site administration > Notifications**. The upgrade clears the former persistent chart cache and refreshes Moodle cache definitions so chart results are kept only for the current request. Moodle rebuilds site caches after the upgrade; the first page loads may take longer.
+
 ## Configuration and use
 
 ### Prepare the source report
@@ -92,7 +94,7 @@ The selected date range supplies values to supported Configurable Reports time p
 
 ### View and update charts
 
-Viewers see the chart only while the source report remains visible, in scope, and permitted for them. Mapped labels and values are cached for up to 15 minutes per report, user, course, and chart configuration. Editing the report SQL changes the cache identity so the revised query is used without waiting for the previous entry to expire.
+Viewers see the chart only while the source report remains visible, in scope, and permitted for them. Mapped labels and values are reused only within the current request, scoped by report, user, course, chart configuration, date range, and current SQL. Reloading the page reads current source data, including changes or deletions made since the previous request.
 
 Open **Site administration > Plugins > Blocks > Configurable reports chart > About** for the installed release, supported Moodle range, licence, maintainer websites, documentation, and public support links. The About page is informational and creates no configuration records.
 
@@ -100,7 +102,7 @@ Open **Site administration > Plugins > Blocks > Configurable reports chart > Abo
 
 Configurable reports chart creates no database tables, permanently stores no personal data, and sends no data to an external service. Its Privacy API provider declares that the block has no personal data of its own to export or delete.
 
-For performance, Moodle's cache can temporarily hold the selected report's mapped labels and numeric values. Cache entries are scoped by report, user, course, chart configuration, date range, and current SQL. A source report can query personal data, so its author is responsible for the query, viewer permissions, and resulting output.
+For performance, mapped labels and numeric values may be held in memory during the current request only; the block does not retain them in a persistent chart cache between requests. A source report can query personal data, so its author is responsible for the query, viewer permissions, and resulting output. Personal data in the underlying source remains subject to that source's privacy and retention controls.
 
 Moodle capabilities control who can add block instances to course pages or personal dashboards. Configurable Reports permissions independently control who can select and view each source report. Removing report access prevents the block from reading either cached or current chart data for that viewer. The administrator About page requires Moodle's site-configuration capability.
 
@@ -112,7 +114,7 @@ Moodle capabilities control who can add block instances to course pages or perso
 - If a value-column error appears, ensure every value returned by that alias is numeric.
 - If the report returns no chartable data, run the source report directly and check its filters and date placeholders.
 - If the block refuses the query, reduce it to one read-only `SELECT` statement and remove write operations or additional statements.
-- If the chart does not immediately reflect unchanged report data, wait for the cache entry to expire or ask an administrator to purge Moodle caches.
+- If a chart appears out of date, reload the page and check the source report. Chart results are not retained between requests.
 - Before upgrading beyond Moodle 5.2, confirm that a newer plugin release explicitly supports the target Moodle version.
 
 ## Support and licence

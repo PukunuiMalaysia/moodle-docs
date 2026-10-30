@@ -78,7 +78,9 @@ Open the activity report to review entries. Select a grade and enter written fee
 
 ## Privacy and permissions
 
-Scratchpad stores learner entry text, teacher feedback, ratings, and related user identifiers in Moodle. Its Privacy API provider declares the data, exports it for privacy requests, and supports deletion. The plugin does not send this information to an external service.
+Scratchpad stores learner reflections, teacher feedback, ratings, related user identifiers and timestamps, notification status, and entry files in Moodle. Its Privacy API provider identifies learners, graders, and uploaders of current and restored legacy entry or feedback files. The plugin does not send this information to an external service.
+
+A learner privacy export includes their reflection, grading information, and entry files. A grader export includes their feedback and grading information without including another learner's reflection. Privacy deletion removes the selected learner's entries and associated current entry files, together with files owned by the selected uploader in the supported current and legacy areas. When a grader is deleted, their identity is removed from other learners' entries while the feedback, rating, and marking time are preserved. These operations are restricted to the approved Scratchpad activities.
 
 Moodle capabilities control activity viewing, entry management, reporting, grading, and downloads. Administrators should apply normal course roles, retention, backup, and privacy policies to Scratchpad activities.
 

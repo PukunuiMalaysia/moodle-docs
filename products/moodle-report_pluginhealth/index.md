@@ -80,7 +80,7 @@ Open **Site administration > Reports > Plugin health > About** for the installed
 
 The report, About tab, and exports require the system capability `report/pluginhealth:view`, granted to managers by default. Learners and other users without the report capability cannot access them.
 
-Plugin health stores no personal data. It reads aggregate usage counts through Moodle's database API, retains them briefly in Moodle's cache, and does not display or export individual user records. Its Privacy API provider declares that no personal data is stored and describes the external metadata lookup.
+Plugin health reads aggregate usage counts through Moodle's database API and retains them briefly alongside public plugin metadata in Moodle's cache. It does not store, display, export, or send individual user records to the external metadata service. Its Privacy API provider declares the external technical metadata transfer and handles privacy requests without exporting or deleting shared technical caches, because those caches are not associated with individual users.
 
 External requests send plugin component names, installed version numbers, and the selected Moodle target to Moodle's public metadata service. Moodle's configured proxy is respected, TLS certificates are verified, and responses are cached. No credentials are required. If the service is unavailable, local evidence remains available and inconclusive results are reported explicitly.
 
