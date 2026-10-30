@@ -55,7 +55,9 @@ The block resolves only pages suitable for sharing. A reading page may be shared
 
 ## Privacy and permissions
 
-SocialLink stores site and block-instance configuration but no personal data. It does not contact social networks when a Moodle page loads. When a user chooses a provider, the browser opens that service and the service may process the shared URL and signed-in account information under its own terms.
+SocialLink stores site and block-instance configuration and retains no per-user sharing history. Its Privacy API provider declares the page URL and title passed to an external sharing service, email client, or device-sharing destination when a user chooses that action. There are no plugin-owned per-user sharing records to export or delete.
+
+SocialLink does not contact social networks when a Moodle page loads. Copy-link and QR-code actions run locally. When a user chooses an external destination, that destination may process the shared URL, title, and signed-in account information under its own terms.
 
 Moodle capabilities control who can add and configure a block. Page policy and URL validation prevent unsafe or user-specific Moodle pages from being offered as sharing targets.
 
