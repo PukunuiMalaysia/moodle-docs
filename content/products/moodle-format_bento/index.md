@@ -1,7 +1,7 @@
 ---
 title: Bento
 category: Course formats
-nav_order: 20
+nav_order: 10
 ---
 
 # Bento
