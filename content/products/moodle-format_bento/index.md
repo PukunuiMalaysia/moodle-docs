@@ -8,7 +8,7 @@ nav_order: 10
 
 Bento arranges course sections as responsive cards. Learners open a card to study its section using Moodle’s standard activity pages. Teachers can give sections different card sizes and images while retaining native course editing.
 
-Bento 1.0.0-rc2 is a review candidate. It adds a course-format description and consistent double-height cards. The earlier candidate completed the local compatibility matrix; the height correction has additional focused browser coverage. Manual app and accessibility review and Marketplace submission remain pending. It is not a Marketplace-approved release.
+Bento 1.0.0 is labelled stable and is being prepared for Moodle Marketplace review. It adds a course-format description and consistent double-height cards. The earlier candidate completed the local compatibility matrix; the height correction has additional focused browser coverage. Manual app and accessibility review remain pending. It is not yet a Marketplace-approved release.
 
 ## Key features
 
