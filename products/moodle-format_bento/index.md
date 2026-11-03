@@ -12,7 +12,7 @@ permalink: /products/moodle-format_bento/
 
 Bento arranges course sections as responsive cards. Learners open a card to study its section using Moodle’s standard activity pages. Teachers can give sections different card sizes and images while retaining native course editing.
 
-Bento 1.0.0-rc1 is a review candidate. Local compatibility validation is complete; manual app and accessibility review and Marketplace submission remain pending. It is not a Marketplace-approved release.
+Bento 1.0.0 is labelled stable and is being prepared for Moodle Marketplace review. It adds a course-format description and consistent double-height cards. The earlier candidate completed the local compatibility matrix; the height correction has additional focused browser coverage. Manual app and accessibility review remain pending. It is not yet a Marketplace-approved release.
 
 ## Key features
 
@@ -25,7 +25,23 @@ Bento 1.0.0-rc1 is a review candidate. Local compatibility validation is complet
 
 ## Screenshots
 
-These screenshots use fictional demonstration data from the local Moodle 4.5 validation site.
+All people and course content shown in these screenshots are fictional demonstration data.
+
+### An illustrated course
+
+The fictional course **Small Spaces, Big Harvests** shows how a welcome area and four learning sections can combine images, learning objectives, questions and checklists. These captures show the updated card layout on Moodle 5.2 with the Boleh theme in Student preview. The gardening illustrations are AI-generated course content; the screenshots are authentic captures of the running course.
+
+![Full Bento gardening course with a welcome area and four illustrated learning sections arranged in a responsive card grid](images/bento-gardening-full-course.jpg)
+
+*The complete course overview combines a full-width welcome section with alternating wide and narrow learning cards. Each card opens its Moodle section.*
+
+![Four Bento learning cards showing botanical illustrations, bold introductions, learning objectives, a reflective question and a weekly checklist](images/bento-gardening-card-detail.jpg)
+
+*A closer view of the cards shows varied descriptions and formatting alongside section images and activity counts.*
+
+### Navigation and section settings
+
+The following captures show the Moodle 4.5 validation site.
 
 ![Bento learner overview with section cards and the native course index](images/bento-learner-overview.png)
 

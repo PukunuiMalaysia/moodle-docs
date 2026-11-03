@@ -74,10 +74,10 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Course formats",
-    "content_commit": "0d5a5e2ce5f81ad68a3f328dec84cfd694727d91",
-    "content_sha256": "8fbb84623f10ab3d1652e1beff93e9fd4b5fc5a054af121c849f1a5c8d90afb8",
+    "content_commit": "7e60068af6e9e781806b8948bfe2c0ae6518b4b6",
+    "content_sha256": "99b3f26a1733352fc87ee4ae73af011493e71df36e7c609edf0fbfc91d7711bc",
     "nav_order": 10,
-    "synced_at": "2026-10-30T02:35:38+00:00",
+    "synced_at": "2026-11-03T10:20:30+00:00",
     "title": "Bento"
   },
   "moodle-local_authcategoryaccess": {
