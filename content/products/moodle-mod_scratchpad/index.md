@@ -52,7 +52,7 @@ Scratchpad gives Moodle learners a focused private reflection space while giving
 
 ## Requirements
 
-- Moodle 5.2.
+- Moodle 5.2 and Moodle 5.3, validated with PostgreSQL and MariaDB.
 - A course in which a teacher can add activities and learners can submit responses.
 - No external service or additional Moodle plugin is required.
 
