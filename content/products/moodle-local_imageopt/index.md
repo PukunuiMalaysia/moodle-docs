@@ -41,7 +41,7 @@ Image optimizer helps site administrators reduce the size of eligible existing J
 
 ## Requirements
 
-- Moodle 4.5 through Moodle 5.2.
+- Moodle 4.5 through Moodle 5.3 for the 0.4.3 maintenance candidate. Earlier releases may declare a narrower range; check the installed release metadata.
 - PHP GD for image processing and zlib for PNG recompression.
 - PHP EXIF support to read JPEG EXIF orientation; affected images are skipped if that support is unavailable.
 - Working Moodle cron for background jobs, including operations started from the Report tab.
@@ -76,13 +76,40 @@ A preview cannot be reused after optimization has been requested. Expired previe
 
 Enable **Enable scheduled inventory refresh and previews** only if recurring preparation is wanted. Keep Moodle cron running and review the scheduled-task status shown in Settings. Recurring work collects inventory and prepares previews; an administrator must still approve replacements from Report. Batch controls limit each processing slice, not the total number of filtered images in a job.
 
+### Maintenance update: 0.4.3 candidate
+
+The following behaviour describes the 0.4.3 maintenance candidate. Publication and deployment are separate release steps; earlier builds do not provide these safeguards.
+
+#### Retention and refresh limits
+
+Automatic inventory collection starts at most once in 24 hours, measured from the latest manual or automatic collection start. Existing scheduled-task timing and the recurring-work enable setting remain in force. Manual refresh can run sooner, subject to the same retention safeguards.
+
+The plugin retains the current inventory and detail required by unfinished jobs or valid seven-day previews. An unfinished approved optimization also protects its parent preview. Other inventory and per-file result detail is removed promptly; historical job references no longer keep entire inventories alive. Compact operation summaries remain for 30 days, with identifying filters removed when detail is retired. Original images and the per-file optimization ledger are not deleted by housekeeping.
+
+There are two retained complete inventory slots and one temporary slot for collecting or retiring a generation. If another collection would exceed the protected-inventory limit, or obsolete generations have not drained, collection pauses. Existing valid previews are not silently invalidated to make space. A protected older preview can therefore delay the next daily refresh until it is consumed or expires. This limits repeated snapshots, not the size of a single inventory.
+
+#### Existing backlogs and stalled jobs
+
+Upgrade schedules background maintenance without deleting large tables during the upgrade request. Existing installations above the limit pause new collection while obsolete history drains. Cleanup deletes up to 500 rows per transaction and checks a 30-second or 50,000-row budget between batches. Further work is paced by at least 60 seconds. Maintenance operates even when optional recurring collection is switched off, but requires working Moodle cron.
+
+A job with no heartbeat for 30 minutes is eligible for recovery after its next execution time, provided no worker holds the plugin lock. Recovery resumes its saved checkpoint and invalidates older task deliveries. After three recovery attempts without progress, the job is marked failed and abandoned detail becomes eligible for cleanup. A pending cancellation completes as cancelled. Recovery never approves image replacements.
+
+In **Settings** or **Report**, review **Inventory maintenance** for retained/protected generation counts, the last maintenance heartbeat, row-removal counters, pause reasons and the latest recovery outcome. **Run maintenance now** opens a confirmation and queues the same bounded background worker; it does not perform bulk deletion in the browser. Historical links show the retained summary and **Detailed history removed** when detail has retired.
+
+#### Operational checks
+
+1. Before upgrade, retain a database backup and record database engine/version, inventory row count and allocated size, job statuses, oldest completion dates and the stuck job's heartbeat/checkpoint. Review scheduled and ad hoc task failures.
+2. After upgrade, confirm Moodle cron executes maintenance and that obsolete row counts fall across successive slices. Collection should stay paused while the obsolete backlog blocks admission. Check that valid previews remain available and original image files are unchanged.
+3. If maintenance does not advance, inspect cron, task failures and lock contention. Repeatedly requesting maintenance does not create extra cleanup workers. Recovery exhaustion requires investigation before starting replacement work again.
+4. Assess physical disk reclamation separately after logical cleanup. Deleting rows may make space reusable without shrinking database files. A DBA should choose any required reclamation operation for the engine, storage layout, available headroom and maintenance window; the plugin does not run database table rebuilds or full vacuum operations. See [PostgreSQL routine maintenance](https://www.postgresql.org/docs/16/routine-vacuuming.html) and [MariaDB OPTIMIZE TABLE guidance](https://mariadb.com/docs/server/ha-and-performance/optimization-and-tuning/optimizing-tables/optimize-table).
+
 ## Privacy and permissions
 
 Only users with Moodle's site-configuration capability can access the administration workflow. Images and personal data are not sent to an external service.
 
 The plugin stores four groups of related data: optimization statistics, image inventory, per-file preview and replacement results, and background operation requests. These can include file owners and contexts, filenames and logical file paths, course and activity names, content fingerprints, requesting users, frozen settings and filters, progress and timestamps. Moodle's Privacy API describes the retained fields and supports discovery, export and deletion, including retained ownership metadata after an original file is deleted.
 
-Privacy deletion removes plugin records, not the original files managed by their owning Moodle components. Operation history is retained for 30 days; inventories needed by retained jobs remain until those jobs expire.
+Privacy deletion removes plugin records, not the original files managed by their owning Moodle components. Earlier builds retain operation history for 30 days and keep inventories referenced by retained jobs. The 0.4.3 candidate separates compact summary retention from inventory and per-file detail, as described above; its privacy metadata also describes detail-retirement state and recovery attempts.
 
 ## Troubleshooting
 
