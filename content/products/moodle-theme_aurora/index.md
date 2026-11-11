@@ -22,39 +22,21 @@ Pukunui Aurora is a Boost child theme for learning sites and online courses. It 
 
 ## Screenshots
 
-These historical screenshots show the earlier Aurora component, not verified captures of Pukunui Aurora 7.0.0. The homepage and About captures and the light-mode dashboard detail show Aurora 6.1.0 on Moodle 5.3. The retained dark dashboard and course activities captures show Aurora 6.0.0 on Moodle 5.2; narrow-screen course captures show Aurora 5.2.2 with a configured course-header gradient. All people and content shown are fictional demonstration data.
+These screenshots were captured from the [public demonstration course](https://moodle.demo.pukunui.net/course/view.php?id=159851) on 11 November 2026 using guest access. The course combines the Pukunui Aurora theme (`theme_pukunuiaurora`) with the separate Bento course format. Aurora supplies the site navigation, colour modes and course-header styling; Bento supplies the section-card layout. Bento is not included with, or required by, Aurora.
 
-![Aurora homepage hero in dark mode with a configured learning headline and site navigation](images/homepage-dark-610.jpg)
+All people and course content shown are fictional demonstration data. Course illustrations are AI-generated interpretations, not film stills. These are native viewport details, not complete-page captures. The guest view confirms the theme component but does not expose its installed release/build; these images illustrate the demo deployment rather than certify an exact 7.0.0 package.
 
-*The homepage hero uses configurable text and Aurora's gradient fallback when no background media is uploaded. This image focuses on the hero and navigation, not the complete page.*
+![Pukunui Aurora demo course heading and site navigation in dark mode](images/aurora-bento-demo-dark.jpg)
 
-![The same Aurora homepage hero in light mode with coordinated navigation and background colours](images/homepage-light-610.jpg)
+*Dark-mode navigation and course heading above the configured course image.*
 
-*Light mode keeps the configured hero content while changing the surrounding site palette.*
+![The same Pukunui Aurora demo course heading and site navigation in light mode](images/aurora-bento-demo-light.jpg)
 
-![Aurora dashboard in dark mode with three populated course cards and course filtering controls](images/dashboard-dark.jpg)
+*The same heading and image in light mode, with the course index closed.*
 
-*The dashboard combines searchable course cards, course sorting and consistent navigation.*
+![Bento section cards within the Pukunui Aurora dark-mode demo course](images/aurora-bento-cards-dark.jpg)
 
-![Aurora course activities in light mode with an open course index and page, forum, assignment and quiz links](images/course-activities-light.jpg)
-
-*The course index stays available beside grouped learning activities; Moodle's standard activity links remain intact.*
-
-![Aurora course in dark mode with a responsive heading, course navigation, and learning activities](images/course-dark-responsive.jpg)
-
-*Dark mode keeps the course heading, navigation, sections, and activity links readable on a narrow screen.*
-
-![The same Aurora course in light mode with matching layout and course presentation](images/course-light-responsive.jpg)
-
-*Light mode uses the same course structure and configured gradient with a coordinated light palette.*
-
-![About Aurora settings showing release 6.1.0, Moodle 4.5–5.3 support, licence, maintainer websites, and support links](images/about-610.jpg)
-
-*The informational About tab presents installed metadata and public support links within standard site administration.*
-
-![Aurora 6.1.0 light-mode dashboard course cards and navigation on Moodle 5.3](images/dashboard-light-610.jpg)
-
-*This viewport detail shows the populated course cards and filters after scrolling down the dashboard.*
+*Bento's illustrated section cards within Aurora's dark presentation. The card arrangement comes from the separately installed course format.*
 
 ## Requirements
 
