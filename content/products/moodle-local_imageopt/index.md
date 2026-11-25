@@ -41,7 +41,7 @@ Image optimizer helps site administrators reduce the size of eligible existing J
 
 ## Requirements
 
-- Moodle 4.5 through Moodle 5.3 for the 0.4.3 maintenance candidate. Earlier releases may declare a narrower range; check the installed release metadata.
+- Release 0.4.3 (build 2026112401): Moodle 5.1–5.3.
 - PHP GD for image processing and zlib for PNG recompression.
 - PHP EXIF support to read JPEG EXIF orientation; affected images are skipped if that support is unavailable.
 - Working Moodle cron for background jobs, including operations started from the Report tab.
@@ -76,9 +76,9 @@ A preview cannot be reused after optimization has been requested. Expired previe
 
 Enable **Enable scheduled inventory refresh and previews** only if recurring preparation is wanted. Keep Moodle cron running and review the scheduled-task status shown in Settings. Recurring work collects inventory and prepares previews; an administrator must still approve replacements from Report. Batch controls limit each processing slice, not the total number of filtered images in a job.
 
-### Maintenance update: 0.4.3 candidate
+### Maintenance in release 0.4.3
 
-The following behaviour describes the 0.4.3 maintenance candidate. Publication and deployment are separate release steps; earlier builds do not provide these safeguards.
+The following behaviour is included in public release 0.4.3 (build 2026112401). Earlier packages may not provide these safeguards.
 
 #### Retention and refresh limits
 

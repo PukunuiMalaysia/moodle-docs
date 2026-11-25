@@ -14,9 +14,9 @@
     "branch": "main",
     "category": "Blocks",
     "content_commit": "0dc6080ae8bda59d21a06936a7b4785b1064f08b",
-    "content_sha256": "1369798d24a6252c4c7c1ec1031dcc469e88e5ae9608e11277d6fb677fa7b3ac",
+    "content_sha256": "72fc84b27a4816a5ecf689c6f7c96a2400abfc15b3d81749c53dba181ce442fb",
     "nav_order": 10,
-    "synced_at": "2026-09-13T06:36:04+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Completed courses"
   },
   "moodle-block_completionpoints_view": {
@@ -24,9 +24,9 @@
     "branch": "main",
     "category": "Blocks",
     "content_commit": "4a4ee66a91468c9a2c651b05979c07e138d0fc79",
-    "content_sha256": "a07cde8ae609bcbc4ec43c316a3c1ad0923323bcebd1e7eea74602ceb2a12727",
+    "content_sha256": "9fc1f65f3383f1013f4024dfb4d4c2fe16d862b667754e8df02757edaef49889",
     "nav_order": 20,
-    "synced_at": "2026-10-29T02:21:18+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Completion points view"
   },
   "moodle-block_cr_charts": {
@@ -34,9 +34,9 @@
     "branch": "main",
     "category": "Blocks",
     "content_commit": "abe525512a28b18954e756405d48c74d1eb11748",
-    "content_sha256": "70af29016745ed457083829233591d55ee578189123997852b2dcc5bec6b11b0",
+    "content_sha256": "0846b0c69d058f0d6cd62ab709d200039d632a7bd1f7fbca052fd176e63702c0",
     "nav_order": 30,
-    "synced_at": "2026-10-30T02:35:38+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Configurable reports chart"
   },
   "moodle-block_skillscard": {
@@ -44,9 +44,9 @@
     "branch": "main",
     "category": "Blocks",
     "content_commit": "3a4ce484a17e1a27e9fc45350746829e65bb4c59",
-    "content_sha256": "b71ac3dccb4faf58feaa123212aa3f89d7df81f46655e0bd10c458157c32ce89",
+    "content_sha256": "4d1591acd150952f84a6aaa31642430704d6f723e98d835c378c98266562fbf7",
     "nav_order": 40,
-    "synced_at": "2026-09-22T13:26:21+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Skills card"
   },
   "moodle-block_sociallink": {
@@ -54,10 +54,10 @@
     "branch": "main",
     "category": "Blocks",
     "content_commit": "abe525512a28b18954e756405d48c74d1eb11748",
-    "content_sha256": "21e07ea32746f9de08e8c74f71f39160a46003e384b82c5b6e83bd3e3099a153",
+    "content_sha256": "70bb53258ae8e9a371476eb6c1ceb1dc179c2de41411ec60a18944ca38bd06e6",
     "nav_order": 50,
-    "synced_at": "2026-10-30T02:35:38+00:00",
-    "title": "SocialLink"
+    "synced_at": "2026-11-25T01:48:41+00:00",
+    "title": "Social Link"
   },
   "moodle-configurable_reports-custom_sql_queries": {
     "availability": "public-free",
@@ -71,13 +71,13 @@
     "title": "Configurable Reports SQL query library"
   },
   "moodle-format_bento": {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Course formats",
     "content_commit": "7e60068af6e9e781806b8948bfe2c0ae6518b4b6",
-    "content_sha256": "99b3f26a1733352fc87ee4ae73af011493e71df36e7c609edf0fbfc91d7711bc",
+    "content_sha256": "6b41ac1e25b553af6d2862ef566cb7f8fa9b06a4e83d6ff5976d2437b79d4f53",
     "nav_order": 10,
-    "synced_at": "2026-11-03T10:20:30+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Bento"
   },
   "moodle-local_authcategoryaccess": {
@@ -85,9 +85,9 @@
     "branch": "main",
     "category": "Local plugins",
     "content_commit": "3d33bd8c21cba962ee3b5b7abf6985f8faa106c2",
-    "content_sha256": "ae00e7935f20ff27270e038c8f77975c8cf254a70d5b639de15bbdb373868ecf",
+    "content_sha256": "1ded385e83b029bd0af8db491337a9af83500a73ee6728a03d8006fe3f913371",
     "nav_order": 10,
-    "synced_at": "2026-10-03T04:13:39+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Auth category access"
   },
   "moodle-local_authredirect": {
@@ -115,29 +115,29 @@
     "branch": "main",
     "category": "Local plugins",
     "content_commit": "4a4ee66a91468c9a2c651b05979c07e138d0fc79",
-    "content_sha256": "fffbca273a64a106a8c80ed529e13d7ef74886cc1e8b9cf4f5178c3d971a7e59",
+    "content_sha256": "2798d8f2734af9717ad1cb0c11ed66c75b6571bb289af6646a87c19b0696791e",
     "nav_order": 30,
-    "synced_at": "2026-10-29T02:21:19+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Completion points"
   },
   "moodle-local_imageopt": {
     "availability": "commercial-active",
     "branch": "main",
     "category": "Local plugins",
-    "content_commit": "3d33bd8c21cba962ee3b5b7abf6985f8faa106c2",
-    "content_sha256": "9691c42abdadb9b59464e586ed1b10b1a1e648d2a2110f4aadd9d60a19b48aed",
+    "content_commit": "e6192f7f3b28cb4e530d02c6831e508457c74ecb",
+    "content_sha256": "31706323a1335af8e165acbf41dd37b2bd7788717b060e65db00bb3e8a9d34a4",
     "nav_order": 50,
-    "synced_at": "2026-10-03T04:13:40+00:00",
+    "synced_at": "2026-11-25T01:53:11+00:00",
     "title": "Image optimizer"
   },
   "moodle-mod_scratchpad": {
     "availability": "commercial-active",
     "branch": "main",
     "category": "Activities",
-    "content_commit": "abe525512a28b18954e756405d48c74d1eb11748",
-    "content_sha256": "4fd247146ddaf1e30e41f401b1b2cfcfffbdf8f62680d5d2659c695797f241bf",
+    "content_commit": "41059fdef0777d662619c84b9b20c51e6c7117db",
+    "content_sha256": "6245b15f07bbeef815cec16aae41766114235fcf6f0346e474b0214aa2ea0693",
     "nav_order": 10,
-    "synced_at": "2026-10-30T02:35:38+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Scratchpad activity"
   },
   "moodle-report_hrdc": {
@@ -155,9 +155,9 @@
     "branch": "main",
     "category": "Reports",
     "content_commit": "abe525512a28b18954e756405d48c74d1eb11748",
-    "content_sha256": "db05f2944e75d958b80ec0f1969f71f67ef2d1d59980561d1d7df47ec0c2e31d",
+    "content_sha256": "b47b2f3778d10ed9e41445cfb3b13c81e4c7a5ef1dc0488a4a97f76f0ffae3d5",
     "nav_order": 20,
-    "synced_at": "2026-10-30T02:35:38+00:00",
+    "synced_at": "2026-11-25T01:48:41+00:00",
     "title": "Plugin health"
   },
   "moodle-report_storageinsights": {
@@ -184,10 +184,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Themes",
-    "content_commit": "a8e8b21459af6748d6b56759d64bbd6789ac4944",
-    "content_sha256": "ac90c160bc0c8cac355c97b5005b5b28116657fa389a53339f66950844f368d4",
+    "content_commit": "ce8a960502b4841ccad19b420175741efa349594",
+    "content_sha256": "00fa589b8bdab86f5de72ade03d4457aea0ecda5d825fac76151aa346ddc49c5",
     "nav_order": 20,
-    "synced_at": "2026-10-29T01:57:15+00:00",
+    "synced_at": "2026-11-25T01:48:42+00:00",
     "title": "Boleh"
   },
   "quicknav-lms": {

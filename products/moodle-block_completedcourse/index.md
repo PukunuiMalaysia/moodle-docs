@@ -8,7 +8,9 @@ permalink: /products/moodle-block_completedcourse/
 
 # Completed courses
 
-Completed courses gives Moodle learners a compact dashboard list of the courses they have completed, with configurable details, paging, course links, and a permission-controlled CSV export. A personal transcript opens from the block and lets learners filter their own visible completion records.
+Completed courses gives Moodle learners a compact dashboard list of the courses they have completed, with configurable details, paging, course links, and a permission-controlled CSV export.
+
+Public release **1.0.0 (build 2026090800)** provides the dashboard list and CSV export described below. Transcript search and filters belong to the newer development version and are not included in this public package.
 
 ## Key features
 
@@ -18,7 +20,6 @@ Completed courses gives Moodle learners a compact dashboard list of the courses 
 - Filter hidden courses according to Moodle access rules.
 - Export the same visible completion list as a formula-safe CSV file when permitted.
 - Keep the block compact and readable in narrow dashboard regions.
-- Open a personal transcript with course search, category and completion-date filters, completion-date ordering, and paging.
 - Optionally show course ID numbers alongside the configured course details.
 - Follow course, completion-details and grade-report links only where Moodle permissions allow them.
 
@@ -47,9 +48,11 @@ Download the Completed courses ZIP from its verified [Moodle Marketplace listing
 
 Turn editing on for a supported block region, add **Completed courses**, and configure the course-name format, ordering, page size, category hierarchy, date format, category and grade display, hidden-course handling, and link target.
 
-Choose a page size from 1 to 100. Course ID numbers are optional and disabled by default. The block's category and visibility settings also constrain its transcript; learner filters cannot widen those settings or grant access to otherwise inaccessible courses.
+Choose a page size from 1 to 100. Course ID numbers are optional and disabled by default. In the development version, the block's category and visibility settings also constrain its transcript; learner filters cannot widen those settings or grant access to otherwise inaccessible courses.
 
-### View a personal transcript
+### Personal transcript in the development version
+
+The following workflow requires the newer development version; it is not available in public release 1.0.0.
 
 Select **View all completed courses** in the block. Search for a course, optionally narrow the category and completion-date range, choose the completion-date order, and apply the filters. Reset the filters to return to the block's configured completion list. Results are paged, and the transcript reports the matching result count.
 
@@ -59,7 +62,7 @@ The transcript belongs to the block instance from which it was opened. Different
 
 The CSV action appears only for users with `block/completedcourse:export`. The export contains that user's visible completed courses and protects values that spreadsheet software could otherwise interpret as formulas.
 
-An export from the transcript respects its active filters and configured columns. It does not include other users' results or courses outside the block's configured scope.
+In the development version, an export from the transcript respects its active filters and configured columns. It does not include other users' results or courses outside the block's configured scope.
 
 ## Privacy and permissions
 
@@ -73,7 +76,7 @@ Moodle capabilities control block visibility, instance management, and CSV expor
 - If grades are missing, confirm that grade display is enabled and the learner has a final course grade that Moodle permits them to view.
 - If CSV export is absent, check the `block/completedcourse:export` capability.
 - If recent changes do not appear, refresh the page after Moodle has recalculated course completion.
-- If the transcript has no matching results, reset the search and date filters, then check the block's category setting and the learner's current course access.
+- In the development version, if the transcript has no matching results, reset the search and date filters, then check the block's category setting and the learner's current course access.
 - If a course or report link is absent, check enrolment and Moodle permissions; a completion record does not itself grant access to the course or its reports.
 
 ## Support and licence

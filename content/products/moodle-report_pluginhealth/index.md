@@ -37,12 +37,12 @@ The report uses compatibility information from installed plugins and Moodle Mark
 
 ## Requirements
 
-- Moodle 4.5 through Moodle 5.2.
+- Release 1.2.0 (build 2026112401): Moodle 5.1–5.3.
 - PHP and database versions supported by the selected Moodle release.
 - Outbound HTTPS access to `download.moodle.org` for external release metadata.
 - No additional Moodle plugin, service account, API credential, or paid service is required.
 
-One release package supports the full Moodle 4.5–5.2 range. Confirm compatibility before upgrading beyond that published range.
+Release 1.2.0 (build 2026112401) supports Moodle 5.1–5.3. Older packages retain their published compatibility ranges; select the package for your Moodle version.
 
 ## Installation
 

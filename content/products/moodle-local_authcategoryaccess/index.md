@@ -10,6 +10,8 @@ nav_order: 10
 
 The plugin is intended for sites that separate audiences by authentication method, such as Microsoft 365 single sign-on for staff and manual or email self-registration for external participants.
 
+Public release **1.0.1 (build 2026092600)** controls catalogue visibility. It does not manage enrolments: existing enrolments can still permit access to a course in another audience’s category. It does not provide complete tenant isolation. Mappings use the authentication method stored on the account, not the most recently selected sign-in button.
+
 ## Key features
 
 - Disabled-by-default master switch.

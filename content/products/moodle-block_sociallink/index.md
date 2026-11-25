@@ -1,10 +1,10 @@
 ---
-title: SocialLink
+title: Social Link
 category: Blocks
 nav_order: 50
 ---
 
-# SocialLink
+# Social Link
 
 SocialLink helps Moodle learners and course teams share suitable site, course, and activity pages through configurable social, messaging, email, and copy-link actions without loading third-party widgets on the page.
 
@@ -33,7 +33,7 @@ SocialLink helps Moodle learners and course teams share suitable site, course, a
 
 ## Requirements
 
-- Moodle 4.5 through 5.2.
+- Release 2.4.2 (build 2026112401): Moodle 5.1–5.3.
 - A Moodle theme that provides the standard core Font Awesome icon set, including Boost.
 - No provider API credentials, third-party widget, remote icon service, or additional Moodle plugin is required.
 
