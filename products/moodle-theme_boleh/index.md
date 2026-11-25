@@ -2,7 +2,7 @@
 title: Boleh
 category: Themes
 parent: "Themes"
-nav_order: 20
+nav_order: 10
 permalink: /products/moodle-theme_boleh/
 ---
 
