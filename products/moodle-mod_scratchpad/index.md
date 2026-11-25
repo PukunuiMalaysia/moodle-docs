@@ -10,6 +10,8 @@ permalink: /products/moodle-mod_scratchpad/
 
 Scratchpad gives Moodle learners a focused private reflection space while giving teachers one workflow for reviewing entries, awarding grades, writing feedback, and using answers in activity completion.
 
+Each learner has one editable response per Scratchpad activity. Authorised teachers can read that response and provide feedback; it is not a diary of separate dated entries. In PDF mode, Scratchpad generates a PDF download.
+
 ## Key features
 
 - Present a teacher-defined reflection prompt and one private learner response.
@@ -54,7 +56,8 @@ Scratchpad gives Moodle learners a focused private reflection space while giving
 
 ## Requirements
 
-- Moodle 5.2.
+- Public release 1.0.5 (build 2026103000) lists Moodle 4.5–5.3. Check the selected package on the [Marketplace listing](https://marketplace.moodle.com/plugins/mod_scratchpad).
+- Newer development builds have their own requirements; they do not change the compatibility of the published 1.0.5 package.
 - A course in which a teacher can add activities and learners can submit responses.
 - No external service or additional Moodle plugin is required.
 

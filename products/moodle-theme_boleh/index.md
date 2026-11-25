@@ -108,12 +108,12 @@ The login-order screenshots show the Boleh 5.12.0 feature on Moodle 5.3. Other s
 
 ## Requirements
 
-- Moodle 4.5 LTS through Moodle 5.3.
+- Release 5.12.1 (build 2026112401): Moodle 5.1–5.3.
 - Moodle's Boost theme, which is included with Moodle.
 - A modern supported browser.
 - No additional Moodle plugin or external service is required for normal operation.
 
-One current Boleh release package supports the full Moodle 4.5–5.3 range. Keep Boleh updated when upgrading Moodle, and confirm compatibility before moving beyond that published range.
+Release 5.12.1 (build 2026112401) supports Moodle 5.1–5.3. Older packages retain their published compatibility ranges; select the package for your Moodle version.
 
 ## Installation
 

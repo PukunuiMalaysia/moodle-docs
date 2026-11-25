@@ -50,7 +50,7 @@ Completion points awards configurable points for course and activity completion.
 
 This guide covers version 1.1.1. Moodle 5.3 is explicitly incompatible with this release.
 
-- Moodle 4.5 LTS through Moodle 5.2.
+- Release 1.1.3 (build 2026112401): Moodle 5.1–5.3.
 - Moodle completion tracking must be enabled for the applicable course or activity.
 - Any database supported by the applicable Moodle release.
 - No third-party library or external service is required.
@@ -100,7 +100,7 @@ The `local/completionpoints:manage` capability protects every record-management,
 - If a user cannot open the management page, confirm that their role has `local/completionpoints:manage` in the system context.
 - If a CSV row is skipped, verify the exact header, username, course short name, whole-number points value, and 255-character note limit.
 - If the plugin does not appear after installation, complete Moodle's upgrade process, confirm that the package contains one `completionpoints` directory, and purge caches.
-- Before upgrading beyond Moodle 5.2, confirm that a newer plugin release explicitly supports the target Moodle version.
+- Before upgrading beyond Moodle 5.3, confirm that a newer plugin release explicitly supports the target Moodle version.
 
 ## Support and licence
 

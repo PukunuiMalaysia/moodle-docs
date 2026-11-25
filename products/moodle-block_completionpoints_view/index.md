@@ -44,7 +44,7 @@ Completion points view displays completion-point records supplied by the Complet
 
 This guide covers version 1.2.2. Moodle 5.3 is explicitly incompatible with this release.
 
-- Moodle 4.5 through Moodle 5.2 only.
+- Release 1.2.4 (build 2026112401): Moodle 5.1–5.3.
 - Completion points (`local_completionpoints`) version `2026100600` or later, installed separately before this block.
 - A database supported by the installed Moodle release. The block uses Moodle DML and no database-specific SQL.
 
@@ -79,7 +79,7 @@ Record notes and values are escaped for output, and queries use Moodle's paramet
 - If another user's records cannot be selected, check the system capability and use `userid`, not a course-page `id` parameter.
 - If a course link is unavailable, confirm that the course still exists and the user has access to it.
 - If the block is unavailable after installation, finish Moodle's upgrade and confirm that it is enabled in block management.
-- Before upgrading beyond Moodle 5.2, obtain a release that explicitly supports the target version.
+- Before upgrading beyond Moodle 5.3, obtain a release that explicitly supports the target version.
 
 ## Support and licence
 

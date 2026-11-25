@@ -6,13 +6,11 @@ nav_order: 10
 permalink: /products/moodle-format_bento/
 ---
 
-> **Pre-release product:** This product is in pre-release. Marketplace publication is pending. Its Marketplace listing may not yet be available.
-
 # Bento
 
 Bento arranges course sections as responsive cards. Learners open a card to study its section using Moodle’s standard activity pages. Teachers can give sections different card sizes and images while retaining native course editing.
 
-Bento 1.0.0 is labelled stable and is being prepared for Moodle Marketplace review. It adds a course-format description and consistent double-height cards. The earlier candidate completed the local compatibility matrix; the height correction has additional focused browser coverage. Manual app and accessibility review remain pending. It is not yet a Marketplace-approved release.
+Bento 1.0.0 (build 2026110301) is available on [Moodle Marketplace](https://marketplace.moodle.com/plugins/format_bento). This course format controls section layout; the surrounding site appearance comes from the selected Moodle theme.
 
 ## Key features
 
@@ -53,15 +51,15 @@ The following captures show the Moodle 4.5 validation site.
 
 ## Requirements
 
-The 1.0.0-rc1 candidate has passed local installation, static, PHPUnit and browser checks on Moodle 4.5, 5.0, 5.1, 5.2 and 5.3 with PostgreSQL and MariaDB.
+Public release 1.0.0 (build 2026110301) lists Moodle 4.5–5.3. Select a package that supports your Moodle version.
 
 Bento depends on the core Topics format. It does not require a paid service, external account, third-party library or administrator-run build step. Standard Moodle App section navigation is intended; the browser card grid is not a custom mobile-app interface.
 
 ## Installation
 
-Moodle Marketplace publication is pending.
+Download the published ZIP from the [Bento Marketplace listing](https://marketplace.moodle.com/plugins/format_bento).
 
-A release package is not yet approved for installation on production sites. Once an approved ZIP is supplied, install it through **Site administration > Plugins > Install plugins**. The package contains a single `bento` directory. Select **Bento** in the course format setting.
+Install it through **Site administration > Plugins > Install plugins**. The package contains a single `bento` directory. Select **Bento** in the course format setting.
 
 ## Configuration and use
 
@@ -93,7 +91,7 @@ Images are retained when switching formats. They are copied when duplicating sec
 - An unavailable section follows Moodle’s normal access restrictions; an image does not grant access.
 - If a dialog is unavailable, use the ordinary preview page or confirmation form.
 - If conversion reports an unsupported version, do not change the installed version number to bypass the check. Request support for that source version.
-- Keep production use blocked until manual app/accessibility review and release checks are complete.
+- Review the course layout, theme interaction and Moodle App behaviour against your site’s requirements before deployment. The browser grid is not a custom Moodle App interface.
 
 ## Support and licence
 

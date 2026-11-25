@@ -29,7 +29,7 @@ Skills card helps Moodle learners and authorised profile viewers understand comp
 
 ## Requirements
 
-- Moodle 4.0 or later.
+- Release 2.0.3 (build 2026112401): Moodle 5.1–5.3.
 - Moodle competencies, frameworks, scales, and user competency records must be configured for meaningful output.
 - No external service or additional Moodle plugin is required.
 

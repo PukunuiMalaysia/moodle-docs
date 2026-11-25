@@ -49,19 +49,19 @@ Configurable reports chart turns saved SQL reports from Configurable Reports int
 
 ## Requirements
 
-- Moodle 4.5 through Moodle 5.2.
+- Release 1.0.3 (build 2026112401): Moodle 5.1–5.3.
 - PHP and a database version supported by the selected Moodle release.
 - **[Configurable Reports](https://marketplace.moodle.com/plugins/block_configurable_reports) (`block_configurable_reports`) version `2024051300` (4.1.0) or later must already be installed and upgraded.**
 - At least one visible SQL report whose viewer permissions allow the intended user to see it.
 - No external service, service account, API credential, or additional build step is required.
 
-One Configurable reports chart release package supports the full Moodle 4.5–5.2 range. Confirm compatibility before upgrading Moodle beyond that published range.
+Release 1.0.3 (build 2026112401) supports Moodle 5.1–5.3. Older packages retain their published compatibility ranges; select the package for your Moodle version.
 
 ## Installation
 
 Obtain the plugin from the [Configurable Reports Chart Marketplace page](https://marketplace.moodle.com/plugins/block_cr_charts). Open **Site administration > Plugins > Install plugins**, upload the plugin ZIP, complete Moodle's validation, and follow the displayed upgrade steps.
 
-For a pre-release build whose Marketplace publication is pending, use only a testing ZIP supplied by Pukunui; it is not a published Marketplace release.
+Release 1.0.3 (build 2026112401) is available from the listing. Select the package that matches your Moodle version.
 
 Install or upgrade [Configurable Reports](https://marketplace.moodle.com/plugins/block_configurable_reports) (`block_configurable_reports`) to **version `2024051300` (4.1.0) or later** before installing this block. No post-install build, external service configuration, or manual database step is required.
 
@@ -113,7 +113,7 @@ Moodle capabilities control who can add block instances to course pages or perso
 - If the report returns no chartable data, run the source report directly and check its filters and date placeholders.
 - If the block refuses the query, reduce it to one read-only `SELECT` statement and remove write operations or additional statements.
 - If a chart appears out of date, reload the page and check the source report. Chart results are not retained between requests.
-- Before upgrading beyond Moodle 5.2, confirm that a newer plugin release explicitly supports the target Moodle version.
+- Before upgrading beyond Moodle 5.3, confirm that a newer plugin release explicitly supports the target Moodle version.
 
 ## Support and licence
 
