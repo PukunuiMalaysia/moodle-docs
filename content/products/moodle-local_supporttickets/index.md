@@ -1,7 +1,7 @@
 ---
 title: Support Tickets
 category: Local plugins
-nav_order: 90
+nav_order: 60
 ---
 
 # Support Tickets
@@ -22,7 +22,13 @@ Support Tickets provides native support request and ticket management inside Moo
 
 ## Screenshots
 
-Screenshots are not included in this development draft. Product screenshots can be added after public-release eligibility is confirmed.
+![Support Tickets version and Moodle support range on the About page](images/supporttickets-about.png)
+
+*The About page lists release 2.0.1, Moodle 5.1–5.3, and the plugin licence. All site and release details shown are fictional demonstration data.*
+
+![A shared support ticket with its participant and public conversation](images/supporttickets-participant-ticket.png)
+
+*The requester can review the public conversation and see who is sharing the ticket. All people, ticket content, and dates shown are fictional demonstration data.*
 
 ## Requirements
 
@@ -36,7 +42,7 @@ Screenshots are not included in this development draft. Product screenshots can 
 
 ## Installation
 
-When the release is available, obtain the Support Tickets plugin ZIP and open **Site administration > Plugins > Install plugins**. Upload the ZIP, complete Moodle's validation and installation prompts, then open **Site administration > Plugins > Local plugins > Support Tickets**.
+Moodle Marketplace publication is pending. If Pukunui has provided the pre-release Support Tickets plugin ZIP, open **Site administration > Plugins > Install plugins**, upload the ZIP, complete Moodle's validation and installation prompts, then open **Site administration > Plugins > Local plugins > Support Tickets**.
 
 This component replaces the development-only `local_supportdesk` plugin and installs as `local_supporttickets`. It is a fresh installation: tickets and settings from a `local_supportdesk` development installation are not migrated. Do not remove an older development installation until its data is no longer needed. After installation, review the guest and participant settings before enabling either workflow; guest requests and participant sharing are disabled by default.
 
