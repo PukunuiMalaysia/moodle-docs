@@ -130,16 +130,6 @@
     "synced_at": "2026-11-25T07:02:32+00:00",
     "title": "Image optimizer"
   },
-  "moodle-local_supporttickets": {
-    "availability": "pre-release",
-    "branch": "main",
-    "category": "Local plugins",
-    "content_commit": "fc291d3bf334483481a8bf220c1d9070c875342a",
-    "content_sha256": "56e5ab0d0b97a1e0c72eacb9673c8b91deefa1993e81d072981d0474a24abfef",
-    "nav_order": 60,
-    "synced_at": "2026-11-26T04:27:35+00:00",
-    "title": "Support Tickets"
-  },
   "moodle-mod_scratchpad": {
     "availability": "commercial-active",
     "branch": "main",

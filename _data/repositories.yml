@@ -98,14 +98,6 @@
   {
     "availability": "pre-release",
     "branch": "main",
-    "category": "Local plugins",
-    "nav_order": 60,
-    "repository": "moodle-local_supporttickets",
-    "title": "Support Tickets"
-  },
-  {
-    "availability": "pre-release",
-    "branch": "main",
     "category": "Reports",
     "nav_order": 10,
     "repository": "moodle-report_hrdc",
