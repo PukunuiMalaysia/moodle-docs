@@ -8,7 +8,7 @@ nav_order: 20
 
 Pukunui Aurora is a Boost child theme for learning sites and online courses. It combines coordinated dark and light modes, configurable branding, front-page media, course presentation, and a structured footer while retaining Moodle's standard navigation and learning activities. It is maintained by Pukunui Malaysia.
 
-**Pre-release:** Pukunui Aurora 7.0.1 development candidate (build 2026112500). Compatibility validation is in progress. Moodle Marketplace publication is pending.
+Pukunui Aurora 7.0.1 (build 2026112500) has passed Moodle Marketplace review for Moodle 5.1, 5.2 and 5.3. The listing is not yet published, so Marketplace purchase and installation are not available yet.
 
 ## Key features
 
@@ -24,7 +24,7 @@ Pukunui Aurora is a Boost child theme for learning sites and online courses. It 
 
 These screenshots were captured from the [public demonstration course](https://moodle.demo.pukunui.net/course/view.php?id=159851) on 11 November 2026 using guest access. The course combines the Pukunui Aurora theme (`theme_pukunuiaurora`) with the separate Bento course format. Aurora supplies the site navigation, colour modes and course-header styling; Bento supplies the section-card layout. Bento is not included with, or required by, Aurora.
 
-All people and course content shown are fictional demonstration data. Course illustrations are AI-generated interpretations, not film stills. These are native viewport details, not complete-page captures. The guest view confirms the theme component but does not expose its installed release/build; these images illustrate the demo deployment rather than certify the current candidate package.
+All people and course content shown are fictional demonstration data. Course illustrations are AI-generated interpretations, not film stills. These are native viewport details, not complete-page captures. The guest view confirms the theme component but does not expose its installed release/build; these images illustrate the demo deployment rather than certify the approved 7.0.1 package.
 
 ![Pukunui Aurora demo course heading and site navigation in dark mode](images/aurora-bento-demo-dark.jpg)
 
@@ -38,15 +38,33 @@ All people and course content shown are fictional demonstration data. Course ill
 
 *Bento's illustrated section cards within Aurora's dark presentation. The card arrangement comes from the separately installed course format.*
 
+The following retained captures show Aurora's homepage, dashboard, activity links and narrow-screen course presentation. They were taken with earlier Aurora releases and illustrate the theme's layout rather than the installed 7.0.1 build.
+
+![Aurora homepage hero and navigation in dark mode](images/homepage-dark.jpg)
+
+*A configured homepage hero with Aurora's gradient fallback.*
+
+![The same Aurora homepage hero in light mode](images/homepage-light.jpg)
+
+*The hero content remains in place when the site palette changes.*
+
+![Aurora dashboard with course cards and filtering controls in dark mode](images/dashboard-dark.jpg)
+
+*The dashboard shows course search, sorting and cards.*
+
+![Aurora course page with navigation and learning activities on a narrow dark-mode screen](images/course-dark-responsive.jpg)
+
+*The course heading, index and activities remain available at a narrow width.*
+
 ## Requirements
 
-The Pukunui Aurora 7.0.1 development candidate targets Moodle 5.1, 5.2 and 5.3. Compatibility validation is in progress. Moodle versions earlier than 5.1 and Moodle 5.4 or later are not supported.
+The approved Pukunui Aurora 7.0.1 package supports Moodle 5.1, 5.2 and 5.3. Moodle versions earlier than 5.1 and Moodle 5.4 or later are not supported by this release.
 
 Pukunui Aurora requires the Boost theme supplied with Moodle and the PHP and browser versions supported by the selected Moodle line. No additional Moodle plugin, dependency installation, credentials, or post-installation build step is required. Google Fonts are optional; see Privacy and permissions below.
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided a pre-release Pukunui Aurora ZIP, open **Site administration > Plugins > Install plugins**, upload the package, complete validation, and follow Moodle's installation instructions. Select **Pukunui Aurora** on the theme selection page under **Site administration > Appearance**.
+Marketplace publication is pending. If Pukunui has provided the approved 7.0.1 ZIP directly, open **Site administration > Plugins > Install plugins**, upload the package, complete validation, and follow Moodle's installation instructions. Once the listing is published, use its Marketplace installation option. Select **Pukunui Aurora** on the theme selection page under **Site administration > Appearance**.
 
 Back up the site before installation. Pukunui Aurora uses component `theme_pukunuiaurora` and directory `theme/pukunuiaurora`. Configure the theme and check the login page, front page and a course in both colour modes before selecting it for users.
 
@@ -115,8 +133,8 @@ Pukunui Aurora does not include analytics, tracking, payment flows, or a require
 
 ## Support and licence
 
-- [Report an Pukunui Aurora product issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=product-bug.yml)
-- [Request an Pukunui Aurora feature](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=feature.yml)
+- [Report a Pukunui Aurora product issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=product-bug.yml)
+- [Request a Pukunui Aurora feature](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=feature.yml)
 - [Report a documentation issue](https://github.com/PukunuiMalaysia/moodle-docs/issues/new?template=documentation.yml)
 - [Email Pukunui Malaysia support](mailto:hello.my@pukunui.com)
 - [Pukunui Malaysia support website](https://pukunui.com/location/malaysia/)
