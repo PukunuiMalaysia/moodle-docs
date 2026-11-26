@@ -191,13 +191,13 @@
     "title": "Boleh"
   },
   "moodle-theme_pukunuiaurora": {
-    "availability": "pre-release",
+    "availability": "commercial-active",
     "branch": "main",
     "category": "Themes",
-    "content_commit": "d47c0d35cea856e1efec1b7389fd2cd7ed8493cb",
-    "content_sha256": "8469284923d9c41560f2c7a55b5e7cd99fbaa2530ba56082b2691f4334419be2",
+    "content_commit": "72980b1f4ad1411c1b7af291e8c544116e1b4a5f",
+    "content_sha256": "5a91540fe7a31bfab90b53d8499faebf26bb00927e42451ad78b48d6cbd560e6",
     "nav_order": 20,
-    "synced_at": "2026-11-26T08:06:11+00:00",
+    "synced_at": "2026-11-26T09:12:59+00:00",
     "title": "Pukunui Aurora"
   },
   "quicknav-lms": {

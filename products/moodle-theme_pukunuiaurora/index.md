@@ -6,13 +6,11 @@ nav_order: 20
 permalink: /products/moodle-theme_pukunuiaurora/
 ---
 
-> **Pre-release product:** This product is in pre-release. Marketplace publication is pending. Its Marketplace listing may not yet be available.
-
 # Pukunui Aurora
 
 Pukunui Aurora is a Boost child theme for learning sites and online courses. It combines coordinated dark and light modes, configurable branding, front-page media, course presentation, and a structured footer while retaining Moodle's standard navigation and learning activities. It is maintained by Pukunui Malaysia.
 
-Pukunui Aurora 7.0.1 (build 2026112500) has passed Moodle Marketplace review for Moodle 5.1, 5.2 and 5.3. The listing is not yet published, so Marketplace purchase and installation are not available yet.
+Pukunui Aurora 7.0.1 (build 2026112500) is available on [Moodle Marketplace](https://marketplace.moodle.com/plugins/theme_pukunuiaurora) for Moodle 5.1, 5.2 and 5.3.
 
 ## Key features
 
@@ -68,7 +66,7 @@ Pukunui Aurora requires the Boost theme supplied with Moodle and the PHP and bro
 
 ## Installation
 
-Marketplace publication is pending. If Pukunui has provided the approved 7.0.1 ZIP directly, open **Site administration > Plugins > Install plugins**, upload the package, complete validation, and follow Moodle's installation instructions. Once the listing is published, use its Marketplace installation option. Select **Pukunui Aurora** on the theme selection page under **Site administration > Appearance**.
+Download the 7.0.1 ZIP from [Moodle Marketplace](https://marketplace.moodle.com/plugins/theme_pukunuiaurora). Open **Site administration > Plugins > Install plugins**, upload the package, complete validation, and follow Moodle's installation instructions. Select **Pukunui Aurora** on the theme selection page under **Site administration > Appearance**.
 
 Back up the site before installation. Pukunui Aurora uses component `theme_pukunuiaurora` and directory `theme/pukunuiaurora`. Configure the theme and check the login page, front page and a course in both colour modes before selecting it for users.
 
