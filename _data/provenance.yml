@@ -134,7 +134,7 @@
     "availability": "pre-release",
     "branch": "main",
     "category": "Local plugins",
-    "content_commit": "d86b2019b13bd6e56be9cd97e0caa26ded167618",
+    "content_commit": "fc291d3bf334483481a8bf220c1d9070c875342a",
     "content_sha256": "56e5ab0d0b97a1e0c72eacb9673c8b91deefa1993e81d072981d0474a24abfef",
     "nav_order": 60,
     "synced_at": "2026-11-26T04:27:35+00:00",
