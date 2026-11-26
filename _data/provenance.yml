@@ -194,10 +194,10 @@
     "availability": "commercial-active",
     "branch": "main",
     "category": "Themes",
-    "content_commit": "aa7ac82baa25ff4ba0489364b6fca65b37bc5f4a",
-    "content_sha256": "5a91540fe7a31bfab90b53d8499faebf26bb00927e42451ad78b48d6cbd560e6",
+    "content_commit": "644638993d620836f68f87be211125f9917d9fe0",
+    "content_sha256": "2d66a133e822f6e7180871b279815ee32987ecc2adcecebf9f3d98240989e4c2",
     "nav_order": 20,
-    "synced_at": "2026-11-26T09:15:13+00:00",
+    "synced_at": "2026-11-26T17:23:12+00:00",
     "title": "Pukunui Aurora"
   },
   "quicknav-lms": {
