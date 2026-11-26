@@ -22,13 +22,27 @@ Support Tickets provides native support request and ticket management inside Moo
 
 ## Screenshots
 
-![Support Tickets version and Moodle support range on the About page](images/supporttickets-about.png)
+These screens were captured from Support Tickets running on a local Moodle 5.2 site. The tickets and conversations are fictional examples; no client information is shown.
 
-*The About page lists release 2.0.1, Moodle 5.1–5.3, and the plugin licence. All site and release details shown are fictional demonstration data.*
+![Agent dashboard with ticket counts and requests at different priorities and statuses](images/01-agent-dashboard.jpg)
+
+*The agent dashboard summarises new, active and resolved requests and lists their priority and status.*
+
+![Create ticket form with category, priority, subject and description](images/02-create-ticket.jpg)
+
+*A requester can choose a category and priority and describe the issue without leaving Moodle.*
+
+![High priority ticket with an agent-only private note and open status](images/03-private-note-and-status.jpg)
+
+*Agents can record private notes while changing a ticket's status.*
+
+![Resolved ticket showing a public support reply in the conversation](images/04-resolved-conversation.jpg)
+
+*Public replies remain in the ticket conversation after resolution.*
 
 ![A shared support ticket with its participant and public conversation](images/supporttickets-participant-ticket.png)
 
-*The requester can review the public conversation and see who is sharing the ticket. All people, ticket content, and dates shown are fictional demonstration data.*
+*The requester can review the public conversation and see who is sharing the ticket. This participant example also uses fictional demonstration data.*
 
 ## Requirements
 
